@@ -9,9 +9,9 @@ export function createOhMyOpenCodeJsonSchema(): Record<string, unknown> {
 
   return {
     $schema: "http://json-schema.org/draft-07/schema#",
-    $id: "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
-    title: "Oh My OpenCode Configuration",
-    description: "Configuration schema for oh-my-opencode plugin",
+    $id: "https://raw.githubusercontent.com/kkumtree/oh-ralph-openagent/ralph/assets/oh-ralph-openagent.schema.json",
+    title: "Oh Ralph OpenAgent Configuration",
+    description: "Configuration schema for oh-ralph-openagent plugin",
     ...jsonSchema,
   }
 }
