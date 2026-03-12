@@ -60,7 +60,7 @@ export const OhMyOpenCodeConfigSchema = z.object({
   browser_automation_engine: BrowserAutomationConfigSchema.optional(),
   websearch: WebsearchConfigSchema.optional(),
   tmux: TmuxConfigSchema.optional(),
-  sisyphus-light: SisyphusConfigSchema.optional(),
+  "sisyphus-light": SisyphusConfigSchema.optional(),
   start_work: StartWorkConfigSchema.optional(),
   /** Migration history to prevent re-applying migrations (e.g., model version upgrades) */
   _migrations: z.array(z.string()).optional(),

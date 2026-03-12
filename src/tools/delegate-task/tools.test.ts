@@ -3436,7 +3436,7 @@ describe("sisyphus-light-task", () => {
          manager: mockManager,
          client: mockClient,
          agentOverrides: {
-           oracle-light: { model: "anthropic/claude-opus-4-6" },
+           "oracle-light": { model: "anthropic/claude-opus-4-6" },
          },
        })
 
@@ -3503,7 +3503,7 @@ describe("sisyphus-light-task", () => {
          manager: mockManager,
          client: mockClient,
          agentOverrides: {
-           oracle-light: { model: "anthropic/claude-opus-4-6", variant: "max" },
+           "oracle-light": { model: "anthropic/claude-opus-4-6", variant: "max" },
          },
        })
 

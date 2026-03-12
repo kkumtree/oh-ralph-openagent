@@ -120,7 +120,7 @@ describe("resolveSubagentExecution", () => {
       ]),
       {
         agentOverrides: {
-          explore-light: {
+          "explore-light": {
             fallback_models: ["quotio/gpt-5.2", "glm-5(max)"],
           },
         } as ExecutorContext["agentOverrides"],
@@ -153,7 +153,7 @@ describe("resolveSubagentExecution", () => {
       ]),
       {
         agentOverrides: {
-          explore-light: {
+          "explore-light": {
             category: "research",
           },
         } as ExecutorContext["agentOverrides"],

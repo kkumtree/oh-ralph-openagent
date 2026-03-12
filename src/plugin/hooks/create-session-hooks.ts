@@ -126,7 +126,7 @@ export function createSessionHooks(args: {
         : null
       const rawTitle = sessionInfo?.title
       if (typeof rawTitle === "string" && rawTitle.length > 0) {
-        existing.baseTitle = rawTitle.replace(/\s*\[fallback:[^\]]+\]$/i, "").trim()
+        existing.baseTitle = rawTitle.replace(/\s*[fallback:[^]]+]$/i, "").trim()
       } else {
         existing.baseTitle = "Session"
       }
@@ -234,7 +234,7 @@ export function createSessionHooks(args: {
   const noHephaestusNonGpt = isHookEnabled("no-hephaestus-light-non-gpt")
     ? safeHook("no-hephaestus-light-non-gpt", () =>
       createNoHephaestusNonGptHook(ctx, {
-        allowNonGptModel: pluginConfig.agents?.hephaestus-light?.allow_non_gpt_model,
+        allowNonGptModel: pluginConfig.agents?.["hephaestus-light"]?.allow_non_gpt_model,
       }))
     : null
 

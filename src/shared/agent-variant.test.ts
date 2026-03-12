@@ -18,7 +18,7 @@ describe("resolveAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus-light: { variant: "low" },
+        "sisyphus-light": { variant: "low" },
       },
     } as OhMyOpenCodeConfig
 
@@ -33,7 +33,7 @@ describe("resolveAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus-light: { category: "ultrabrain" },
+        "sisyphus-light": { category: "ultrabrain" },
       },
       categories: {
         ultrabrain: { model: "openai/gpt-5.4", variant: "xhigh" },
@@ -53,7 +53,7 @@ describe("applyAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus-light: { variant: "low" },
+        "sisyphus-light": { variant: "low" },
       },
     } as OhMyOpenCodeConfig
     const message: { variant?: string } = {}
@@ -69,7 +69,7 @@ describe("applyAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus-light: { variant: "low" },
+        "sisyphus-light": { variant: "low" },
       },
     } as OhMyOpenCodeConfig
     const message = { variant: "max" }
@@ -88,7 +88,7 @@ describe("resolveVariantForModel", () => {
     // to verify override takes precedence over fallback chain
     const config = {
       agents: {
-        sisyphus-light: { variant: "high" },
+        "sisyphus-light": { variant: "high" },
       },
     } as OhMyOpenCodeConfig
     const model = { providerID: "anthropic", modelID: "claude-opus-4-6" }

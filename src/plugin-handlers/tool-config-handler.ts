@@ -49,18 +49,18 @@ export function applyToolConfig(params: {
     isCliRunMode ? "deny" :
     "allow";
 
-  const librarian-light = agentByKey(params.agentResult, "librarian-light");
-  if (librarian-light) {
-    librarian-light.permission = { ...librarian-light.permission, "grep_app_*": "allow" };
+  const librarian_light = agentByKey(params.agentResult, "librarian-light");
+  if (librarian_light) {
+    librarian_light.permission = { ...librarian_light.permission, "grep_app_*": "allow" };
   }
   const looker = agentByKey(params.agentResult, "multimodal-looker-light");
   if (looker) {
     looker.permission = { ...looker.permission, task: "deny", look_at: "deny" };
   }
-  const atlas-light = agentByKey(params.agentResult, "atlas-light");
-  if (atlas-light) {
-    atlas-light.permission = {
-      ...atlas-light.permission,
+  const atlas_light = agentByKey(params.agentResult, "atlas-light");
+  if (atlas_light) {
+    atlas_light.permission = {
+      ...atlas_light.permission,
       task: "allow",
       call_omo_agent: "deny",
       "task_*": "allow",
@@ -68,10 +68,10 @@ export function applyToolConfig(params: {
       ...denyTodoTools,
     };
   }
-  const sisyphus-light = agentByKey(params.agentResult, "sisyphus-light");
-  if (sisyphus-light) {
-    sisyphus-light.permission = {
-      ...sisyphus-light.permission,
+  const sisyphus_light = agentByKey(params.agentResult, "sisyphus-light");
+  if (sisyphus_light) {
+    sisyphus_light.permission = {
+      ...sisyphus_light.permission,
       call_omo_agent: "deny",
       task: "allow",
       question: questionPermission,
@@ -80,20 +80,20 @@ export function applyToolConfig(params: {
       ...denyTodoTools,
     };
   }
-  const hephaestus-light = agentByKey(params.agentResult, "hephaestus-light");
-  if (hephaestus-light) {
-    hephaestus-light.permission = {
-      ...hephaestus-light.permission,
+  const hephaestus_light = agentByKey(params.agentResult, "hephaestus-light");
+  if (hephaestus_light) {
+    hephaestus_light.permission = {
+      ...hephaestus_light.permission,
       call_omo_agent: "deny",
       task: "allow",
       question: questionPermission,
       ...denyTodoTools,
     };
   }
-  const prometheus-light = agentByKey(params.agentResult, "prometheus-light");
-  if (prometheus-light) {
-    prometheus-light.permission = {
-      ...prometheus-light.permission,
+  const prometheus_light = agentByKey(params.agentResult, "prometheus-light");
+  if (prometheus_light) {
+    prometheus_light.permission = {
+      ...prometheus_light.permission,
       call_omo_agent: "deny",
       task: "allow",
       question: questionPermission,

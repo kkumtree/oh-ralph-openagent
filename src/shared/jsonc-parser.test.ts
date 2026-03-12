@@ -113,7 +113,7 @@ describe("parseJsonc", () => {
 
     // when
     const result = parseJsonc<{
-      agents: { oracle-light: { model: string } }
+      agents: { "oracle-light": { model: string } }
       disabled_agents: string[]
     }>(jsonc)
 

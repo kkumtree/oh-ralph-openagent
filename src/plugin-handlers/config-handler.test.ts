@@ -22,8 +22,8 @@ import * as modelResolver from "../shared/model-resolver"
 
 beforeEach(() => {
   spyOn(agents, "createBuiltinAgents" as any).mockResolvedValue({
-    sisyphus-light: { name: "sisyphus-light", prompt: "test", mode: "primary" },
-    oracle-light: { name: "oracle-light", prompt: "test", mode: "subagent" },
+    "sisyphus-light": { name: "sisyphus-light", prompt: "test", mode: "primary" },
+    "oracle-light": { name: "oracle-light", prompt: "test", mode: "subagent" },
   })
 
   spyOn(commandLoader, "loadUserCommands" as any).mockResolvedValue({})
@@ -169,10 +169,10 @@ describe("Plan agent demote behavior", () => {
       mockResolvedValue: (value: Record<string, unknown>) => void
     }
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus-light: { name: "sisyphus-light", prompt: "test", mode: "primary" },
-      hephaestus-light: { name: "hephaestus-light", prompt: "test", mode: "primary" },
-      oracle-light: { name: "oracle-light", prompt: "test", mode: "subagent" },
-      atlas-light: { name: "atlas-light", prompt: "test", mode: "primary" },
+      "sisyphus-light": { name: "sisyphus-light", prompt: "test", mode: "primary" },
+      "hephaestus-light": { name: "hephaestus-light", prompt: "test", mode: "primary" },
+      "oracle-light": { name: "oracle-light", prompt: "test", mode: "subagent" },
+      "atlas-light": { name: "atlas-light", prompt: "test", mode: "primary" },
     })
     const pluginConfig: OhMyOpenCodeConfig = {
       sisyphus_agent: {
@@ -320,9 +320,9 @@ describe("Agent permission defaults", () => {
       mockResolvedValue: (value: Record<string, unknown>) => void
     }
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus-light: { name: "sisyphus-light", prompt: "test", mode: "primary" },
-      hephaestus-light: { name: "hephaestus-light", prompt: "test", mode: "primary" },
-      oracle-light: { name: "oracle-light", prompt: "test", mode: "subagent" },
+      "sisyphus-light": { name: "sisyphus-light", prompt: "test", mode: "primary" },
+      "hephaestus-light": { name: "hephaestus-light", prompt: "test", mode: "primary" },
+      "oracle-light": { name: "oracle-light", prompt: "test", mode: "subagent" },
     })
     const pluginConfig: OhMyOpenCodeConfig = {}
     const config: Record<string, unknown> = {
@@ -661,7 +661,7 @@ describe("Prometheus direct override priority over category", () => {
         },
       },
       agents: {
-        prometheus-light: {
+        "prometheus-light": {
           category: "test-planning",
           reasoningEffort: "low",
         },
@@ -703,7 +703,7 @@ describe("Prometheus direct override priority over category", () => {
         },
       },
       agents: {
-        prometheus-light: {
+        "prometheus-light": {
           category: "reasoning-cat",
         },
       },
@@ -744,7 +744,7 @@ describe("Prometheus direct override priority over category", () => {
         },
       },
       agents: {
-        prometheus-light: {
+        "prometheus-light": {
           category: "temp-cat",
           temperature: 0.1,
         },
@@ -781,7 +781,7 @@ describe("Prometheus direct override priority over category", () => {
         planner_enabled: true,
       },
       agents: {
-        prometheus-light: {
+        "prometheus-light": {
           prompt_append: customInstructions,
         },
       },
@@ -870,7 +870,7 @@ describe("Plan agent model inheritance from prometheus-light", () => {
         replace_plan: true,
       },
       agents: {
-        prometheus-light: {
+        "prometheus-light": {
           model: "openai/gpt-5.4",
           variant: "high",
           temperature: 0.3,
@@ -1171,12 +1171,12 @@ describe("per-agent todowrite/todoread deny when task_system enabled", () => {
       mockResolvedValue: (value: Record<string, unknown>) => void
     }
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus-light: { name: "sisyphus-light", prompt: "test", mode: "primary" },
-      hephaestus-light: { name: "hephaestus-light", prompt: "test", mode: "primary" },
-      atlas-light: { name: "atlas-light", prompt: "test", mode: "primary" },
-      prometheus-light: { name: "prometheus-light", prompt: "test", mode: "primary" },
+      "sisyphus-light": { name: "sisyphus-light", prompt: "test", mode: "primary" },
+      "hephaestus-light": { name: "hephaestus-light", prompt: "test", mode: "primary" },
+      "atlas-light": { name: "atlas-light", prompt: "test", mode: "primary" },
+      "prometheus-light": { name: "prometheus-light", prompt: "test", mode: "primary" },
       "sisyphus-light-junior": { name: "sisyphus-light-junior", prompt: "test", mode: "subagent" },
-      oracle-light: { name: "oracle-light", prompt: "test", mode: "subagent" },
+      "oracle-light": { name: "oracle-light", prompt: "test", mode: "subagent" },
     })
 
     const pluginConfig: OhMyOpenCodeConfig = {
@@ -1212,8 +1212,8 @@ describe("per-agent todowrite/todoread deny when task_system enabled", () => {
       mockResolvedValue: (value: Record<string, unknown>) => void
     }
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus-light: { name: "sisyphus-light", prompt: "test", mode: "primary" },
-      hephaestus-light: { name: "hephaestus-light", prompt: "test", mode: "primary" },
+      "sisyphus-light": { name: "sisyphus-light", prompt: "test", mode: "primary" },
+      "hephaestus-light": { name: "hephaestus-light", prompt: "test", mode: "primary" },
     })
 
     const pluginConfig: OhMyOpenCodeConfig = {
@@ -1249,7 +1249,7 @@ describe("per-agent todowrite/todoread deny when task_system enabled", () => {
       mockResolvedValue: (value: Record<string, unknown>) => void
     }
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus-light: { name: "sisyphus-light", prompt: "test", mode: "primary" },
+      "sisyphus-light": { name: "sisyphus-light", prompt: "test", mode: "primary" },
     })
 
     const pluginConfig: OhMyOpenCodeConfig = {}
@@ -1284,7 +1284,7 @@ describe("disable_omo_env pass-through", () => {
       mock: { calls: unknown[][] }
     }
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus-light: { name: "sisyphus-light", prompt: "without-env", mode: "primary" },
+      "sisyphus-light": { name: "sisyphus-light", prompt: "without-env", mode: "primary" },
     })
 
     const pluginConfig: OhMyOpenCodeConfig = {
@@ -1320,7 +1320,7 @@ describe("disable_omo_env pass-through", () => {
       mock: { calls: unknown[][] }
     }
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus-light: { name: "sisyphus-light", prompt: "with-env", mode: "primary" },
+      "sisyphus-light": { name: "sisyphus-light", prompt: "with-env", mode: "primary" },
     })
 
     const pluginConfig: OhMyOpenCodeConfig = {}

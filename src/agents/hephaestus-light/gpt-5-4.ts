@@ -221,7 +221,7 @@ Parallelize EVERYTHING. Independent reads, searches, and agents run SIMULTANEOUS
 - Prefer tools over guessing whenever you need specific data (files, configs, patterns).
 </tool_usage_rules>
 
-**How to call explore-light/librarian-light:**
+**How to call explore-light/"librarian-light":**
 \`\`\`
 // Codebase search — use subagent_type="explore-light"
 task(subagent_type="explore-light", run_in_background=true, load_skills=[], description="Find [what]", prompt="[CONTEXT]: ... [GOAL]: ... [REQUEST]: ...")

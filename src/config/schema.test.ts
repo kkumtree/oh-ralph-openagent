@@ -483,13 +483,13 @@ describe("Sisyphus-Junior agent override", () => {
     // given
     const config = {
       agents: {
-        sisyphus-light: {
+        "sisyphus-light": {
           temperature: 0.1,
         },
-        atlas-light: {
+        "atlas-light": {
           temperature: 0.2,
         },
-        prometheus-light: {
+        "prometheus-light": {
           temperature: 0.3,
         },
       },
@@ -511,10 +511,10 @@ describe("Sisyphus-Junior agent override", () => {
     // given
     const config = {
       agents: {
-        metis-light: {
+        "metis-light": {
           category: "ultrabrain",
         },
-        momus-light: {
+        "momus-light": {
           category: "quick",
         },
       },

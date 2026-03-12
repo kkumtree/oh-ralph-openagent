@@ -39,7 +39,7 @@ describe("createBuiltinAgents with model overrides", () => {
   test("Sisyphus with GPT model override has reasoningEffort, no thinking", async () => {
     // #given
     const overrides = {
-      sisyphus-light: { model: "github-copilot/gpt-5.4" },
+      "sisyphus-light": { model: "github-copilot/gpt-5.4" },
     }
 
     // #when
@@ -88,7 +88,7 @@ describe("createBuiltinAgents with model overrides", () => {
     )
     const uiSelectedModel = "openai/gpt-5.4"
     const overrides = {
-      sisyphus-light: { model: "google/antigravity-claude-opus-4-5-thinking" },
+      "sisyphus-light": { model: "google/antigravity-claude-opus-4-5-thinking" },
     }
 
     try {
@@ -121,7 +121,7 @@ describe("createBuiltinAgents with model overrides", () => {
     )
     const uiSelectedModel = "openai/gpt-5.4"
     const overrides = {
-      atlas-light: { model: "google/antigravity-claude-opus-4-5-thinking" },
+      "atlas-light": { model: "google/antigravity-claude-opus-4-5-thinking" },
     }
 
     try {
@@ -196,7 +196,7 @@ describe("createBuiltinAgents with model overrides", () => {
   test("Oracle with GPT model override has reasoningEffort, no thinking", async () => {
     // #given
     const overrides = {
-      oracle-light: { model: "openai/gpt-5.4" },
+      "oracle-light": { model: "openai/gpt-5.4" },
     }
 
     // #when
@@ -212,7 +212,7 @@ describe("createBuiltinAgents with model overrides", () => {
   test("Oracle with Claude model override has thinking, no reasoningEffort", async () => {
     // #given
     const overrides = {
-      oracle-light: { model: "anthropic/claude-sonnet-4" },
+      "oracle-light": { model: "anthropic/claude-sonnet-4" },
     }
 
     // #when
@@ -228,7 +228,7 @@ describe("createBuiltinAgents with model overrides", () => {
    test("non-model overrides are still applied after factory rebuild", async () => {
      // #given
      const overrides = {
-       sisyphus-light: { model: "github-copilot/gpt-5.4", temperature: 0.5 },
+       "sisyphus-light": { model: "github-copilot/gpt-5.4", temperature: 0.5 },
      }
 
      // #when
@@ -649,7 +649,7 @@ describe("createBuiltinAgents with requiresProvider gating (hephaestus-light)", 
       new Set(["anthropic/claude-opus-4-6"])
     )
     const overrides = {
-      hephaestus-light: { model: "anthropic/claude-opus-4-6" },
+      "hephaestus-light": { model: "anthropic/claude-opus-4-6" },
     }
 
     try {
@@ -876,7 +876,7 @@ describe("createBuiltinAgents with requiresAnyModel gating (sisyphus-light)", ()
     // #given
     const fetchSpy = spyOn(shared, "fetchAvailableModels").mockResolvedValue(new Set())
     const overrides = {
-      sisyphus-light: { model: "anthropic/claude-opus-4-6" },
+      "sisyphus-light": { model: "anthropic/claude-opus-4-6" },
     }
 
     try {
@@ -919,7 +919,7 @@ describe("createBuiltinAgents with requiresAnyModel gating (sisyphus-light)", ()
       ["openai"]
     )
     const overrides = {
-      sisyphus-light: { model: "google/antigravity-claude-opus-4-5-thinking" },
+      "sisyphus-light": { model: "google/antigravity-claude-opus-4-5-thinking" },
     }
 
     try {
@@ -945,7 +945,7 @@ describe("createBuiltinAgents with requiresAnyModel gating (sisyphus-light)", ()
       ["google", "openai", "opencode"]
     )
     const overrides = {
-      sisyphus-light: { model: "google/antigravity-claude-opus-4-5-thinking" },
+      "sisyphus-light": { model: "google/antigravity-claude-opus-4-5-thinking" },
     }
 
     try {
@@ -1217,7 +1217,7 @@ describe("override.category expansion in createBuiltinAgents", () => {
   test("standard agent override with category expands category properties", async () => {
     // #given
     const overrides = {
-      oracle-light: { category: "ultrabrain" } as any,
+      "oracle-light": { category: "ultrabrain" } as any,
     }
 
     // #when
@@ -1232,7 +1232,7 @@ describe("override.category expansion in createBuiltinAgents", () => {
   test("standard agent override with category AND direct variant - direct wins", async () => {
     // #given - ultrabrain has variant=xhigh, but direct override says "max"
     const overrides = {
-      oracle-light: { category: "ultrabrain", variant: "max" } as any,
+      "oracle-light": { category: "ultrabrain", variant: "max" } as any,
     }
 
     // #when
@@ -1252,7 +1252,7 @@ describe("override.category expansion in createBuiltinAgents", () => {
       },
     }
     const overrides = {
-      oracle-light: { category: "test-cat", reasoningEffort: "low" } as any,
+      "oracle-light": { category: "test-cat", reasoningEffort: "low" } as any,
     }
 
     // #when
@@ -1272,7 +1272,7 @@ describe("override.category expansion in createBuiltinAgents", () => {
       },
     }
     const overrides = {
-      oracle-light: { category: "reasoning-cat" } as any,
+      "oracle-light": { category: "reasoning-cat" } as any,
     }
 
     // #when
@@ -1286,7 +1286,7 @@ describe("override.category expansion in createBuiltinAgents", () => {
   test("sisyphus-light override with category expands category properties", async () => {
     // #given
     const overrides = {
-      sisyphus-light: { category: "ultrabrain" } as any,
+      "sisyphus-light": { category: "ultrabrain" } as any,
     }
 
     // #when
@@ -1301,7 +1301,7 @@ describe("override.category expansion in createBuiltinAgents", () => {
   test("atlas-light override with category expands category properties", async () => {
     // #given
     const overrides = {
-      atlas-light: { category: "ultrabrain" } as any,
+      "atlas-light": { category: "ultrabrain" } as any,
     }
 
     // #when
@@ -1316,7 +1316,7 @@ describe("override.category expansion in createBuiltinAgents", () => {
   test("override with non-existent category has no effect on config", async () => {
     // #given
     const overrides = {
-      oracle-light: { category: "non-existent-category" } as any,
+      "oracle-light": { category: "non-existent-category" } as any,
     }
 
     // #when
@@ -1333,7 +1333,7 @@ describe("agent override tools migration", () => {
   test("tools: { x: false } is migrated to permission: { x: deny }", async () => {
     // #given
     const overrides = {
-      explore-light: { tools: { "jetbrains_*": false } } as any,
+      "explore-light": { tools: { "jetbrains_*": false } } as any,
     }
 
     // #when
@@ -1348,7 +1348,7 @@ describe("agent override tools migration", () => {
   test("tools: { x: true } is migrated to permission: { x: allow }", async () => {
     // #given
     const overrides = {
-      librarian-light: { tools: { "jetbrains_get_*": true } } as any,
+      "librarian-light": { tools: { "jetbrains_get_*": true } } as any,
     }
 
     // #when
@@ -1363,7 +1363,7 @@ describe("agent override tools migration", () => {
   test("tools config is removed after migration", async () => {
     // #given
     const overrides = {
-      explore-light: { tools: { "some_tool": false } } as any,
+      "explore-light": { tools: { "some_tool": false } } as any,
     }
 
     // #when
@@ -1414,7 +1414,7 @@ describe("Deadlock prevention - fetchAvailableModels must not receive client", (
   test("Hephaestus variant override respects user config over hardcoded default", async () => {
     // #given - user provides variant in config
     const overrides = {
-      hephaestus-light: { variant: "high" },
+      "hephaestus-light": { variant: "high" },
     }
 
     // #when

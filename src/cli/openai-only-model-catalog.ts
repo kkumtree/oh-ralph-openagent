@@ -1,8 +1,8 @@
 import type { AgentConfig, CategoryConfig, GeneratedOmoConfig, ProviderAvailability } from "./model-fallback-types"
 
 const OPENAI_ONLY_AGENT_OVERRIDES: Record<string, AgentConfig> = {
-  explore-light: { model: "openai/gpt-5.4", variant: "medium" },
-  librarian-light: { model: "openai/gpt-5.4", variant: "medium" },
+  "explore-light": { model: "openai/gpt-5.4", variant: "medium" },
+  "librarian-light": { model: "openai/gpt-5.4", variant: "medium" },
 }
 
 const OPENAI_ONLY_CATEGORY_OVERRIDES: Record<string, CategoryConfig> = {

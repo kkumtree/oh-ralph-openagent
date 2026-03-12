@@ -118,7 +118,7 @@ describe("createCallOmoAgent", () => {
       managerWithLaunch,
       [],
       {
-        explore-light: {
+        "explore-light": {
           fallback_models: ["quotio/kimi-k2.5", "openai/gpt-5.2(high)"],
         },
       },

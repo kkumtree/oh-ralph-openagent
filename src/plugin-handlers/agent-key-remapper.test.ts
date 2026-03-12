@@ -5,8 +5,8 @@ describe("remapAgentKeysToDisplayNames", () => {
   it("remaps known agent keys to display names", () => {
     // given agents with lowercase keys
     const agents = {
-      sisyphus-light: { prompt: "test", mode: "primary" },
-      oracle-light: { prompt: "test", mode: "subagent" },
+      "sisyphus-light": { prompt: "test", mode: "primary" },
+      "oracle-light": { prompt: "test", mode: "subagent" },
     }
 
     // when remapping
@@ -34,12 +34,12 @@ describe("remapAgentKeysToDisplayNames", () => {
   it("remaps all core agents to display names", () => {
     // given all core agents
     const agents = {
-      sisyphus-light: {},
-      hephaestus-light: {},
-      prometheus-light: {},
-      atlas-light: {},
-      metis-light: {},
-      momus-light: {},
+      "sisyphus-light": {},
+      "hephaestus-light": {},
+      "prometheus-light": {},
+      "atlas-light": {},
+      "metis-light": {},
+      "momus-light": {},
       "sisyphus-light-junior": {},
     }
 

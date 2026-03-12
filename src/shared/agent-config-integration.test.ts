@@ -44,9 +44,9 @@ describe("Agent Config Integration", () => {
     test("preserves already lowercase keys", () => {
       // given - config with lowercase keys
       const config = {
-        sisyphus-light: { model: "anthropic/claude-opus-4-6" },
-        oracle-light: { model: "openai/gpt-5.4" },
-        librarian-light: { model: "opencode/big-pickle" },
+        "sisyphus-light": { model: "anthropic/claude-opus-4-6" },
+        "oracle-light": { model: "openai/gpt-5.4" },
+        "librarian-light": { model: "opencode/big-pickle" },
       }
 
       // when - migration is applied
@@ -63,9 +63,9 @@ describe("Agent Config Integration", () => {
       // given - config with mixed old and new format
       const mixedConfig = {
         Sisyphus: { model: "anthropic/claude-opus-4-6" },
-        oracle-light: { model: "openai/gpt-5.4" },
+        "oracle-light": { model: "openai/gpt-5.4" },
         "Prometheus (Planner)": { model: "anthropic/claude-opus-4-6" },
-        librarian-light: { model: "opencode/big-pickle" },
+        "librarian-light": { model: "opencode/big-pickle" },
       }
 
       // when - migration is applied
@@ -199,8 +199,8 @@ describe("Agent Config Integration", () => {
     test("new config works without migration", () => {
       // given - new format config (already lowercase)
       const newConfig = {
-        sisyphus-light: { model: "anthropic/claude-opus-4-6" },
-        atlas-light: { model: "anthropic/claude-opus-4-6" },
+        "sisyphus-light": { model: "anthropic/claude-opus-4-6" },
+        "atlas-light": { model: "anthropic/claude-opus-4-6" },
       }
 
       // when - migration is applied (should be no-op)

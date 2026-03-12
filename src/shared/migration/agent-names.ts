@@ -3,7 +3,7 @@ export const AGENT_NAME_MAP: Record<string, string> = {
   omo: "sisyphus-light",
   OmO: "sisyphus-light",
   Sisyphus: "sisyphus-light",
-  sisyphus-light: "sisyphus-light",
+  "sisyphus-light": "sisyphus-light",
 
   // Prometheus variants → "prometheus-light"
   "OmO-Plan": "prometheus-light",
@@ -11,21 +11,21 @@ export const AGENT_NAME_MAP: Record<string, string> = {
   "Planner-Sisyphus": "prometheus-light",
   "planner-sisyphus-light": "prometheus-light",
   "Prometheus (Planner)": "prometheus-light",
-  prometheus-light: "prometheus-light",
+  "prometheus-light": "prometheus-light",
 
   // Atlas variants → "atlas-light"
   "orchestrator-sisyphus-light": "atlas-light",
   Atlas: "atlas-light",
-  atlas-light: "atlas-light",
+  "atlas-light": "atlas-light",
 
   // Metis variants → "metis-light"
   "plan-consultant": "metis-light",
   "Metis (Plan Consultant)": "metis-light",
-  metis-light: "metis-light",
+  "metis-light": "metis-light",
 
   // Momus variants → "momus-light"
   "Momus (Plan Reviewer)": "momus-light",
-  momus-light: "momus-light",
+  "momus-light": "momus-light",
 
   // Sisyphus-Junior → "sisyphus-light-junior"
   "Sisyphus-Junior": "sisyphus-light-junior",
@@ -33,9 +33,9 @@ export const AGENT_NAME_MAP: Record<string, string> = {
 
   // Already lowercase - passthrough
   build: "build",
-  oracle-light: "oracle-light",
-  librarian-light: "librarian-light",
-  explore-light: "explore-light",
+  "oracle-light": "oracle-light",
+  "librarian-light": "librarian-light",
+  "explore-light": "explore-light",
   "multimodal-looker-light": "multimodal-looker-light",
 }
 

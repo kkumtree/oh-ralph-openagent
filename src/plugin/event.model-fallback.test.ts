@@ -341,7 +341,7 @@ describe("createEventHandler - model fallback", () => {
     const modelFallback = createModelFallbackHook()
     const pluginConfig = {
       agents: {
-        sisyphus-light: {
+        "sisyphus-light": {
           fallback_models: ["quotio/gpt-5.2", "quotio/kimi-k2.5"],
         },
       },

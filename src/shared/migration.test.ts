@@ -37,9 +37,9 @@ describe("migrateAgentNames", () => {
   test("preserves current agent names unchanged", () => {
     // given: Config with current agent names
     const agents = {
-      oracle-light: { model: "openai/gpt-5.4" },
-      librarian-light: { model: "google/gemini-3-flash" },
-      explore-light: { model: "opencode/gpt-5-nano" },
+      "oracle-light": { model: "openai/gpt-5.4" },
+      "librarian-light": { model: "google/gemini-3-flash" },
+      "explore-light": { model: "opencode/gpt-5-nano" },
     }
 
     // when: Migrate agent names
@@ -101,7 +101,7 @@ describe("migrateAgentNames", () => {
   test("migrates lowercase atlas-light to atlas-light", () => {
     // given: Config with lowercase atlas-light agent name
     const agents = {
-      atlas-light: { model: "anthropic/claude-opus-4-6" },
+      "atlas-light": { model: "anthropic/claude-opus-4-6" },
     }
 
     // when: Migrate agent names
@@ -405,7 +405,7 @@ describe("migrateConfigFile", () => {
     const rawConfig: Record<string, unknown> = {
       sisyphus_agent: { disabled: false },
       agents: {
-        sisyphus-light: { model: "test" },
+        "sisyphus-light": { model: "test" },
       },
       disabled_hooks: ["anthropic-context-window-limit-recovery"],
     }
@@ -445,7 +445,7 @@ describe("migrateConfigFile", () => {
      // given: Config with old model version in agents
      const rawConfig: Record<string, unknown> = {
        agents: {
-         sisyphus-light: { model: "openai/gpt-5.4-codex", temperature: 0.1 },
+         "sisyphus-light": { model: "openai/gpt-5.4-codex", temperature: 0.1 },
        },
      }
 
@@ -479,7 +479,7 @@ describe("migrateConfigFile", () => {
      // given: Config with current model versions
      const rawConfig: Record<string, unknown> = {
        agents: {
-         sisyphus-light: { model: "openai/gpt-5.4-codex" },
+         "sisyphus-light": { model: "openai/gpt-5.4-codex" },
        },
        categories: {
          "my-category": { model: "anthropic/claude-opus-4-6" },
@@ -531,7 +531,7 @@ describe("migrateModelVersions", () => {
   test("#given a config with gpt-5.4-codex model #when migrating model versions #then does not overwrite with non-existent gpt-5.3-codex", () => {
     // given: Agent config with gpt-5.4-codex model
     const agents = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex", temperature: 0.1 },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex", temperature: 0.1 },
     }
 
     // when: Migrate model versions
@@ -547,7 +547,7 @@ describe("migrateModelVersions", () => {
   test("replaces anthropic model version", () => {
     // given: Agent config with old anthropic model
     const agents = {
-      prometheus-light: { model: "anthropic/claude-opus-4-5" },
+      "prometheus-light": { model: "anthropic/claude-opus-4-5" },
     }
 
     // when: Migrate model versions
@@ -562,7 +562,7 @@ describe("migrateModelVersions", () => {
   test("leaves unknown model strings untouched", () => {
     // given: Agent config with unknown model
     const agents = {
-      oracle-light: { model: "openai/gpt-5.4", temperature: 0.5 },
+      "oracle-light": { model: "openai/gpt-5.4", temperature: 0.5 },
     }
 
     // when: Migrate model versions
@@ -577,7 +577,7 @@ describe("migrateModelVersions", () => {
   test("handles agent config with no model field", () => {
     // given: Agent config without model field
     const agents = {
-      sisyphus-light: { temperature: 0.1, prompt: "custom" },
+      "sisyphus-light": { temperature: 0.1, prompt: "custom" },
     }
 
     // when: Migrate model versions
@@ -592,7 +592,7 @@ describe("migrateModelVersions", () => {
   test("handles agent config with non-string model", () => {
     // given: Agent config with non-string model
     const agents = {
-      sisyphus-light: { model: 123, temperature: 0.1 },
+      "sisyphus-light": { model: 123, temperature: 0.1 },
     }
 
     // when: Migrate model versions
@@ -605,9 +605,9 @@ describe("migrateModelVersions", () => {
   test("migrates multiple agents in one pass", () => {
     // given: Multiple agents with old models
     const agents = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
-      prometheus-light: { model: "anthropic/claude-opus-4-5" },
-      oracle-light: { model: "openai/gpt-5.4" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
+      "prometheus-light": { model: "anthropic/claude-opus-4-5" },
+      "oracle-light": { model: "openai/gpt-5.4" },
     }
 
     // when: Migrate model versions
@@ -635,7 +635,7 @@ describe("migrateModelVersions", () => {
   test("skips already-applied migrations", () => {
     // given: Agent config with old model, but migration already applied
     const agents = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex", temperature: 0.1 },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex", temperature: 0.1 },
     }
     const appliedMigrations = new Set(["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"])
 
@@ -652,7 +652,7 @@ describe("migrateModelVersions", () => {
   test("applies new migrations and records them", () => {
     // given: Agent config with old model, no prior migrations
     const agents = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
     }
 
     // when: Migrate without applied migrations
@@ -668,8 +668,8 @@ describe("migrateModelVersions", () => {
   test("handles mixed: some applied, some new", () => {
     // given: Multiple agents, one migration already applied
     const agents = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
-      prometheus-light: { model: "anthropic/claude-opus-4-5" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
+      "prometheus-light": { model: "anthropic/claude-opus-4-5" },
     }
     const appliedMigrations = new Set(["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"])
 
@@ -686,7 +686,7 @@ describe("migrateModelVersions", () => {
   test("backward compatible without appliedMigrations param", () => {
     // given: Agent config with old model, no appliedMigrations param
     const agents = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
     }
 
     // when: Migrate without the param (backward compat)
@@ -706,7 +706,7 @@ describe("migrateConfigFile _migrations tracking", () => {
     const configPath = `${tmpDir}/oh-my-opencode.json`
     const rawConfig: Record<string, unknown> = {
       agents: {
-        sisyphus-light: { model: "openai/gpt-5.4-codex" },
+        "sisyphus-light": { model: "openai/gpt-5.4-codex" },
       },
     }
 
@@ -727,7 +727,7 @@ describe("migrateConfigFile _migrations tracking", () => {
     const configPath = `${tmpDir}/oh-my-opencode.json`
     const rawConfig: Record<string, unknown> = {
       agents: {
-        sisyphus-light: { model: "openai/gpt-5.4-codex" },
+        "sisyphus-light": { model: "openai/gpt-5.4-codex" },
       },
       _migrations: ["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"],
     }
@@ -750,7 +750,7 @@ describe("migrateConfigFile _migrations tracking", () => {
     const configPath = `${tmpDir}/oh-my-opencode.json`
     const rawConfig: Record<string, unknown> = {
       agents: {
-        prometheus-light: { model: "anthropic/claude-opus-4-5" },
+        "prometheus-light": { model: "anthropic/claude-opus-4-5" },
       },
       _migrations: ["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"],
     }
@@ -1020,7 +1020,7 @@ describe("migrateConfigFile with backup", () => {
     const rawConfig: Record<string, unknown> = {
       agents: {
         "multimodal-looker-light": { model: "anthropic/claude-haiku-4-5" },
-        oracle-light: { model: "openai/gpt-5.4" },
+        "oracle-light": { model: "openai/gpt-5.4" },
         "my-custom-agent": { model: "google/gemini-3.1-pro" },
       },
     }
@@ -1046,7 +1046,7 @@ describe("migrateConfigFile with backup", () => {
     const rawConfig: Record<string, unknown> = {
       agents: {
         "multimodal-looker-light": { category: "quick" },
-        oracle-light: { category: "ultrabrain" },
+        "oracle-light": { category: "ultrabrain" },
       },
     }
 
@@ -1103,11 +1103,11 @@ describe("migrateConfigFile with backup", () => {
      const testConfigPath = "/tmp/test-config-no-migration.json"
      const rawConfig: Record<string, unknown> = {
        agents: {
-         sisyphus-light: { model: "test" },
+         "sisyphus-light": { model: "test" },
        },
      }
 
-     fs.writeFileSync(testConfigPath, globalThis.JSON.stringify({ agents: { sisyphus-light: { model: "test" } } }, null, 2))
+     fs.writeFileSync(testConfigPath, globalThis.JSON.stringify({ agents: { "sisyphus-light": { model: "test" } } }, null, 2))
      cleanupPaths.push(testConfigPath)
 
      // Clean up any existing backup files from previous test runs
@@ -1140,7 +1140,7 @@ describe("migrateModelVersions with applied migrations", () => {
   test("skips already-applied migrations", () => {
     // given: Config with old model and migration already applied
     const configs = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
     }
     const appliedMigrations = new Set(["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"])
 
@@ -1156,7 +1156,7 @@ describe("migrateModelVersions with applied migrations", () => {
   test("applies new migrations not in history", () => {
     // given: Config with old model, no migration history
     const configs = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
     }
     const appliedMigrations = new Set<string>()
 
@@ -1172,8 +1172,8 @@ describe("migrateModelVersions with applied migrations", () => {
   test("handles mixed: skip applied, apply new", () => {
     // given: Config with 2 old models, 1 already migrated
     const configs = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
-      oracle-light: { model: "anthropic/claude-opus-4-5" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
+      "oracle-light": { model: "anthropic/claude-opus-4-5" },
     }
     const appliedMigrations = new Set(["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"])
 
@@ -1190,7 +1190,7 @@ describe("migrateModelVersions with applied migrations", () => {
   test("backward compatible: no appliedMigrations param", () => {
     // given: Config with old model, no appliedMigrations param (legacy call)
     const configs = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
     }
 
     // when: Migrate model versions (without appliedMigrations)
@@ -1205,7 +1205,7 @@ describe("migrateModelVersions with applied migrations", () => {
   test("returns empty newMigrations when no migrations applied", () => {
     // given: Config with no old models
     const configs = {
-      sisyphus-light: { model: "openai/gpt-5.4-codex" },
+      "sisyphus-light": { model: "openai/gpt-5.4-codex" },
     }
 
     // when: Migrate model versions
@@ -1235,7 +1235,7 @@ describe("migrateConfigFile with _migrations tracking", () => {
     const testConfigPath = "/tmp/test-config-migrations-1.json"
     const rawConfig: Record<string, unknown> = {
       agents: {
-        sisyphus-light: { model: "openai/gpt-5.4-codex" },
+        "sisyphus-light": { model: "openai/gpt-5.4-codex" },
       },
     }
     fs.writeFileSync(testConfigPath, JSON.stringify(rawConfig, null, 2))
@@ -1255,7 +1255,7 @@ describe("migrateConfigFile with _migrations tracking", () => {
     const testConfigPath = "/tmp/test-config-migrations-2.json"
     const rawConfig: Record<string, unknown> = {
       agents: {
-        sisyphus-light: { model: "openai/gpt-5.4-codex" },
+        "sisyphus-light": { model: "openai/gpt-5.4-codex" },
       },
       _migrations: ["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"],
     }
@@ -1276,8 +1276,8 @@ describe("migrateConfigFile with _migrations tracking", () => {
     const testConfigPath = "/tmp/test-config-migrations-3.json"
     const rawConfig: Record<string, unknown> = {
       agents: {
-        sisyphus-light: { model: "openai/gpt-5.4-codex" },
-        oracle-light: { model: "anthropic/claude-opus-4-5" },
+        "sisyphus-light": { model: "openai/gpt-5.4-codex" },
+        "oracle-light": { model: "anthropic/claude-opus-4-5" },
       },
       _migrations: ["model-version:openai/gpt-5.4-codex->openai/gpt-5.3-codex"],
     }

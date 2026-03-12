@@ -51,7 +51,7 @@ describe("writeOmoConfig", () => {
     // given
     const existingConfig = {
       agents: {
-        sisyphus-light: {
+        "sisyphus-light": {
           model: "custom/provider-model",
         },
       },

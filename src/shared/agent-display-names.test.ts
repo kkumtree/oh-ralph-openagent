@@ -180,16 +180,16 @@ describe("AGENT_DISPLAY_NAMES", () => {
   it("contains all expected agent mappings", () => {
     // given expected mappings
     const expectedMappings = {
-      sisyphus-light: "Sisyphus (Ultraworker)",
-      hephaestus-light: "Hephaestus (Deep Agent)",
-      prometheus-light: "Prometheus (Plan Builder)",
-      atlas-light: "Atlas (Plan Executor)",
+      "sisyphus-light": "Sisyphus (Ultraworker)",
+      "hephaestus-light": "Hephaestus (Deep Agent)",
+      "prometheus-light": "Prometheus (Plan Builder)",
+      "atlas-light": "Atlas (Plan Executor)",
       "sisyphus-light-junior": "Sisyphus-Junior",
-      metis-light: "Metis (Plan Consultant)",
-      momus-light: "Momus (Plan Critic)",
-      oracle-light: "oracle-light",
-      librarian-light: "librarian-light",
-      explore-light: "explore-light",
+      "metis-light": "Metis (Plan Consultant)",
+      "momus-light": "Momus (Plan Critic)",
+      "oracle-light": "oracle-light",
+      "librarian-light": "librarian-light",
+      "explore-light": "explore-light",
       "multimodal-looker-light": "multimodal-looker-light",
     }
 

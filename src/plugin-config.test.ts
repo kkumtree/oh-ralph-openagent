@@ -81,14 +81,14 @@ describe("mergeConfigs", () => {
     it("should deep merge agents", () => {
       const base: OhMyOpenCodeConfig = {
         agents: {
-          oracle-light: { model: "openai/gpt-5.4" },
+          "oracle-light": { model: "openai/gpt-5.4" },
         },
       };
 
       const override: OhMyOpenCodeConfig = {
         agents: {
-          oracle-light: { temperature: 0.5 },
-          explore-light: { model: "anthropic/claude-haiku-4-5" },
+          "oracle-light": { temperature: 0.5 },
+          "explore-light": { model: "anthropic/claude-haiku-4-5" },
         },
       };
 
@@ -127,8 +127,8 @@ describe("parseConfigPartially", () => {
     it("should return the full config when everything is valid", () => {
       const rawConfig = {
         agents: {
-          oracle-light: { model: "openai/gpt-5.4" },
-          momus-light: { model: "openai/gpt-5.4" },
+          "oracle-light": { model: "openai/gpt-5.4" },
+          "momus-light": { model: "openai/gpt-5.4" },
         },
         disabled_hooks: ["comment-checker"],
       };
@@ -150,9 +150,9 @@ describe("parseConfigPartially", () => {
     it("should preserve valid agent overrides when another section is invalid", () => {
       const rawConfig = {
         agents: {
-          oracle-light: { model: "openai/gpt-5.4" },
-          momus-light: { model: "openai/gpt-5.4" },
-          prometheus-light: {
+          "oracle-light": { model: "openai/gpt-5.4" },
+          "momus-light": { model: "openai/gpt-5.4" },
+          "prometheus-light": {
             permission: {
               edit: { "*": "ask", ".sisyphus-light/**": "allow" },
             },
@@ -171,7 +171,7 @@ describe("parseConfigPartially", () => {
     it("should preserve valid agents when a non-agent section is invalid", () => {
       const rawConfig = {
         agents: {
-          oracle-light: { model: "openai/gpt-5.4" },
+          "oracle-light": { model: "openai/gpt-5.4" },
         },
         disabled_hooks: ["not-a-real-hook"],
       };
@@ -191,7 +191,7 @@ describe("parseConfigPartially", () => {
 
     it("should return empty object when all sections are invalid", () => {
       const rawConfig = {
-        agents: { oracle-light: { temperature: "not-a-number" } },
+        agents: { "oracle-light": { temperature: "not-a-number" } },
         disabled_hooks: ["not-a-real-hook"],
       };
 
@@ -224,7 +224,7 @@ describe("parseConfigPartially", () => {
     it("should ignore unknown keys and return valid sections", () => {
       const rawConfig = {
         agents: {
-          oracle-light: { model: "openai/gpt-5.4" },
+          "oracle-light": { model: "openai/gpt-5.4" },
         },
         some_future_key: { foo: "bar" },
       };

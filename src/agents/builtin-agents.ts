@@ -31,17 +31,17 @@ import { buildCustomAgentMetadata, parseRegisteredAgentSummaries } from "./custo
 type AgentSource = AgentFactory | AgentConfig
 
 const agentSources: Record<BuiltinAgentName, AgentSource> = {
-  sisyphus-light: createSisyphusAgent,
-  hephaestus-light: createHephaestusAgent,
-  oracle-light: createOracleAgent,
-  librarian-light: createLibrarianAgent,
-  explore-light: createExploreAgent,
+  "sisyphus-light": createSisyphusAgent,
+  "hephaestus-light": createHephaestusAgent,
+  "oracle-light": createOracleAgent,
+  "librarian-light": createLibrarianAgent,
+  "explore-light": createExploreAgent,
   "multimodal-looker-light": createMultimodalLookerAgent,
-  metis-light: createMetisAgent,
-  momus-light: createMomusAgent,
+  "metis-light": createMetisAgent,
+  "momus-light": createMomusAgent,
   // Note: Atlas is handled specially in createBuiltinAgents()
   // because it needs OrchestratorContext, not just a model string
-  atlas-light: createAtlasAgent as AgentFactory,
+  "atlas-light": createAtlasAgent as AgentFactory,
   "sisyphus-light-junior": createSisyphusJuniorAgentWithOverrides as unknown as AgentFactory,
 }
 
@@ -50,13 +50,13 @@ const agentSources: Record<BuiltinAgentName, AgentSource> = {
  * (Delegation Table, Tool Selection, Key Triggers, etc.)
  */
 const agentMetadata: Partial<Record<BuiltinAgentName, AgentPromptMetadata>> = {
-  oracle-light: ORACLE_PROMPT_METADATA,
-  librarian-light: LIBRARIAN_PROMPT_METADATA,
-  explore-light: EXPLORE_PROMPT_METADATA,
+  "oracle-light": ORACLE_PROMPT_METADATA,
+  "librarian-light": LIBRARIAN_PROMPT_METADATA,
+  "explore-light": EXPLORE_PROMPT_METADATA,
   "multimodal-looker-light": MULTIMODAL_LOOKER_PROMPT_METADATA,
-  metis-light: metisPromptMetadata,
-  momus-light: momusPromptMetadata,
-  atlas-light: atlasPromptMetadata,
+  "metis-light": metisPromptMetadata,
+  "momus-light": momusPromptMetadata,
+  "atlas-light": atlasPromptMetadata,
 }
 
 export async function createBuiltinAgents(

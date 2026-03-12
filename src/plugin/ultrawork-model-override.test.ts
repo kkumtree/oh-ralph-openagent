@@ -121,7 +121,7 @@ describe("resolveUltraworkOverride", () => {
   test("should return null when agent has no ultrawork config", () => {
     //#given
     const config = {
-      agents: { sisyphus-light: { model: "anthropic/claude-sonnet-4-6" } },
+      agents: { "sisyphus-light": { model: "anthropic/claude-sonnet-4-6" } },
     } as unknown as Parameters<typeof resolveUltraworkOverride>[0]
     const output = createOutput("ultrawork do something")
 

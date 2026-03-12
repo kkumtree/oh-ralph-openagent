@@ -42,7 +42,7 @@ describe("model-resolution check", () => {
       // given: User has override for oracle-light agent
       const mockConfig = {
         agents: {
-          oracle-light: { model: "anthropic/claude-opus-4-6" },
+          "oracle-light": { model: "anthropic/claude-opus-4-6" },
         },
       }
 
@@ -96,7 +96,7 @@ describe("model-resolution check", () => {
       //#given User has model with variant override for oracle-light agent
       const mockConfig = {
         agents: {
-          oracle-light: { model: "openai/gpt-5.4", variant: "xhigh" },
+          "oracle-light": { model: "openai/gpt-5.4", variant: "xhigh" },
         },
       }
 

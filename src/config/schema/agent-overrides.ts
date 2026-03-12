@@ -58,20 +58,20 @@ export const AgentOverrideConfigSchema = z.object({
 export const AgentOverridesSchema = z.object({
   build: AgentOverrideConfigSchema.optional(),
   plan: AgentOverrideConfigSchema.optional(),
-  sisyphus-light: AgentOverrideConfigSchema.optional(),
-  hephaestus-light: AgentOverrideConfigSchema.extend({
+  "sisyphus-light": AgentOverrideConfigSchema.optional(),
+  "hephaestus-light": AgentOverrideConfigSchema.extend({
     allow_non_gpt_model: z.boolean().optional(),
   }).optional(),
   "sisyphus-light-junior": AgentOverrideConfigSchema.optional(),
   "OpenCode-Builder": AgentOverrideConfigSchema.optional(),
-  prometheus-light: AgentOverrideConfigSchema.optional(),
-  metis-light: AgentOverrideConfigSchema.optional(),
-  momus-light: AgentOverrideConfigSchema.optional(),
-  oracle-light: AgentOverrideConfigSchema.optional(),
-  librarian-light: AgentOverrideConfigSchema.optional(),
-  explore-light: AgentOverrideConfigSchema.optional(),
+  "prometheus-light": AgentOverrideConfigSchema.optional(),
+  "metis-light": AgentOverrideConfigSchema.optional(),
+  "momus-light": AgentOverrideConfigSchema.optional(),
+  "oracle-light": AgentOverrideConfigSchema.optional(),
+  "librarian-light": AgentOverrideConfigSchema.optional(),
+  "explore-light": AgentOverrideConfigSchema.optional(),
   "multimodal-looker-light": AgentOverrideConfigSchema.optional(),
-  atlas-light: AgentOverrideConfigSchema.optional(),
+  "atlas-light": AgentOverrideConfigSchema.optional(),
 })
 
 export type AgentOverrideConfig = z.infer<typeof AgentOverrideConfigSchema>

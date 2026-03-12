@@ -125,7 +125,7 @@ export async function applyAgentConfig(params: {
 
   const configAgent = params.config.agent as AgentConfigRecord | undefined;
 
-  if (isSisyphusEnabled && builtinAgents.sisyphus-light) {
+  if (isSisyphusEnabled && builtinAgents["sisyphus-light"]) {
     if (configuredDefaultAgent) {
       (params.config as { default_agent?: string }).default_agent =
         getAgentDisplayName(configuredDefaultAgent);
@@ -135,7 +135,7 @@ export async function applyAgentConfig(params: {
     }
 
     const agentConfig: Record<string, unknown> = {
-      sisyphus-light: builtinAgents.sisyphus-light,
+      "sisyphus-light": builtinAgents["sisyphus-light"],
     };
 
     agentConfig["sisyphus-light-junior"] = createSisyphusJuniorAgentWithOverrides(

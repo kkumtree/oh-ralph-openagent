@@ -31,7 +31,7 @@ describe("runtime-fallback fallback-models", () => {
     //#given
     const pluginConfig = {
       agents: {
-        oracle-light: {
+        "oracle-light": {
           fallback_models: ["openai/gpt-5.2", "anthropic/claude-opus-4-6"],
         },
       },
@@ -48,10 +48,10 @@ describe("runtime-fallback fallback-models", () => {
     //#given
     const pluginConfig = {
       agents: {
-        sisyphus-light: {
+        "sisyphus-light": {
           fallback_models: ["quotio/gpt-5.2", "quotio/glm-5", "quotio/kimi-k2.5"],
         },
-        oracle-light: {
+        "oracle-light": {
           fallback_models: ["openai/gpt-5.2", "anthropic/claude-opus-4-6"],
         },
       },
