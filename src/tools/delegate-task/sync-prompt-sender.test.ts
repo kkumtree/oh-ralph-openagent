@@ -24,7 +24,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "sisyphus-junior",
+      agentToUse: "sisyphus-light-junior",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -45,7 +45,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptArgs.body.tools.question).toBe(false)
   })
 
-  bunTest("applies agent tool restrictions for explore agent", async () => {
+  bunTest("applies agent tool restrictions for explore-light agent", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -63,7 +63,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "explore",
+      agentToUse: "explore-light",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -85,7 +85,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptArgs.body.tools.call_omo_agent).toBe(false)
   })
 
-  bunTest("applies agent tool restrictions for librarian agent", async () => {
+  bunTest("applies agent tool restrictions for librarian-light agent", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -103,7 +103,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "librarian",
+      agentToUse: "librarian-light",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -125,7 +125,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptArgs.body.tools.call_omo_agent).toBe(false)
   })
 
-  bunTest("does not restrict call_omo_agent for sisyphus agent", async () => {
+  bunTest("does not restrict call_omo_agent for sisyphus-light agent", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -143,7 +143,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "sisyphus",
+      agentToUse: "sisyphus-light",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -165,7 +165,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptArgs.body.tools.call_omo_agent).toBe(true)
   })
 
-  bunTest("retries with promptSync for oracle when promptAsync fails with unexpected EOF", async () => {
+  bunTest("retries with promptSync for oracle-light when promptAsync fails with unexpected EOF", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -176,7 +176,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "oracle",
+      agentToUse: "oracle-light",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -205,7 +205,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptSyncWithModelSuggestionRetry).toHaveBeenCalledTimes(1)
   })
 
-  bunTest("does not retry with promptSync for non-oracle on unexpected EOF", async () => {
+  bunTest("does not retry with promptSync for non-oracle-light on unexpected EOF", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -216,7 +216,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "metis",
+      agentToUse: "metis-light",
       args: {
         description: "test task",
         prompt: "test prompt",

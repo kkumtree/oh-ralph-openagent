@@ -11,7 +11,7 @@ import { formatTaskStatus } from "./task-status-format"
 
 import { getAgentDisplayName } from "../../shared/agent-display-names"
 
-const SISYPHUS_JUNIOR_AGENT = getAgentDisplayName("sisyphus-junior")
+const SISYPHUS_JUNIOR_AGENT = getAgentDisplayName("sisyphus-light-junior")
 
 type ToolContextWithMetadata = {
   sessionID: string

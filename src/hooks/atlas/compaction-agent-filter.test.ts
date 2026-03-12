@@ -9,7 +9,7 @@ import { clearBoulderState, writeBoulderState } from "../../features/boulder-sta
 import { _resetForTesting } from "../../features/claude-code-session-state"
 import type { BoulderState } from "../../features/boulder-state"
 
-const TEST_STORAGE_ROOT = join(tmpdir(), `atlas-compaction-storage-${randomUUID()}`)
+const TEST_STORAGE_ROOT = join(tmpdir(), `atlas-light-compaction-storage-${randomUUID()}`)
 const TEST_MESSAGE_STORAGE = join(TEST_STORAGE_ROOT, "message")
 const TEST_PART_STORAGE = join(TEST_STORAGE_ROOT, "part")
 
@@ -32,7 +32,7 @@ mock.module("../../shared/opencode-storage-detection", () => ({
 
 const { createAtlasHook } = await import("./index")
 
-describe("atlas hook compaction agent filtering", () => {
+describe("atlas-light hook compaction agent filtering", () => {
   let testDirectory: string
 
   function createMockPluginInput() {
@@ -62,7 +62,7 @@ describe("atlas hook compaction agent filtering", () => {
   }
 
   beforeEach(() => {
-    testDirectory = join(tmpdir(), `atlas-compaction-test-${randomUUID()}`)
+    testDirectory = join(tmpdir(), `atlas-light-compaction-test-${randomUUID()}`)
     mkdirSync(testDirectory, { recursive: true })
     clearBoulderState(testDirectory)
     _resetForTesting()
@@ -74,7 +74,7 @@ describe("atlas hook compaction agent filtering", () => {
     _resetForTesting()
   })
 
-  test("should inject continuation when the latest message is compaction but the previous agent matches atlas", async () => {
+  test("should inject continuation when the latest message is compaction but the previous agent matches atlas-light", async () => {
     // given
     const sessionID = "main-session-after-compaction"
     const planPath = join(testDirectory, "test-plan.md")
@@ -85,10 +85,10 @@ describe("atlas hook compaction agent filtering", () => {
       started_at: "2026-01-02T10:00:00Z",
       session_ids: [sessionID],
       plan_name: "test-plan",
-      agent: "atlas",
+      agent: "atlas-light",
     }
     writeBoulderState(testDirectory, state)
-    writeMessage(sessionID, "msg_001.json", "atlas")
+    writeMessage(sessionID, "msg_001.json", "atlas-light")
     writeMessage(sessionID, "msg_002.json", "compaction")
 
     const mockInput = createMockPluginInput()

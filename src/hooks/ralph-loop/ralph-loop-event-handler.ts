@@ -148,7 +148,7 @@ export function createRalphLoopEventHandler(
 						}
 					}
 
-					log(`[${HOOK_NAME}] Waiting for oracle verification`, {
+					log(`[${HOOK_NAME}] Waiting for oracle-light verification`, {
 						sessionID,
 						verificationSessionID,
 						iteration: state.iteration,

@@ -3,8 +3,8 @@ import { _resetForTesting, updateSessionAgent } from "../../features/claude-code
 import { getAgentDisplayName } from "../../shared/agent-display-names"
 import { createNoSisyphusGptHook } from "./index"
 
-const SISYPHUS_DISPLAY = getAgentDisplayName("sisyphus")
-const HEPHAESTUS_DISPLAY = getAgentDisplayName("hephaestus")
+const SISYPHUS_DISPLAY = getAgentDisplayName("sisyphus-light")
+const HEPHAESTUS_DISPLAY = getAgentDisplayName("hephaestus-light")
 
 function createOutput() {
   return {
@@ -13,9 +13,9 @@ function createOutput() {
   }
 }
 
-describe("no-sisyphus-gpt hook", () => {
-  test("shows toast on every chat.message when sisyphus uses gpt model", async () => {
-    // given - sisyphus (display name) with gpt model
+describe("no-sisyphus-light-gpt hook", () => {
+  test("shows toast on every chat.message when sisyphus-light uses gpt model", async () => {
+    // given - sisyphus-light (display name) with gpt model
     const showToast = spyOn({ fn: async () => ({}) }, "fn")
     const hook = createNoSisyphusGptHook({
       client: { tui: { showToast } },
@@ -50,7 +50,7 @@ describe("no-sisyphus-gpt hook", () => {
   })
 
   test("does not show toast for gpt-5.4 model (Sisyphus has specialized support)", async () => {
-    // given - sisyphus with gpt-5.4 model (should be allowed)
+    // given - sisyphus-light with gpt-5.4 model (should be allowed)
     const showToast = spyOn({ fn: async () => ({}) }, "fn")
     const hook = createNoSisyphusGptHook({
       client: { tui: { showToast } },
@@ -71,7 +71,7 @@ describe("no-sisyphus-gpt hook", () => {
   })
 
   test("does not show toast for non-gpt model", async () => {
-    // given - sisyphus with claude model
+    // given - sisyphus-light with claude model
     const showToast = spyOn({ fn: async () => ({}) }, "fn")
     const hook = createNoSisyphusGptHook({
       client: { tui: { showToast } },
@@ -91,8 +91,8 @@ describe("no-sisyphus-gpt hook", () => {
     expect(output.message.agent).toBeUndefined()
   })
 
-  test("does not show toast for non-sisyphus agent", async () => {
-    // given - hephaestus with gpt model
+  test("does not show toast for non-sisyphus-light agent", async () => {
+    // given - hephaestus-light with gpt model
     const showToast = spyOn({ fn: async () => ({}) }, "fn")
     const hook = createNoSisyphusGptHook({
       client: { tui: { showToast } },

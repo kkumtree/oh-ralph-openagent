@@ -39,7 +39,7 @@ describe("claude-code-session-state", () => {
       setSessionAgent(sessionID, "Prometheus (Planner)")
 
       // when - try to overwrite
-      setSessionAgent(sessionID, "sisyphus")
+      setSessionAgent(sessionID, "sisyphus-light")
 
       // then - first agent preserved
       expect(getSessionAgent(sessionID)).toBe("Prometheus (Planner)")
@@ -60,10 +60,10 @@ describe("claude-code-session-state", () => {
       setSessionAgent(sessionID, "Prometheus (Planner)")
 
       // when - force update
-      updateSessionAgent(sessionID, "sisyphus")
+      updateSessionAgent(sessionID, "sisyphus-light")
 
       // then
-      expect(getSessionAgent(sessionID)).toBe("sisyphus")
+      expect(getSessionAgent(sessionID)).toBe("sisyphus-light")
     })
   })
 
@@ -102,16 +102,16 @@ describe("claude-code-session-state", () => {
     })
   })
 
-  describe("prometheus-md-only integration scenario", () => {
+  describe("prometheus-light-md-only integration scenario", () => {
     test("should correctly identify Prometheus agent for permission checks", () => {
       // given - Prometheus session
-      const sessionID = "test-prometheus-session"
+      const sessionID = "test-prometheus-light-session"
       const prometheusAgent = "Prometheus (Planner)"
 
       // when - agent is set (simulating chat.message hook)
       setSessionAgent(sessionID, prometheusAgent)
 
-      // then - getSessionAgent returns correct agent for prometheus-md-only hook
+      // then - getSessionAgent returns correct agent for prometheus-light-md-only hook
       const agent = getSessionAgent(sessionID)
       expect(agent).toBe("Prometheus (Planner)")
       expect(["Prometheus (Planner)"].includes(agent!)).toBe(true)
@@ -119,7 +119,7 @@ describe("claude-code-session-state", () => {
 
     test("should return undefined when agent not set (bug scenario)", () => {
       // given - session exists but no agent set (the bug)
-      const sessionID = "test-prometheus-session"
+      const sessionID = "test-prometheus-light-session"
 
       // when / then - this is the bug: agent is undefined
       expect(getSessionAgent(sessionID)).toBeUndefined()
@@ -131,7 +131,7 @@ describe("claude-code-session-state", () => {
       // given - user switches to custom agent "MyCustomAgent"
       const sessionID = "test-session-custom"
       const customAgent = "MyCustomAgent"
-      const defaultAgent = "sisyphus"
+      const defaultAgent = "sisyphus-light"
 
       // User switches to custom agent (via UI)
       setSessionAgent(sessionID, customAgent)

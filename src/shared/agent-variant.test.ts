@@ -18,12 +18,12 @@ describe("resolveAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { variant: "low" },
+        sisyphus-light: { variant: "low" },
       },
     } as OhMyOpenCodeConfig
 
     // when
-    const variant = resolveAgentVariant(config, "sisyphus")
+    const variant = resolveAgentVariant(config, "sisyphus-light")
 
     // then
     expect(variant).toBe("low")
@@ -33,7 +33,7 @@ describe("resolveAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { category: "ultrabrain" },
+        sisyphus-light: { category: "ultrabrain" },
       },
       categories: {
         ultrabrain: { model: "openai/gpt-5.4", variant: "xhigh" },
@@ -41,7 +41,7 @@ describe("resolveAgentVariant", () => {
     } as OhMyOpenCodeConfig
 
     // when
-    const variant = resolveAgentVariant(config, "sisyphus")
+    const variant = resolveAgentVariant(config, "sisyphus-light")
 
     // then
     expect(variant).toBe("xhigh")
@@ -53,13 +53,13 @@ describe("applyAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { variant: "low" },
+        sisyphus-light: { variant: "low" },
       },
     } as OhMyOpenCodeConfig
     const message: { variant?: string } = {}
 
     // when
-    applyAgentVariant(config, "sisyphus", message)
+    applyAgentVariant(config, "sisyphus-light", message)
 
     // then
     expect(message.variant).toBe("low")
@@ -69,13 +69,13 @@ describe("applyAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { variant: "low" },
+        sisyphus-light: { variant: "low" },
       },
     } as OhMyOpenCodeConfig
     const message = { variant: "max" }
 
     // when
-    applyAgentVariant(config, "sisyphus", message)
+    applyAgentVariant(config, "sisyphus-light", message)
 
     // then
     expect(message.variant).toBe("max")
@@ -84,17 +84,17 @@ describe("applyAgentVariant", () => {
 
 describe("resolveVariantForModel", () => {
   test("returns agent override variant when configured", () => {
-    // given - use a model in sisyphus chain (claude-opus-4-6 has default variant "max")
+    // given - use a model in sisyphus-light chain (claude-opus-4-6 has default variant "max")
     // to verify override takes precedence over fallback chain
     const config = {
       agents: {
-        sisyphus: { variant: "high" },
+        sisyphus-light: { variant: "high" },
       },
     } as OhMyOpenCodeConfig
     const model = { providerID: "anthropic", modelID: "claude-opus-4-6" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "sisyphus-light", model)
 
     // then
     expect(variant).toBe("high")
@@ -106,31 +106,31 @@ describe("resolveVariantForModel", () => {
     const model = { providerID: "anthropic", modelID: "claude-opus-4-6" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "sisyphus-light", model)
 
     // then
     expect(variant).toBe("max")
   })
 
-  test("returns correct variant for openai provider (hephaestus agent)", () => {
-    // #given hephaestus has openai/gpt-5.3-codex with variant "medium" in its chain
+  test("returns correct variant for openai provider (hephaestus-light agent)", () => {
+    // #given hephaestus-light has openai/gpt-5.3-codex with variant "medium" in its chain
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "openai", modelID: "gpt-5.3-codex" }
 
     // #when
-    const variant = resolveVariantForModel(config, "hephaestus", model)
+    const variant = resolveVariantForModel(config, "hephaestus-light", model)
 
     // then
     expect(variant).toBe("medium")
   })
 
-  test("returns medium for openai/gpt-5.4 in sisyphus chain", () => {
-    // #given openai/gpt-5.4 is now in sisyphus fallback chain with variant medium
+  test("returns medium for openai/gpt-5.4 in sisyphus-light chain", () => {
+    // #given openai/gpt-5.4 is now in sisyphus-light fallback chain with variant medium
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "openai", modelID: "gpt-5.4" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "sisyphus-light", model)
 
     // then
     expect(variant).toBe("medium")
@@ -142,7 +142,7 @@ describe("resolveVariantForModel", () => {
     const model = { providerID: "unknown-provider", modelID: "some-model" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "sisyphus-light", model)
 
     // then
     expect(variant).toBeUndefined()
@@ -166,7 +166,7 @@ describe("resolveVariantForModel", () => {
     const model = { providerID: "zai-coding-plan", modelID: "glm-5" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "sisyphus-light", model)
 
     // then
     expect(variant).toBeUndefined()
@@ -188,25 +188,25 @@ describe("resolveVariantForModel", () => {
     expect(variant).toBe("xhigh")
   })
 
-  test("returns correct variant for oracle agent with openai", () => {
+  test("returns correct variant for oracle-light agent with openai", () => {
     // given
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "openai", modelID: "gpt-5.4" }
 
     // when
-    const variant = resolveVariantForModel(config, "oracle", model)
+    const variant = resolveVariantForModel(config, "oracle-light", model)
 
     // then
     expect(variant).toBe("high")
   })
 
-  test("returns correct variant for oracle agent with anthropic", () => {
+  test("returns correct variant for oracle-light agent with anthropic", () => {
     // given
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "anthropic", modelID: "claude-opus-4-6" }
 
     // when
-    const variant = resolveVariantForModel(config, "oracle", model)
+    const variant = resolveVariantForModel(config, "oracle-light", model)
 
     // then
     expect(variant).toBe("max")

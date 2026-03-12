@@ -19,7 +19,7 @@ describe("executeSync", () => {
     })
 
     const args = {
-      subagent_type: "explore",
+      subagent_type: "explore-light",
       description: "test task",
       prompt: "find something",
     }
@@ -27,7 +27,7 @@ describe("executeSync", () => {
     const toolContext = {
       sessionID: "parent-session",
       messageID: "msg-1",
-      agent: "sisyphus",
+      agent: "sisyphus-light",
       abort: new AbortController().signal,
       metadata: mock(async () => {}),
     }
@@ -64,7 +64,7 @@ describe("executeSync", () => {
     })
 
     const args = {
-      subagent_type: "librarian",
+      subagent_type: "librarian-light",
       description: "search docs",
       prompt: "find docs",
     }
@@ -72,7 +72,7 @@ describe("executeSync", () => {
     const toolContext = {
       sessionID: "parent-session",
       messageID: "msg-2",
-      agent: "sisyphus",
+      agent: "sisyphus-light",
       abort: new AbortController().signal,
       metadata: mock(async () => {}),
     }
@@ -104,7 +104,7 @@ describe("executeSync", () => {
     }
 
     const args = {
-      subagent_type: "explore",
+      subagent_type: "explore-light",
       description: "test task",
       prompt: "find something",
     }
@@ -112,7 +112,7 @@ describe("executeSync", () => {
     const toolContext = {
       sessionID: "parent-session",
       messageID: "msg-3",
-      agent: "sisyphus",
+      agent: "sisyphus-light",
       abort: new AbortController().signal,
       metadata: mock(async () => {}),
     }

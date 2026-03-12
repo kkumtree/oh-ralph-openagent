@@ -22,7 +22,7 @@ describe("checkAndInterruptStaleTasks", () => {
       parentMessageID: "msg-1",
       description: "test",
       prompt: "test",
-      agent: "explore",
+      agent: "explore-light",
       status: "running",
       startedAt: new Date(Date.now() - 120_000),
       ...overrides,
@@ -428,7 +428,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageID: "msg",
       description: "old",
       prompt: "old",
-      agent: "explore",
+      agent: "explore-light",
       status: "running",
       startedAt: new Date(Date.now() - 31 * 60 * 1000),
     }

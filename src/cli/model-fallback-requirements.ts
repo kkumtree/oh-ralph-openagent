@@ -5,7 +5,7 @@ import type { ModelRequirement } from "../shared/model-requirements";
 // not runtime-only providers like `nvidia`.
 
 export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
-  sisyphus: {
+  sisyphus-light: {
     fallbackChain: [
       {
         providers: ["anthropic", "github-copilot", "opencode"],
@@ -18,7 +18,7 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
     ],
     requiresAnyModel: true,
   },
-  hephaestus: {
+  hephaestus-light: {
     fallbackChain: [
       {
         providers: ["openai", "opencode"],
@@ -28,7 +28,7 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
     ],
     requiresProvider: ["openai", "opencode"],
   },
-  oracle: {
+  oracle-light: {
     fallbackChain: [
       {
         providers: ["openai", "github-copilot", "opencode"],
@@ -47,7 +47,7 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
       },
     ],
   },
-  librarian: {
+  librarian-light: {
     fallbackChain: [
       { providers: ["zai-coding-plan"], model: "glm-4.7" },
       { providers: ["opencode"], model: "glm-4.7-free" },
@@ -57,14 +57,14 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
       },
     ],
   },
-  explore: {
+  explore-light: {
     fallbackChain: [
       { providers: ["github-copilot"], model: "grok-code-fast-1" },
       { providers: ["anthropic", "opencode"], model: "claude-haiku-4-5" },
       { providers: ["opencode"], model: "gpt-5-nano" },
     ],
   },
-  "multimodal-looker": {
+  "multimodal-looker-light": {
     fallbackChain: [
       {
         providers: ["openai", "opencode"],
@@ -80,7 +80,7 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
       { providers: ["opencode"], model: "gpt-5-nano" },
     ],
   },
-  prometheus: {
+  prometheus-light: {
     fallbackChain: [
       {
         providers: ["anthropic", "github-copilot", "opencode"],
@@ -99,7 +99,7 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
       },
     ],
   },
-  metis: {
+  metis-light: {
     fallbackChain: [
       {
         providers: ["anthropic", "github-copilot", "opencode"],
@@ -119,7 +119,7 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
       },
     ],
   },
-  momus: {
+  momus-light: {
     fallbackChain: [
       {
         providers: ["openai", "github-copilot", "opencode"],
@@ -138,7 +138,7 @@ export const CLI_AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
       },
     ],
   },
-  atlas: {
+  atlas-light: {
     fallbackChain: [
       { providers: ["kimi-for-coding"], model: "k2p5" },
       {

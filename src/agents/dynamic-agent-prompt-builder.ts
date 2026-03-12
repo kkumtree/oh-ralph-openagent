@@ -102,13 +102,13 @@ export function buildToolSelectionTable(
   }
 
   rows.push("")
-  rows.push("**Default flow**: explore/librarian (background) + tools → oracle (if required)")
+  rows.push("**Default flow**: explore-light/librarian-light (background) + tools → oracle-light (if required)")
 
   return rows.join("\n")
 }
 
 export function buildExploreSection(agents: AvailableAgent[]): string {
-  const exploreAgent = agents.find((a) => a.name === "explore")
+  const exploreAgent = agents.find((a) => a.name === "explore-light")
   if (!exploreAgent) return ""
 
   const useWhen = exploreAgent.metadata.useWhen || []
@@ -126,7 +126,7 @@ ${useWhen.map((w) => `- ${w}`).join("\n")}`
 }
 
 export function buildLibrarianSection(agents: AvailableAgent[]): string {
-  const librarianAgent = agents.find((a) => a.name === "librarian")
+  const librarianAgent = agents.find((a) => a.name === "librarian-light")
   if (!librarianAgent) return ""
 
   const useWhen = librarianAgent.metadata.useWhen || []
@@ -138,7 +138,7 @@ Search **external references** (docs, OSS, web). Fire proactively when unfamilia
 **Contextual Grep (Internal)** — search OUR codebase, find patterns in THIS repo, project-specific logic.
 **Reference Grep (External)** — search EXTERNAL resources, official API docs, library best practices, OSS implementation examples.
 
-**Trigger phrases** (fire librarian immediately):
+**Trigger phrases** (fire librarian-light immediately):
 ${useWhen.map((w) => `- "${w}"`).join("\n")}`
 }
 
@@ -278,7 +278,7 @@ task(category="quick", load_skills=[], prompt="Redesign the sidebar layout with 
 }
 
 export function buildOracleSection(agents: AvailableAgent[]): string {
-  const oracleAgent = agents.find((a) => a.name === "oracle")
+  const oracleAgent = agents.find((a) => a.name === "oracle-light")
   if (!oracleAgent) return ""
 
   const useWhen = oracleAgent.metadata.useWhen || []
@@ -450,7 +450,7 @@ export function buildUltraworkSection(
   }
 
   if (agents.length > 0) {
-    const ultraworkAgentPriority = ["explore", "librarian", "plan", "oracle"]
+    const ultraworkAgentPriority = ["explore-light", "librarian-light", "plan", "oracle-light"]
     const sortedAgents = [...agents].sort((a, b) => {
       const aIdx = ultraworkAgentPriority.indexOf(a.name)
       const bIdx = ultraworkAgentPriority.indexOf(b.name)
@@ -463,7 +463,7 @@ export function buildUltraworkSection(
     lines.push("**Agents** (for specialized consultation/exploration):")
     for (const agent of sortedAgents) {
       const shortDesc = agent.description.length > 120 ? agent.description.slice(0, 120) + "..." : agent.description
-      const suffix = agent.name === "explore" || agent.name === "librarian" ? " (multiple)" : ""
+      const suffix = agent.name === "explore-light" || agent.name === "librarian-light" ? " (multiple)" : ""
       lines.push(`- \`${agent.name}${suffix}\`: ${shortDesc}`)
     }
   }

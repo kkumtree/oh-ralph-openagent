@@ -7,7 +7,7 @@
 
 export const PROMETHEUS_PLAN_TEMPLATE = `## Plan Structure
 
-Generate plan to: \`.sisyphus/plans/{name}.md\`
+Generate plan to: \`.sisyphus-light/plans/{name}.md\`
 
 \`\`\`markdown
 # {Plan Title}
@@ -81,7 +81,7 @@ Generate plan to: \`.sisyphus/plans/{name}.md\`
 
 ### QA Policy
 Every task MUST include agent-executed QA scenarios (see TODO template below).
-Evidence saved to \`.sisyphus/evidence/task-{N}-{scenario-slug}.{ext}\`.
+Evidence saved to \`.sisyphus-light/evidence/task-{N}-{scenario-slug}.{ext}\`.
 
 - **Frontend/UI**: Use Playwright (playwright skill) — Navigate, interact, assert DOM, screenshot
 - **TUI/CLI**: Use interactive_bash (tmux) — Run command, send keystrokes, validate output
@@ -132,7 +132,7 @@ Wave 4 (After Wave 3 — verification):
 └── Task 24: Git cleanup + tagging (depends: 21) [git]
 
 Wave FINAL (After ALL tasks — independent review, 4 parallel):
-├── Task F1: Plan compliance audit (oracle)
+├── Task F1: Plan compliance audit (oracle-light)
 ├── Task F2: Code quality review (unspecified-high)
 ├── Task F3: Real manual QA (unspecified-high)
 └── Task F4: Scope fidelity check (deep)
@@ -159,7 +159,7 @@ Max Concurrent: 7 (Waves 1 & 2)
 - **2**: **7** — T8 → \`deep\`, T9 → \`unspecified-high\`, T10 → \`unspecified-high\`, T11 → \`deep\`, T12 → \`visual-engineering\`, T13 → \`quick\`, T14 → \`unspecified-high\`
 - **3**: **6** — T15 → \`deep\`, T16 → \`visual-engineering\`, T17-T19 → \`quick\`, T20 → \`visual-engineering\`
 - **4**: **4** — T21 → \`deep\`, T22 → \`unspecified-high\`, T23 → \`deep\`, T24 → \`git\`
-- **FINAL**: **4** — F1 → \`oracle\`, F2 → \`unspecified-high\`, F3 → \`unspecified-high\`, F4 → \`deep\`
+- **FINAL**: **4** — F1 → \`oracle-light\`, F2 → \`unspecified-high\`, F3 → \`unspecified-high\`, F4 → \`deep\`
 
 ---
 
@@ -246,7 +246,7 @@ Max Concurrent: 7 (Waves 1 & 2)
       3. [Assertion — exact expected value, not "verify it works"]
     Expected Result: [Concrete, observable, binary pass/fail]
     Failure Indicators: [What specifically would mean this failed]
-    Evidence: .sisyphus/evidence/task-{N}-{scenario-slug}.{ext}
+    Evidence: .sisyphus-light/evidence/task-{N}-{scenario-slug}.{ext}
 
   Scenario: [Failure/edge case — what SHOULD fail gracefully]
     Tool: [same format]
@@ -255,7 +255,7 @@ Max Concurrent: 7 (Waves 1 & 2)
       1. [Trigger the error condition]
       2. [Assert error is handled correctly]
     Expected Result: [Graceful failure with correct error message/code]
-    Evidence: .sisyphus/evidence/task-{N}-{scenario-slug}-error.{ext}
+    Evidence: .sisyphus-light/evidence/task-{N}-{scenario-slug}-error.{ext}
   \\\`\\\`\\\`
 
   > **Specificity requirements — every scenario MUST use:**
@@ -286,8 +286,8 @@ Max Concurrent: 7 (Waves 1 & 2)
 
 > 4 review agents run in PARALLEL. ALL must APPROVE. Rejection → fix → re-run.
 
-- [ ] F1. **Plan Compliance Audit** — \`oracle\`
-  Read the plan end-to-end. For each "Must Have": verify implementation exists (read file, curl endpoint, run command). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in .sisyphus/evidence/. Compare deliverables against plan.
+- [ ] F1. **Plan Compliance Audit** — \`oracle-light\`
+  Read the plan end-to-end. For each "Must Have": verify implementation exists (read file, curl endpoint, run command). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in .sisyphus-light/evidence/. Compare deliverables against plan.
   Output: \`Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT\`
 
 - [ ] F2. **Code Quality Review** — \`unspecified-high\`
@@ -295,7 +295,7 @@ Max Concurrent: 7 (Waves 1 & 2)
   Output: \`Build [PASS/FAIL] | Lint [PASS/FAIL] | Tests [N pass/N fail] | Files [N clean/N issues] | VERDICT\`
 
 - [ ] F3. **Real Manual QA** — \`unspecified-high\` (+ \`playwright\` skill if UI)
-  Start from clean state. Execute EVERY QA scenario from EVERY task — follow exact steps, capture evidence. Test cross-task integration (features working together, not isolation). Test edge cases: empty state, invalid input, rapid actions. Save to \`.sisyphus/evidence/final-qa/\`.
+  Start from clean state. Execute EVERY QA scenario from EVERY task — follow exact steps, capture evidence. Test cross-task integration (features working together, not isolation). Test edge cases: empty state, invalid input, rapid actions. Save to \`.sisyphus-light/evidence/final-qa/\`.
   Output: \`Scenarios [N/N pass] | Integration [N/N] | Edge Cases [N tested] | VERDICT\`
 
 - [ ] F4. **Scope Fidelity Check** — \`deep\`

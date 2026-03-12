@@ -30,15 +30,15 @@ interface EventInput {
 
 /**
  * Only orchestrator agents should receive usage reminders.
- * Subagents (explore, librarian, oracle, etc.) are the targets of delegation,
+ * Subagents (explore-light, librarian-light, oracle-light, etc.) are the targets of delegation,
  * so reminding them to delegate to themselves is counterproductive.
  */
 const ORCHESTRATOR_AGENTS = new Set([
-  "sisyphus",
-  "sisyphus-junior",
-  "atlas",
-  "hephaestus",
-  "prometheus",
+  "sisyphus-light",
+  "sisyphus-light-junior",
+  "atlas-light",
+  "hephaestus-light",
+  "prometheus-light",
 ]);
 
 function isOrchestratorAgent(agentName: string): boolean {

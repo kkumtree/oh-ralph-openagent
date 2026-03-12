@@ -197,7 +197,7 @@ describe("session-manager storage", () => {
       JSON.stringify({
         id: "msg_002",
         role: "assistant",
-        agent: "oracle",
+        agent: "oracle-light",
         time: { created: now },
       })
     )
@@ -210,7 +210,7 @@ describe("session-manager storage", () => {
     expect(info?.id).toBe(sessionID)
     expect(info?.message_count).toBe(2)
     expect(info?.agents_used).toContain("build")
-    expect(info?.agents_used).toContain("oracle")
+    expect(info?.agents_used).toContain("oracle-light")
   })
 })
 
@@ -423,7 +423,7 @@ describe("session-manager storage - SDK path (beta mode)", () => {
         parts: [{ id: "part_1", type: "text", text: "Hello" }],
       },
       {
-        info: { id: "msg_2", role: "assistant", agent: "oracle", time: { created: 2000 } },
+        info: { id: "msg_2", role: "assistant", agent: "oracle-light", time: { created: 2000 } },
         parts: [{ id: "part_2", type: "text", text: "Hi there" }],
       },
     ]

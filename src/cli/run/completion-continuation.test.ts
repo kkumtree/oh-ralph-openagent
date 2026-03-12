@@ -38,7 +38,7 @@ function createMockContext(directory: string): RunContext {
 }
 
 function writeBoulderStateFile(directory: string, activePlanPath: string, sessionIDs: string[]): void {
-  const sisyphusDir = join(directory, ".sisyphus")
+  const sisyphusDir = join(directory, ".sisyphus-light")
   mkdirSync(sisyphusDir, { recursive: true })
   writeFileSync(
     join(sisyphusDir, "boulder.json"),
@@ -47,7 +47,7 @@ function writeBoulderStateFile(directory: string, activePlanPath: string, sessio
       started_at: new Date().toISOString(),
       session_ids: sessionIDs,
       plan_name: "test-plan",
-      agent: "atlas",
+      agent: "atlas-light",
     }),
     "utf-8",
   )
@@ -58,8 +58,8 @@ describe("checkCompletionConditions continuation coverage", () => {
     // given
     spyOn(console, "log").mockImplementation(() => {})
     const directory = createTempDir()
-    const planPath = join(directory, ".sisyphus", "plans", "active-plan.md")
-    mkdirSync(join(directory, ".sisyphus", "plans"), { recursive: true })
+    const planPath = join(directory, ".sisyphus-light", "plans", "active-plan.md")
+    mkdirSync(join(directory, ".sisyphus-light", "plans"), { recursive: true })
     writeFileSync(planPath, "- [ ] incomplete task\n", "utf-8")
     writeBoulderStateFile(directory, planPath, ["test-session"])
     const ctx = createMockContext(directory)
@@ -76,8 +76,8 @@ describe("checkCompletionConditions continuation coverage", () => {
     // given
     spyOn(console, "log").mockImplementation(() => {})
     const directory = createTempDir()
-    const planPath = join(directory, ".sisyphus", "plans", "done-plan.md")
-    mkdirSync(join(directory, ".sisyphus", "plans"), { recursive: true })
+    const planPath = join(directory, ".sisyphus-light", "plans", "done-plan.md")
+    mkdirSync(join(directory, ".sisyphus-light", "plans"), { recursive: true })
     writeFileSync(planPath, "- [x] completed task\n", "utf-8")
     writeBoulderStateFile(directory, planPath, ["test-session"])
     const ctx = createMockContext(directory)

@@ -162,13 +162,13 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const permission = result.permission as Record<string, string> | undefined
       if (tools) {
         expect(tools.task).toBe(false)
-        // call_omo_agent is NOW ALLOWED for subagents to spawn explore/librarian
+        // call_omo_agent is NOW ALLOWED for subagents to spawn explore-light/librarian-light
         expect(tools.call_omo_agent).toBe(true)
         expect(tools.read).toBe(true)
       }
       if (permission) {
         expect(permission.task).toBe("deny")
-        // call_omo_agent is NOW ALLOWED for subagents to spawn explore/librarian
+        // call_omo_agent is NOW ALLOWED for subagents to spawn explore-light/librarian-light
         expect(permission.call_omo_agent).toBe("allow")
       }
     })
@@ -186,7 +186,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       // when
       const result = createSisyphusJuniorAgentWithOverrides(override as Parameters<typeof createSisyphusJuniorAgentWithOverrides>[0])
 
-      // then - task blocked, but call_omo_agent allowed for explore/librarian spawning
+      // then - task blocked, but call_omo_agent allowed for explore-light/librarian-light spawning
       const tools = result.tools as Record<string, boolean> | undefined
       const permission = result.permission as Record<string, string> | undefined
       if (tools) {

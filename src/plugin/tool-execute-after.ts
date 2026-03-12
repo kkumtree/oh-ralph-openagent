@@ -40,7 +40,7 @@ export function createToolExecuteAfterHandler(args: {
       const loopState = readState(ctx.directory)
 
       if (
-        agent === "oracle"
+        agent === "oracle-light"
         && sessionId
         && verificationAttemptId
         && loopState?.active === true

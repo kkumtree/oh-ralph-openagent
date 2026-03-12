@@ -23,7 +23,7 @@ const ULTRAWORK_VERIFICATION_PROMPT = `${SYSTEM_DIRECTIVE_PREFIX} - ULTRAWORK LO
 You already emitted <promise>{{INITIAL_PROMISE}}</promise>. This does NOT finish the loop yet.
 
 REQUIRED NOW:
-- Call Oracle using task(subagent_type="oracle", load_skills=[], run_in_background=false, ...)
+- Call Oracle using task(subagent_type="oracle-light", load_skills=[], run_in_background=false, ...)
 - Ask Oracle to verify whether the original task is actually complete
 - The system will inspect the Oracle session directly for the verification result
 - If Oracle does not verify, continue fixing the task and do not consider it complete
@@ -39,7 +39,7 @@ REQUIRED NOW:
 - Verification failed. Fix the task until Oracle's review is satisfied
 - Oracle does not lie. Treat the verification result as ground truth
 - Do not claim completion early or argue with the failed verification
-- After fixing the remaining issues, request Oracle review again using task(subagent_type="oracle", load_skills=[], run_in_background=false, ...)
+- After fixing the remaining issues, request Oracle review again using task(subagent_type="oracle-light", load_skills=[], run_in_background=false, ...)
 - Only when the work is ready for review again, output: <promise>{{PROMISE}}</promise>
 
 Original task:

@@ -60,7 +60,7 @@ export function createToolExecuteBeforeHandler(args: {
       const sessionId = typeof argsObject.session_id === "string" ? argsObject.session_id : undefined
 
       if (category) {
-        argsObject.subagent_type = "sisyphus-junior"
+        argsObject.subagent_type = "sisyphus-light-junior"
       } else if (!subagentType && sessionId) {
         const resolvedAgent = await resolveSessionAgent(ctx.client, sessionId)
         argsObject.subagent_type = resolvedAgent ?? "continue"
@@ -71,7 +71,7 @@ export function createToolExecuteBeforeHandler(args: {
       const prompt = typeof argsObject.prompt === "string" ? argsObject.prompt : ""
       const loopState = typeof ctx.directory === "string" ? readState(ctx.directory) : null
       const shouldInjectOracleVerification =
-        normalizedSubagentType === "oracle"
+        normalizedSubagentType === "oracle-light"
         && loopState?.active === true
         && loopState.ultrawork === true
         && loopState.verification_pending === true

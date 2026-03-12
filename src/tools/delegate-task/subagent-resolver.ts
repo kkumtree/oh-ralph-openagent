@@ -1,7 +1,7 @@
 import type { DelegateTaskArgs } from "./types"
 import type { ExecutorContext } from "./executor-types"
 import { isPlanFamily } from "./constants"
-import { SISYPHUS_JUNIOR_AGENT } from "./sisyphus-junior-agent"
+import { SISYPHUS_JUNIOR_AGENT } from "./sisyphus-light-junior-agent"
 import { normalizeModelFormat } from "../../shared/model-format-normalizer"
 import { AGENT_MODEL_REQUIREMENTS } from "../../shared/model-requirements"
 import { normalizeFallbackModels } from "../../shared/model-resolver"
@@ -41,7 +41,7 @@ Sisyphus-Junior is spawned automatically when you specify a category. Pick the a
     return {
       agentToUse: "",
       categoryModel: undefined,
-    error: `You are a plan-family agent (plan/prometheus). You cannot delegate to other plan-family agents via task.
+    error: `You are a plan-family agent (plan/prometheus-light). You cannot delegate to other plan-family agents via task.
 
 Create the work plan directly - that's your job as the planning agent.`,
     }

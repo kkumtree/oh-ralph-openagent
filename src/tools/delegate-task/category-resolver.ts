@@ -3,7 +3,7 @@ import type { DelegateTaskArgs } from "./types"
 import type { ExecutorContext } from "./executor-types"
 import type { FallbackEntry } from "../../shared/model-requirements"
 import { mergeCategories } from "../../shared/merge-categories"
-import { SISYPHUS_JUNIOR_AGENT } from "./sisyphus-junior-agent"
+import { SISYPHUS_JUNIOR_AGENT } from "./sisyphus-light-junior-agent"
 import { resolveCategoryConfig } from "./categories"
 import { parseModelString } from "./model-string-parser"
 import { CATEGORY_MODEL_REQUIREMENTS } from "../../shared/model-requirements"
@@ -90,8 +90,8 @@ Available categories: ${allCategoryNames}`,
   const explicitCategoryModel = userCategories?.[args.category!]?.model
 
   if (!requirement) {
-    // Precedence: explicit category model > sisyphus-junior default > category resolved model
-    // This keeps `sisyphus-junior.model` useful as a global default while allowing
+    // Precedence: explicit category model > sisyphus-light-junior default > category resolved model
+    // This keeps `sisyphus-light-junior.model` useful as a global default while allowing
     // per-category overrides via `categories[category].model`.
     actualModel = explicitCategoryModel ?? overrideModel ?? resolved.model
     if (actualModel) {

@@ -59,7 +59,7 @@ describe("background_output full_session", () => {
 
     const task = createTask({
       id: "task-1",
-      agent: "explore",
+      agent: "explore-light",
       description: "Find how task output is rendered",
       status: "running",
     })
@@ -76,10 +76,10 @@ describe("background_output full_session", () => {
 
     // #then
     const restored = consumeToolMetadata("test-session", "call-1")
-    expect(restored?.title).toBe("explore - Find how task output is rendered")
+    expect(restored?.title).toBe("explore-light - Find how task output is rendered")
   })
 
-  test("shows category instead of agent for sisyphus-junior", async () => {
+  test("shows category instead of agent for sisyphus-light-junior", async () => {
     // #given
     clearPendingStore()
 

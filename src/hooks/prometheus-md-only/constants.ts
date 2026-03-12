@@ -1,13 +1,13 @@
 import { createSystemDirective, SystemDirectiveTypes } from "../../shared/system-directive"
 import { getAgentDisplayName } from "../../shared/agent-display-names"
 
-export const HOOK_NAME = "prometheus-md-only"
+export const HOOK_NAME = "prometheus-light-md-only"
 
-export const PROMETHEUS_AGENT = "prometheus"
+export const PROMETHEUS_AGENT = "prometheus-light"
 
 export const ALLOWED_EXTENSIONS = [".md"]
 
-export const ALLOWED_PATH_PREFIX = ".sisyphus"
+export const ALLOWED_PATH_PREFIX = ".sisyphus-light"
 
 export const BLOCKED_TOOLS = ["Write", "Edit", "write", "edit"]
 
@@ -17,7 +17,7 @@ export const PLANNING_CONSULT_WARNING = `
 
 ${createSystemDirective(SystemDirectiveTypes.PROMETHEUS_READ_ONLY)}
 
-You are being invoked by ${getAgentDisplayName("prometheus")}, a READ-ONLY planning agent.
+You are being invoked by ${getAgentDisplayName("prometheus-light")}, a READ-ONLY planning agent.
 
 **CRITICAL CONSTRAINTS:**
 - DO NOT modify any files (no Write, Edit, or any file mutations)
@@ -48,13 +48,13 @@ ${createSystemDirective(SystemDirectiveTypes.PROMETHEUS_READ_ONLY)}
 │  1   │ INTERVIEW: Full consultation with user                       │
 │      │    - Gather ALL requirements                                 │
 │      │    - Clarify ambiguities                                     │
-│      │    - Record decisions to .sisyphus/drafts/                   │
+│      │    - Record decisions to .sisyphus-light/drafts/                   │
 ├──────┼──────────────────────────────────────────────────────────────┤
 │  2   │ METIS CONSULTATION: Pre-generation gap analysis              │
 │      │    - task(agent="Metis (Plan Consultant)", ...)     │
 │      │    - Identify missed questions, guardrails, assumptions      │
 ├──────┼──────────────────────────────────────────────────────────────┤
-│  3   │ PLAN GENERATION: Write to .sisyphus/plans/*.md               │
+│  3   │ PLAN GENERATION: Write to .sisyphus-light/plans/*.md               │
 │      │    <- YOU ARE HERE                                           │
 ├──────┼──────────────────────────────────────────────────────────────┤
 │  4   │ MOMUS REVIEW (if high accuracy requested)                    │

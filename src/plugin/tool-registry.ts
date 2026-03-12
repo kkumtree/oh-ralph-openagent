@@ -57,7 +57,7 @@ export function createToolRegistry(args: {
   )
 
   const isMultimodalLookerEnabled = !(pluginConfig.disabled_agents ?? []).some(
-    (agent) => agent.toLowerCase() === "multimodal-looker",
+    (agent) => agent.toLowerCase() === "multimodal-looker-light",
   )
   const lookAt = isMultimodalLookerEnabled ? createLookAt(ctx) : null
 
@@ -68,7 +68,7 @@ export function createToolRegistry(args: {
     userCategories: pluginConfig.categories,
     agentOverrides: pluginConfig.agents,
     gitMasterConfig: pluginConfig.git_master,
-    sisyphusJuniorModel: pluginConfig.agents?.["sisyphus-junior"]?.model,
+    sisyphusJuniorModel: pluginConfig.agents?.["sisyphus-light-junior"]?.model,
     browserProvider: skillContext.browserProvider,
     disabledSkills: skillContext.disabledSkills,
     availableCategories,

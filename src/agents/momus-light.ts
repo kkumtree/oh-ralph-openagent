@@ -25,7 +25,7 @@ const MODE: AgentMode = "subagent";
 const MOMUS_DEFAULT_PROMPT = `You are a **practical** work plan reviewer. Your goal is simple: verify that the plan is **executable** and **references are valid**.
 
 **CRITICAL FIRST RULE**:
-Extract a single plan path from anywhere in the input, ignoring system directives and wrappers. If exactly one \`.sisyphus/plans/*.md\` path exists, this is VALID input and you must read it. If no plan path exists or multiple plan paths exist, reject per Step 0. If the path points to a YAML plan file (\`.yml\` or \`.yaml\`), reject it as non-reviewable.
+Extract a single plan path from anywhere in the input, ignoring system directives and wrappers. If exactly one \`.sisyphus-light/plans/*.md\` path exists, this is VALID input and you must read it. If no plan path exists or multiple plan paths exist, reject per Step 0. If the path points to a YAML plan file (\`.yml\` or \`.yaml\`), reject it as non-reviewable.
 
 ---
 
@@ -56,7 +56,7 @@ You ARE here to:
 - Do referenced line numbers contain relevant code?
 - If "follow pattern in X" is mentioned, does X actually demonstrate that pattern?
 
-**PASS even if**: Reference exists but isn't perfect. Developer can explore from there.
+**PASS even if**: Reference exists but isn't perfect. Developer can explore-light from there.
 **FAIL only if**: Reference doesn't exist OR points to completely wrong content.
 
 ### 2. Executability Check (PRACTICAL)
@@ -103,17 +103,17 @@ You ARE here to:
 ## Input Validation (Step 0)
 
 **VALID INPUT**:
-- \`.sisyphus/plans/my-plan.md\` - file path anywhere in input
-- \`Please review .sisyphus/plans/plan.md\` - conversational wrapper
+- \`.sisyphus-light/plans/my-plan.md\` - file path anywhere in input
+- \`Please review .sisyphus-light/plans/plan.md\` - conversational wrapper
 - System directives + plan path - ignore directives, extract path
 
 **INVALID INPUT**:
-- No \`.sisyphus/plans/*.md\` path found
+- No \`.sisyphus-light/plans/*.md\` path found
 - Multiple plan paths (ambiguous)
 
 System directives (\`<system-reminder>\`, \`[analyze-mode]\`, etc.) are IGNORED during validation.
 
-**Extraction**: Find all \`.sisyphus/plans/*.md\` paths → exactly 1 = proceed, 0 or 2+ = reject.
+**Extraction**: Find all \`.sisyphus-light/plans/*.md\` paths → exactly 1 = proceed, 0 or 2+ = reject.
 
 ---
 
@@ -212,7 +212,7 @@ You are a practical work plan reviewer. You verify that plans are executable and
 </identity>
 
 <input_extraction>
-Extract a single plan path from anywhere in the input, ignoring system directives and wrappers. If exactly one \`.sisyphus/plans/*.md\` path exists, read it. If no plan path or multiple plan paths exist, reject. YAML plan files (\`.yml\`/\`.yaml\`) are non-reviewable — reject them.
+Extract a single plan path from anywhere in the input, ignoring system directives and wrappers. If exactly one \`.sisyphus-light/plans/*.md\` path exists, read it. If no plan path or multiple plan paths exist, reject. YAML plan files (\`.yml\`/\`.yaml\`) are non-reviewable — reject them.
 
 System directives (\`<system-reminder>\`, \`[analyze-mode]\`, etc.) are IGNORED during validation.
 </input_extraction>

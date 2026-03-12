@@ -1,20 +1,20 @@
 /**
  * Agent config keys to display names mapping.
- * Config keys are lowercase (e.g., "sisyphus", "atlas").
+ * Config keys are lowercase (e.g., "sisyphus-light", "atlas-light").
  * Display names include suffixes for UI/logs (e.g., "Sisyphus (Ultraworker)").
  */
 export const AGENT_DISPLAY_NAMES: Record<string, string> = {
-  sisyphus: "Sisyphus (Ultraworker)",
-  hephaestus: "Hephaestus (Deep Agent)",
-  prometheus: "Prometheus (Plan Builder)",
-  atlas: "Atlas (Plan Executor)",
-  "sisyphus-junior": "Sisyphus-Junior",
-  metis: "Metis (Plan Consultant)",
-  momus: "Momus (Plan Critic)",
-  oracle: "oracle",
-  librarian: "librarian",
-  explore: "explore",
-  "multimodal-looker": "multimodal-looker",
+  sisyphus-light: "Sisyphus (Ultraworker)",
+  hephaestus-light: "Hephaestus (Deep Agent)",
+  prometheus-light: "Prometheus (Plan Builder)",
+  atlas-light: "Atlas (Plan Executor)",
+  "sisyphus-light-junior": "Sisyphus-Junior",
+  metis-light: "Metis (Plan Consultant)",
+  momus-light: "Momus (Plan Critic)",
+  oracle-light: "oracle-light",
+  librarian-light: "librarian-light",
+  explore-light: "explore-light",
+  "multimodal-looker-light": "multimodal-looker-light",
 }
 
 /**
@@ -43,7 +43,7 @@ const REVERSE_DISPLAY_NAMES: Record<string, string> = Object.fromEntries(
 
 /**
  * Resolve an agent name (display name or config key) to its lowercase config key.
- * "Atlas (Plan Executor)" → "atlas", "atlas" → "atlas", "unknown" → "unknown"
+ * "Atlas (Plan Executor)" → "atlas-light", "atlas-light" → "atlas-light", "unknown" → "unknown"
  */
 export function getAgentConfigKey(agentName: string): string {
   const lower = agentName.toLowerCase()

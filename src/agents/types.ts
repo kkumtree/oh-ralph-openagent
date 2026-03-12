@@ -2,8 +2,8 @@ import type { AgentConfig } from "@opencode-ai/sdk";
 
 /**
  * Agent mode determines UI model selection behavior:
- * - "primary": Respects user's UI-selected model (sisyphus, atlas)
- * - "subagent": Uses own fallback chain, ignores UI selection (oracle, explore, etc.)
+ * - "primary": Respects user's UI-selected model (sisyphus-light, atlas-light)
+ * - "subagent": Uses own fallback chain, ignores UI selection (oracle-light, explore-light, etc.)
  * - "all": Available in both contexts (OpenCode compatibility)
  */
 export type AgentMode = "primary" | "subagent" | "all";
@@ -63,10 +63,10 @@ export interface AgentPromptMetadata {
   /** Optional dedicated prompt section (markdown) - for agents like Oracle that have special sections */
   dedicatedSection?: string;
 
-  /** Nickname/alias used in prompt (e.g., "Oracle" instead of "oracle") */
+  /** Nickname/alias used in prompt (e.g., "Oracle" instead of "oracle-light") */
   promptAlias?: string;
 
-  /** Key triggers that should appear in Phase 0 (e.g., "External library mentioned → fire librarian") */
+  /** Key triggers that should appear in Phase 0 (e.g., "External library mentioned → fire librarian-light") */
   keyTrigger?: string;
 }
 
@@ -105,16 +105,16 @@ export function isGeminiModel(model: string): boolean {
 }
 
 export type BuiltinAgentName =
-  | "sisyphus"
-  | "hephaestus"
-  | "oracle"
-  | "librarian"
-  | "explore"
-  | "multimodal-looker"
-  | "metis"
-  | "momus"
-  | "atlas"
-  | "sisyphus-junior";
+  | "sisyphus-light"
+  | "hephaestus-light"
+  | "oracle-light"
+  | "librarian-light"
+  | "explore-light"
+  | "multimodal-looker-light"
+  | "metis-light"
+  | "momus-light"
+  | "atlas-light"
+  | "sisyphus-light-junior";
 
 export type OverridableAgentName = "build" | BuiltinAgentName;
 

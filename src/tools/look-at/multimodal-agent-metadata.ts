@@ -50,7 +50,7 @@ export async function resolveMultimodalLookerAgentMetadata(
       agentVariant: matched?.variant,
     }
   } catch (error) {
-    log("[look_at] Failed to resolve multimodal-looker model info", error)
+    log("[look_at] Failed to resolve multimodal-looker-light model info", error)
     return {}
   }
 }

@@ -47,10 +47,10 @@ export function collectPendingBuiltinAgents(input: {
   for (const [name, source] of Object.entries(agentSources)) {
     const agentName = name as BuiltinAgentName
 
-    if (agentName === "sisyphus") continue
-    if (agentName === "hephaestus") continue
-    if (agentName === "atlas") continue
-    if (agentName === "sisyphus-junior") continue
+    if (agentName === "sisyphus-light") continue
+    if (agentName === "hephaestus-light") continue
+    if (agentName === "atlas-light") continue
+    if (agentName === "sisyphus-light-junior") continue
     if (disabledAgents.some((name) => name.toLowerCase() === agentName.toLowerCase())) continue
 
     const override = agentOverrides[agentName]
@@ -83,13 +83,13 @@ export function collectPendingBuiltinAgents(input: {
       config = { ...config, variant: resolvedVariant }
     }
 
-    if (agentName === "librarian") {
+    if (agentName === "librarian-light") {
       config = applyEnvironmentContext(config, directory, { disableOmoEnv })
     }
 
     config = applyOverrides(config, override, mergedCategories, directory)
 
-    // Store for later - will be added after sisyphus and hephaestus
+    // Store for later - will be added after sisyphus-light and hephaestus-light
     pendingAgentConfigs.set(name, config)
 
     const metadata = agentMetadata[agentName]

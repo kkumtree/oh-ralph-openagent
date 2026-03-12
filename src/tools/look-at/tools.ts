@@ -212,7 +212,7 @@ Original error: ${createResult.error}`
       const responseText = extractLatestAssistantText(messages)
       if (!responseText) {
         log("[look_at] No assistant message found")
-        return "Error: No response from multimodal-looker agent"
+        return "Error: No response from multimodal-looker-light agent"
       }
 
         log(`[look_at] Got response, length: ${responseText.length}`)

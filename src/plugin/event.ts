@@ -347,11 +347,11 @@ export function createEventHandler(args: {
               let agentName = agent ?? getSessionAgent(sessionID);
               if (!agentName && sessionID === getMainSessionID()) {
                 if (errorMessage.includes("claude-opus") || errorMessage.includes("opus")) {
-                  agentName = "sisyphus";
+                  agentName = "sisyphus-light";
                 } else if (errorMessage.includes("gpt-5")) {
-                  agentName = "hephaestus";
+                  agentName = "hephaestus-light";
                 } else {
-                  agentName = "sisyphus";
+                  agentName = "sisyphus-light";
                 }
               }
 
@@ -402,11 +402,11 @@ export function createEventHandler(args: {
             let agentName = getSessionAgent(sessionID);
             if (!agentName && sessionID === getMainSessionID()) {
               if (retryMessage.includes("claude-opus") || retryMessage.includes("opus")) {
-                agentName = "sisyphus";
+                agentName = "sisyphus-light";
               } else if (retryMessage.includes("gpt-5")) {
-                agentName = "hephaestus";
+                agentName = "hephaestus-light";
               } else {
-                agentName = "sisyphus";
+                agentName = "sisyphus-light";
               }
             }
 
@@ -475,11 +475,11 @@ export function createEventHandler(args: {
 
           if (!agentName && sessionID === getMainSessionID()) {
             if (errorMessage.includes("claude-opus") || errorMessage.includes("opus")) {
-              agentName = "sisyphus";
+              agentName = "sisyphus-light";
             } else if (errorMessage.includes("gpt-5")) {
-              agentName = "hephaestus";
+              agentName = "hephaestus-light";
             } else {
-              agentName = "sisyphus";
+              agentName = "sisyphus-light";
             }
           }
 

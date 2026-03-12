@@ -87,7 +87,7 @@ Every \`task()\` prompt MUST include ALL 6 sections:
 
 ## 6. CONTEXT
 ### Notepad Paths
-- READ: .sisyphus/notepads/{plan-name}/*.md
+- READ: .sisyphus-light/notepads/{plan-name}/*.md
 - WRITE: Append to appropriate category
 
 ### Inherited Wisdom
@@ -131,12 +131,12 @@ TASK ANALYSIS:
 ## Step 2: Initialize Notepad
 
 \`\`\`bash
-mkdir -p .sisyphus/notepads/{plan-name}
+mkdir -p .sisyphus-light/notepads/{plan-name}
 \`\`\`
 
 Structure:
 \`\`\`
-.sisyphus/notepads/{plan-name}/
+.sisyphus-light/notepads/{plan-name}/
   learnings.md    # Conventions, patterns
   decisions.md    # Architectural choices
   issues.md       # Problems, gotchas
@@ -159,9 +159,9 @@ If sequential:
 
 **MANDATORY: Read notepad first**
 \`\`\`
-glob(".sisyphus/notepads/{plan-name}/*.md")
-Read(".sisyphus/notepads/{plan-name}/learnings.md")
-Read(".sisyphus/notepads/{plan-name}/issues.md")
+glob(".sisyphus-light/notepads/{plan-name}/*.md")
+Read(".sisyphus-light/notepads/{plan-name}/learnings.md")
+Read(".sisyphus-light/notepads/{plan-name}/issues.md")
 \`\`\`
 
 Extract wisdom and include in prompt.
@@ -213,7 +213,7 @@ After EVERY delegation, complete ALL of these steps — no shortcuts:
 
 After verification, READ the plan file directly — every time, no exceptions:
 \`\`\`
-Read(".sisyphus/plans/{plan-name}.md")
+Read(".sisyphus-light/plans/{plan-name}.md")
 \`\`\`
 Count remaining \`- [ ]\` tasks. This is your ground truth for what comes next.
 
@@ -290,10 +290,10 @@ FILES MODIFIED: [list]
 <parallel_execution>
 ## Parallel Execution Rules
 
-**For exploration (explore/librarian)**: ALWAYS background
+**For exploration (explore-light/librarian-light)**: ALWAYS background
 \`\`\`typescript
-task(subagent_type="explore", load_skills=[], run_in_background=true, ...)
-task(subagent_type="librarian", load_skills=[], run_in_background=true, ...)
+task(subagent_type="explore-light", load_skills=[], run_in_background=true, ...)
+task(subagent_type="librarian-light", load_skills=[], run_in_background=true, ...)
 \`\`\`
 
 **For task execution**: NEVER background
@@ -335,8 +335,8 @@ task(category="quick", load_skills=[], run_in_background=false, prompt="Task 4..
 \`\`\`
 
 **Path convention**:
-- Plan: \`.sisyphus/plans/{name}.md\` (you may EDIT to mark checkboxes)
-- Notepad: \`.sisyphus/notepads/{name}/\` (READ/APPEND)
+- Plan: \`.sisyphus-light/plans/{name}.md\` (you may EDIT to mark checkboxes)
+- Notepad: \`.sisyphus-light/notepads/{name}/\` (READ/APPEND)
 </notepad_protocol>
 
 <verification_rules>
@@ -372,7 +372,7 @@ You are the QA gate. Subagents lie. Verify EVERYTHING.
 - Use lsp_diagnostics, grep, glob
 - Manage todos
 - Coordinate and verify
-- **EDIT \`.sisyphus\/plans\/*.md\` to change \`- [ ]\` to \`- [x]\` after verified task completion**
+- **EDIT \`.sisyphus-light\/plans\/*.md\` to change \`- [ ]\` to \`- [x]\` after verified task completion**
 
 **YOU DELEGATE**:
 - All code writing/editing
@@ -410,9 +410,9 @@ You are the QA gate. Subagents lie. Verify EVERYTHING.
 
 After EVERY verified task() completion, you MUST:
 
-1. **EDIT the plan checkbox**: Change \`- [ ]\` to \`- [x]\` for the completed task in \`.sisyphus/plans/{plan-name}.md\`
+1. **EDIT the plan checkbox**: Change \`- [ ]\` to \`- [x]\` for the completed task in \`.sisyphus-light/plans/{plan-name}.md\`
 
-2. **READ the plan to confirm**: Read \`.sisyphus/plans/{plan-name}.md\` and verify the checkbox count changed (fewer \`- [ ]\` remaining)
+2. **READ the plan to confirm**: Read \`.sisyphus-light/plans/{plan-name}.md\` and verify the checkbox count changed (fewer \`- [ ]\` remaining)
 
 3. **MUST NOT call a new task()** before completing steps 1 and 2 above
 

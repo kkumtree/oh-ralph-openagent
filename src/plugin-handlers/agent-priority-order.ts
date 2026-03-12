@@ -1,10 +1,10 @@
 import { getAgentDisplayName } from "../shared/agent-display-names";
 
 const CORE_AGENT_ORDER = [
-  getAgentDisplayName("sisyphus"),
-  getAgentDisplayName("hephaestus"),
-  getAgentDisplayName("prometheus"),
-  getAgentDisplayName("atlas"),
+  getAgentDisplayName("sisyphus-light"),
+  getAgentDisplayName("hephaestus-light"),
+  getAgentDisplayName("prometheus-light"),
+  getAgentDisplayName("atlas-light"),
 ] as const;
 
 export function reorderAgentsByPriority(

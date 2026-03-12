@@ -46,9 +46,9 @@ describe("isCompactionAgent", () => {
       expect(result).toBe(false)
     })
 
-    test("returns false for non-compaction agent like 'sisyphus'", () => {
+    test("returns false for non-compaction agent like 'sisyphus-light'", () => {
       // when
-      const result = isCompactionAgent("sisyphus")
+      const result = isCompactionAgent("sisyphus-light")
 
       // then
       expect(result).toBe(false)
@@ -71,7 +71,7 @@ describe("findNearestMessageExcludingCompaction", () => {
     test("finds message with full agent and model", () => {
       // given
       const message = {
-        agent: "sisyphus",
+        agent: "sisyphus-light",
         model: { providerID: "anthropic", modelID: "claude-opus-4-6" },
       }
       writeFileSync(join(tempDir, "001.json"), JSON.stringify(message))
@@ -81,7 +81,7 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).not.toBeNull()
-      expect(result?.agent).toBe("sisyphus")
+      expect(result?.agent).toBe("sisyphus-light")
       expect(result?.model?.providerID).toBe("anthropic")
       expect(result?.model?.modelID).toBe("claude-opus-4-6")
     })
@@ -93,7 +93,7 @@ describe("findNearestMessageExcludingCompaction", () => {
         model: { providerID: "anthropic", modelID: "claude-opus-4-6" },
       }
       const validMessage = {
-        agent: "sisyphus",
+        agent: "sisyphus-light",
         model: { providerID: "anthropic", modelID: "claude-opus-4-6" },
       }
       writeFileSync(join(tempDir, "002.json"), JSON.stringify(compactionMessage))
@@ -104,13 +104,13 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).not.toBeNull()
-      expect(result?.agent).toBe("sisyphus")
+      expect(result?.agent).toBe("sisyphus-light")
     })
 
     test("falls back to partial agent/model match", () => {
       // given
       const messageWithAgentOnly = {
-        agent: "hephaestus",
+        agent: "hephaestus-light",
       }
       const messageWithModelOnly = {
         model: { providerID: "openai", modelID: "gpt-5.3" },
@@ -124,7 +124,7 @@ describe("findNearestMessageExcludingCompaction", () => {
       // then
       expect(result).not.toBeNull()
       // Should find the one with agent first (sorted reverse, so 002 is checked first)
-      expect(result?.agent).toBe("hephaestus")
+      expect(result?.agent).toBe("hephaestus-light")
     })
 
     test("returns null for empty directory", () => {
@@ -152,7 +152,7 @@ describe("findNearestMessageExcludingCompaction", () => {
       // given
       const invalidJson = "{ invalid json"
       const validMessage = {
-        agent: "oracle",
+        agent: "oracle-light",
         model: { providerID: "google", modelID: "gemini-2-flash" },
       }
       writeFileSync(join(tempDir, "002.json"), invalidJson)
@@ -163,7 +163,7 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).not.toBeNull()
-      expect(result?.agent).toBe("oracle")
+      expect(result?.agent).toBe("oracle-light")
     })
 
     test("finds newest valid message (sorted by filename reverse)", () => {

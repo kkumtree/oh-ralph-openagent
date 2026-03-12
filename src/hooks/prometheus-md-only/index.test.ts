@@ -14,7 +14,7 @@ mock.module("../../shared/opencode-storage-detection", () => ({
 const { createPrometheusMdOnlyHook } = await import("./index")
 const { MESSAGE_STORAGE } = await import("../../features/hook-message-injector")
 
-describe("prometheus-md-only", () => {
+describe("prometheus-light-md-only", () => {
   const TEST_SESSION_ID = "ses_test_prometheus"
   let testMessageDir: string
 
@@ -50,9 +50,9 @@ describe("prometheus-md-only", () => {
   })
 
   describe("agent name matching", () => {
-    test("should enforce md-only restriction for exact prometheus agent name", async () => {
+    test("should enforce md-only restriction for exact prometheus-light agent name", async () => {
       //#given
-      setupMessageStorage(TEST_SESSION_ID, "prometheus")
+      setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
       const hook = createPrometheusMdOnlyHook(createMockPluginInput())
       const input = {
         tool: "Write",
@@ -128,7 +128,7 @@ describe("prometheus-md-only", () => {
 
     test("should not enforce restriction for non-Prometheus agent", async () => {
       //#given
-      setupMessageStorage(TEST_SESSION_ID, "sisyphus")
+      setupMessageStorage(TEST_SESSION_ID, "sisyphus-light")
       const hook = createPrometheusMdOnlyHook(createMockPluginInput())
       const input = {
         tool: "Write",
@@ -167,7 +167,7 @@ describe("prometheus-md-only", () => {
 
    describe("with Prometheus agent in message storage", () => {
      beforeEach(() => {
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
      })
 
     test("should block Prometheus from writing non-.md files", async () => {
@@ -188,7 +188,7 @@ describe("prometheus-md-only", () => {
       ).rejects.toThrow("can only write/edit .md files")
     })
 
-    test("should allow Prometheus to write .md files inside .sisyphus/", async () => {
+    test("should allow Prometheus to write .md files inside .sisyphus-light/", async () => {
       // given
       const hook = createPrometheusMdOnlyHook(createMockPluginInput())
       const input = {
@@ -197,7 +197,7 @@ describe("prometheus-md-only", () => {
         callID: "call-1",
       }
       const output = {
-        args: { filePath: "/tmp/test/.sisyphus/plans/work-plan.md" },
+        args: { filePath: "/tmp/test/.sisyphus-light/plans/work-plan.md" },
       }
 
       // when / #then
@@ -206,7 +206,7 @@ describe("prometheus-md-only", () => {
       ).resolves.toBeUndefined()
     })
 
-    test("should inject workflow reminder when Prometheus writes to .sisyphus/plans/", async () => {
+    test("should inject workflow reminder when Prometheus writes to .sisyphus-light/plans/", async () => {
       // given
       const hook = createPrometheusMdOnlyHook(createMockPluginInput())
       const input = {
@@ -215,7 +215,7 @@ describe("prometheus-md-only", () => {
         callID: "call-1",
       }
       const output: { args: Record<string, unknown>; message?: string } = {
-        args: { filePath: "/tmp/test/.sisyphus/plans/work-plan.md" },
+        args: { filePath: "/tmp/test/.sisyphus-light/plans/work-plan.md" },
       }
 
       // when
@@ -228,7 +228,7 @@ describe("prometheus-md-only", () => {
       expect(output.message).toContain("MOMUS REVIEW")
     })
 
-    test("should NOT inject workflow reminder for .sisyphus/drafts/", async () => {
+    test("should NOT inject workflow reminder for .sisyphus-light/drafts/", async () => {
       // given
       const hook = createPrometheusMdOnlyHook(createMockPluginInput())
       const input = {
@@ -237,7 +237,7 @@ describe("prometheus-md-only", () => {
         callID: "call-1",
       }
       const output: { args: Record<string, unknown>; message?: string } = {
-        args: { filePath: "/tmp/test/.sisyphus/drafts/notes.md" },
+        args: { filePath: "/tmp/test/.sisyphus-light/drafts/notes.md" },
       }
 
       // when
@@ -247,7 +247,7 @@ describe("prometheus-md-only", () => {
       expect(output.message).toBeUndefined()
     })
 
-    test("should block Prometheus from writing .md files outside .sisyphus/", async () => {
+    test("should block Prometheus from writing .md files outside .sisyphus-light/", async () => {
       // given
       const hook = createPrometheusMdOnlyHook(createMockPluginInput())
       const input = {
@@ -262,7 +262,7 @@ describe("prometheus-md-only", () => {
       // when / #then
       await expect(
         hook["tool.execute.before"](input, output)
-      ).rejects.toThrow("can only write/edit .md files inside .sisyphus/")
+      ).rejects.toThrow("can only write/edit .md files inside .sisyphus-light/")
     })
 
     test("should block Edit tool for non-.md files", async () => {
@@ -419,7 +419,7 @@ describe("prometheus-md-only", () => {
 
   describe("with non-Prometheus agent in message storage", () => {
     beforeEach(() => {
-      setupMessageStorage(TEST_SESSION_ID, "sisyphus")
+      setupMessageStorage(TEST_SESSION_ID, "sisyphus-light")
     })
 
     test("should not affect non-Prometheus agents", async () => {
@@ -464,30 +464,30 @@ describe("prometheus-md-only", () => {
 
   describe("boulder state priority over message files (fixes #927)", () => {
     const BOULDER_DIR = join(tmpdir(), `boulder-test-${randomUUID()}`)
-    const BOULDER_FILE = join(BOULDER_DIR, ".sisyphus", "boulder.json")
+    const BOULDER_FILE = join(BOULDER_DIR, ".sisyphus-light", "boulder.json")
 
     beforeEach(() => {
-      mkdirSync(join(BOULDER_DIR, ".sisyphus"), { recursive: true })
+      mkdirSync(join(BOULDER_DIR, ".sisyphus-light"), { recursive: true })
     })
 
     afterEach(() => {
       rmSync(BOULDER_DIR, { recursive: true, force: true })
     })
 
-    //#given session was started with prometheus (first message), but /start-work set boulder agent to atlas
+    //#given session was started with prometheus-light (first message), but /start-work set boulder agent to atlas-light
     //#when user types "continue" after interruption (memory cleared, falls back to message files)
-    //#then should use boulder state agent (atlas), not message file agent (prometheus)
+    //#then should use boulder state agent (atlas-light), not message file agent (prometheus-light)
     test("should prioritize boulder agent over message file agent", async () => {
-      // given - prometheus in message files (from /plan)
-      setupMessageStorage(TEST_SESSION_ID, "prometheus")
+      // given - prometheus-light in message files (from /plan)
+      setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
       
-      // given - atlas in boulder state (from /start-work)
+      // given - atlas-light in boulder state (from /start-work)
       writeFileSync(BOULDER_FILE, JSON.stringify({
         active_plan: "/test/plan.md",
         started_at: new Date().toISOString(),
         session_ids: [TEST_SESSION_ID],
         plan_name: "test-plan",
-        agent: "atlas"
+        agent: "atlas-light"
       }))
 
       const hook = createPrometheusMdOnlyHook({
@@ -504,23 +504,23 @@ describe("prometheus-md-only", () => {
         args: { filePath: "/path/to/code.ts" },
       }
 
-      // when / then - should NOT block because boulder says atlas, not prometheus
+      // when / then - should NOT block because boulder says atlas-light, not prometheus-light
       await expect(
         hook["tool.execute.before"](input, output)
       ).resolves.toBeUndefined()
     })
 
-    test("should use prometheus from boulder state when set", async () => {
-      // given - atlas in message files (from some other agent)
-      setupMessageStorage(TEST_SESSION_ID, "atlas")
+    test("should use prometheus-light from boulder state when set", async () => {
+      // given - atlas-light in message files (from some other agent)
+      setupMessageStorage(TEST_SESSION_ID, "atlas-light")
       
-      // given - prometheus in boulder state (edge case, but should honor it)
+      // given - prometheus-light in boulder state (edge case, but should honor it)
       writeFileSync(BOULDER_FILE, JSON.stringify({
         active_plan: "/test/plan.md",
         started_at: new Date().toISOString(),
         session_ids: [TEST_SESSION_ID],
         plan_name: "test-plan",
-        agent: "prometheus"
+        agent: "prometheus-light"
       }))
 
       const hook = createPrometheusMdOnlyHook({
@@ -537,15 +537,15 @@ describe("prometheus-md-only", () => {
         args: { filePath: "/path/to/code.ts" },
       }
 
-      // when / then - should block because boulder says prometheus
+      // when / then - should block because boulder says prometheus-light
       await expect(
         hook["tool.execute.before"](input, output)
       ).rejects.toThrow("can only write/edit .md files")
     })
 
     test("should fall back to message files when session not in boulder", async () => {
-      // given - prometheus in message files
-      setupMessageStorage(TEST_SESSION_ID, "prometheus")
+      // given - prometheus-light in message files
+      setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
       
       // given - boulder state exists but for different session
       writeFileSync(BOULDER_FILE, JSON.stringify({
@@ -553,7 +553,7 @@ describe("prometheus-md-only", () => {
         started_at: new Date().toISOString(),
         session_ids: ["ses_other_session_id"],
         plan_name: "test-plan",
-        agent: "atlas"
+        agent: "atlas-light"
       }))
 
       const hook = createPrometheusMdOnlyHook({
@@ -570,7 +570,7 @@ describe("prometheus-md-only", () => {
         args: { filePath: "/path/to/code.ts" },
       }
 
-      // when / then - should block because falls back to message files (prometheus)
+      // when / then - should block because falls back to message files (prometheus-light)
       await expect(
         hook["tool.execute.before"](input, output)
       ).rejects.toThrow("can only write/edit .md files")
@@ -599,12 +599,12 @@ describe("prometheus-md-only", () => {
 
   describe("cross-platform path validation", () => {
     beforeEach(() => {
-      setupMessageStorage(TEST_SESSION_ID, "prometheus")
+      setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
     })
 
-     test("should allow Windows-style backslash paths under .sisyphus/", async () => {
+     test("should allow Windows-style backslash paths under .sisyphus-light/", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -612,7 +612,7 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: ".sisyphus\\plans\\work-plan.md" },
+         args: { filePath: ".sisyphus-light\\plans\\work-plan.md" },
        }
 
        // when / #then
@@ -621,9 +621,9 @@ describe("prometheus-md-only", () => {
        ).resolves.toBeUndefined()
      })
 
-     test("should allow mixed separator paths under .sisyphus/", async () => {
+     test("should allow mixed separator paths under .sisyphus-light/", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -631,7 +631,7 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: ".sisyphus\\plans/work-plan.MD" },
+         args: { filePath: ".sisyphus-light\\plans/work-plan.MD" },
        }
 
        // when / #then
@@ -642,7 +642,7 @@ describe("prometheus-md-only", () => {
 
      test("should allow uppercase .MD extension", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -650,7 +650,7 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: ".sisyphus/plans/work-plan.MD" },
+         args: { filePath: ".sisyphus-light/plans/work-plan.MD" },
        }
 
        // when / #then
@@ -659,9 +659,9 @@ describe("prometheus-md-only", () => {
        ).resolves.toBeUndefined()
      })
 
-     test("should block paths outside workspace root even if containing .sisyphus", async () => {
+     test("should block paths outside workspace root even if containing .sisyphus-light", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -669,18 +669,18 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: "/other/project/.sisyphus/plans/x.md" },
+         args: { filePath: "/other/project/.sisyphus-light/plans/x.md" },
        }
 
        // when / #then
        await expect(
          hook["tool.execute.before"](input, output)
-       ).rejects.toThrow("can only write/edit .md files inside .sisyphus/")
+       ).rejects.toThrow("can only write/edit .md files inside .sisyphus-light/")
      })
 
-     test("should allow nested .sisyphus directories (ctx.directory may be parent)", async () => {
+     test("should allow nested .sisyphus-light directories (ctx.directory may be parent)", async () => {
        // given - when ctx.directory is parent of actual project, path includes project name
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -688,10 +688,10 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: "src/.sisyphus/plans/x.md" },
+         args: { filePath: "src/.sisyphus-light/plans/x.md" },
        }
 
-       // when / #then - should allow because .sisyphus is in path
+       // when / #then - should allow because .sisyphus-light is in path
        await expect(
          hook["tool.execute.before"](input, output)
        ).resolves.toBeUndefined()
@@ -699,7 +699,7 @@ describe("prometheus-md-only", () => {
 
      test("should block path traversal attempts", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -707,18 +707,18 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: ".sisyphus/../secrets.md" },
+         args: { filePath: ".sisyphus-light/../secrets.md" },
        }
 
        // when / #then
        await expect(
          hook["tool.execute.before"](input, output)
-       ).rejects.toThrow("can only write/edit .md files inside .sisyphus/")
+       ).rejects.toThrow("can only write/edit .md files inside .sisyphus-light/")
      })
 
      test("should allow case-insensitive .SISYPHUS directory", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -735,10 +735,10 @@ describe("prometheus-md-only", () => {
        ).resolves.toBeUndefined()
      })
 
-     test("should allow nested project path with .sisyphus (Windows real-world case)", async () => {
+     test("should allow nested project path with .sisyphus-light (Windows real-world case)", async () => {
        // given - simulates when ctx.directory is parent of actual project
-       // User reported: xauusd-dxy-plan\.sisyphus\drafts\supabase-email-templates.md
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       // User reported: xauusd-dxy-plan\.sisyphus-light\drafts\supabase-email-templates.md
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -746,7 +746,7 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: "xauusd-dxy-plan\\.sisyphus\\drafts\\supabase-email-templates.md" },
+         args: { filePath: "xauusd-dxy-plan\\.sisyphus-light\\drafts\\supabase-email-templates.md" },
        }
 
        // when / #then
@@ -757,7 +757,7 @@ describe("prometheus-md-only", () => {
 
      test("should allow nested project path with mixed separators", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",
@@ -765,7 +765,7 @@ describe("prometheus-md-only", () => {
          callID: "call-1",
        }
        const output = {
-         args: { filePath: "my-project/.sisyphus\\plans/task.md" },
+         args: { filePath: "my-project/.sisyphus-light\\plans/task.md" },
        }
 
        // when / #then
@@ -774,9 +774,9 @@ describe("prometheus-md-only", () => {
        ).resolves.toBeUndefined()
      })
 
-     test("should block nested project path without .sisyphus", async () => {
+     test("should block nested project path without .sisyphus-light", async () => {
        // given
-       setupMessageStorage(TEST_SESSION_ID, "prometheus")
+       setupMessageStorage(TEST_SESSION_ID, "prometheus-light")
        const hook = createPrometheusMdOnlyHook(createMockPluginInput())
        const input = {
          tool: "Write",

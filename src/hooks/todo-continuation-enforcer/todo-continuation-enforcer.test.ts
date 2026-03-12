@@ -850,7 +850,7 @@ describe("todo-continuation-enforcer", () => {
 
   test("should accept skipAgents option without error", async () => {
     // given - session with skipAgents configured for Prometheus
-    const sessionID = "main-prometheus-option"
+    const sessionID = "main-prometheus-light-option"
     setMainSession(sessionID)
 
     // when - create hook with skipAgents option (should not throw)
@@ -1345,8 +1345,8 @@ describe("todo-continuation-enforcer", () => {
 
     // OpenCode returns assistant messages with flat modelID/providerID, not nested model object
     const mockMessagesWithAssistant = [
-      { info: { id: "msg-1", role: "user", agent: "sisyphus", model: { providerID: "openai", modelID: "gpt-5.4" } } },
-      { info: { id: "msg-2", role: "assistant", agent: "sisyphus", modelID: "gpt-5.4", providerID: "openai" } },
+      { info: { id: "msg-1", role: "user", agent: "sisyphus-light", model: { providerID: "openai", modelID: "gpt-5.4" } } },
+      { info: { id: "msg-2", role: "assistant", agent: "sisyphus-light", modelID: "gpt-5.4", providerID: "openai" } },
     ]
 
     const mockInput = {
@@ -1405,8 +1405,8 @@ describe("todo-continuation-enforcer", () => {
     setMainSession(sessionID)
 
     const mockMessagesWithCompaction = [
-      { info: { id: "msg-1", role: "user", agent: "sisyphus", model: { providerID: "anthropic", modelID: "claude-sonnet-4-6" } } },
-      { info: { id: "msg-2", role: "assistant", agent: "sisyphus", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
+      { info: { id: "msg-1", role: "user", agent: "sisyphus-light", model: { providerID: "anthropic", modelID: "claude-sonnet-4-6" } } },
+      { info: { id: "msg-2", role: "assistant", agent: "sisyphus-light", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
       { info: { id: "msg-3", role: "assistant", agent: "compaction", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
     ]
 
@@ -1451,7 +1451,7 @@ describe("todo-continuation-enforcer", () => {
 
      // then - continuation uses Sisyphus (skipped compaction agent)
      expect(promptCalls.length).toBe(1)
-    expect(promptCalls[0].agent).toBe("sisyphus")
+    expect(promptCalls[0].agent).toBe("sisyphus-light")
   })
 
   test("should skip injection when only compaction agent messages exist", async () => {
@@ -1507,14 +1507,14 @@ describe("todo-continuation-enforcer", () => {
     expect(promptCalls).toHaveLength(0)
   })
 
-  test("should skip injection when prometheus agent is after compaction", async () => {
-    // given - prometheus session that was compacted
-    const sessionID = "main-prometheus-compacted"
+  test("should skip injection when prometheus-light agent is after compaction", async () => {
+    // given - prometheus-light session that was compacted
+    const sessionID = "main-prometheus-light-compacted"
     setMainSession(sessionID)
 
     const mockMessagesPrometheusCompacted = [
-      { info: { id: "msg-1", role: "user", agent: "prometheus" } },
-      { info: { id: "msg-2", role: "assistant", agent: "prometheus" } },
+      { info: { id: "msg-1", role: "user", agent: "prometheus-light" } },
+      { info: { id: "msg-2", role: "assistant", agent: "prometheus-light" } },
       { info: { id: "msg-3", role: "assistant", agent: "compaction" } },
     ]
 
@@ -1558,7 +1558,7 @@ describe("todo-continuation-enforcer", () => {
 
      await fakeTimers.advanceBy(3000)
 
-     // then - no continuation (prometheus found after filtering compaction, prometheus is in skipAgents)
+     // then - no continuation (prometheus-light found after filtering compaction, prometheus-light is in skipAgents)
     expect(promptCalls).toHaveLength(0)
   })
 

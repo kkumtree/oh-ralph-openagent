@@ -6,7 +6,7 @@ import { AGENT_MODEL_REQUIREMENTS, isAnyFallbackModelAvailable } from "../../sha
 import { applyEnvironmentContext } from "./environment-context"
 import { applyOverrides } from "./agent-overrides"
 import { applyModelResolution, getFirstFallbackModel } from "./model-resolution"
-import { createSisyphusAgent } from "../sisyphus"
+import { createSisyphusAgent } from "../sisyphus-light"
 
 export function maybeCreateSisyphusConfig(input: {
   disabledAgents: string[]
@@ -40,8 +40,8 @@ export function maybeCreateSisyphusConfig(input: {
     disableOmoEnv = false,
   } = input
 
-  const sisyphusOverride = agentOverrides["sisyphus"]
-  const sisyphusRequirement = AGENT_MODEL_REQUIREMENTS["sisyphus"]
+  const sisyphusOverride = agentOverrides["sisyphus-light"]
+  const sisyphusRequirement = AGENT_MODEL_REQUIREMENTS["sisyphus-light"]
   const hasSisyphusExplicitConfig = sisyphusOverride !== undefined
   const meetsSisyphusAnyModelRequirement =
     !sisyphusRequirement?.requiresAnyModel ||
@@ -49,7 +49,7 @@ export function maybeCreateSisyphusConfig(input: {
     isFirstRunNoCache ||
     isAnyFallbackModelAvailable(sisyphusRequirement.fallbackChain, availableModels)
 
-  if (disabledAgents.includes("sisyphus") || !meetsSisyphusAnyModelRequirement) return undefined
+  if (disabledAgents.includes("sisyphus-light") || !meetsSisyphusAnyModelRequirement) return undefined
 
   let sisyphusResolution = applyModelResolution({
     uiSelectedModel: sisyphusOverride?.model ? undefined : uiSelectedModel,

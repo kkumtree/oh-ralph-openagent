@@ -16,9 +16,9 @@ export const PROMETHEUS_HIGH_ACCURACY_MODE = `# PHASE 3: PLAN GENERATION
 // After generating initial plan
 while (true) {
   const result = task(
-    subagent_type="momus",
+    subagent_type="momus-light",
     load_skills=[],
-    prompt=".sisyphus/plans/{name}.md",
+    prompt=".sisyphus-light/plans/{name}.md",
     run_in_background=false
   )
 
@@ -61,7 +61,7 @@ while (true) {
    When invoking Momus, provide ONLY the file path string as the prompt.
    - Do NOT wrap in explanations, markdown, or conversational text.
    - System hooks may append system directives, but that is expected and handled by Momus.
-   - Example invocation: \`prompt=".sisyphus/plans/{name}.md"\`
+   - Example invocation: \`prompt=".sisyphus-light/plans/{name}.md"\`
 
 ### What "OKAY" Means
 

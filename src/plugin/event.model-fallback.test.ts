@@ -202,7 +202,7 @@ describe("createEventHandler - model fallback", () => {
     await chatMessageHandler(
       {
         sessionID,
-        agent: "sisyphus",
+        agent: "sisyphus-light",
         model: { providerID: "anthropic", modelID: "claude-opus-4-6-thinking" },
       },
       output,
@@ -341,7 +341,7 @@ describe("createEventHandler - model fallback", () => {
     const modelFallback = createModelFallbackHook()
     const pluginConfig = {
       agents: {
-        sisyphus: {
+        sisyphus-light: {
           fallback_models: ["quotio/gpt-5.2", "quotio/kimi-k2.5"],
         },
       },
@@ -413,7 +413,7 @@ describe("createEventHandler - model fallback", () => {
     await chatMessageHandler(
       {
         sessionID,
-        agent: "sisyphus",
+        agent: "sisyphus-light",
         model: { providerID: "quotio", modelID: "claude-opus-4-6" },
       },
       output,
@@ -527,7 +527,7 @@ describe("createEventHandler - model fallback", () => {
       await chatMessageHandler(
         {
           sessionID,
-          agent: "sisyphus",
+          agent: "sisyphus-light",
           model: { providerID: "anthropic", modelID: "claude-opus-4-6-thinking" },
         },
         output,

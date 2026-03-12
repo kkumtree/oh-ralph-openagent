@@ -217,8 +217,8 @@ describe("createAutoUpdateCheckerHook", () => {
     expect(mockRunBackgroundUpdateCheck).not.toHaveBeenCalled()
   })
 
-  it("passes correct toast message with sisyphus enabled", async () => {
-    //#given - sisyphus mode enabled
+  it("passes correct toast message with sisyphus-light enabled", async () => {
+    //#given - sisyphus-light mode enabled
     const createAutoUpdateCheckerHook = await importFreshHookFactory()
     const hook = createAutoUpdateCheckerHook(createPluginInput(), {
       isSisyphusEnabled: true,
@@ -232,7 +232,7 @@ describe("createAutoUpdateCheckerHook", () => {
     })
     await new Promise((resolve) => setTimeout(resolve, 50))
 
-    //#then - startup toast includes sisyphus wording
+    //#then - startup toast includes sisyphus-light wording
     expect(mockShowVersionToast).toHaveBeenCalledTimes(1)
     expect(mockShowVersionToast).toHaveBeenCalledWith(
       expect.anything(),

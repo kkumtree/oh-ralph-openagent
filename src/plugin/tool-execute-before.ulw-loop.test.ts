@@ -7,7 +7,7 @@ import { createToolExecuteBeforeHandler } from "./tool-execute-before"
 import { ULTRAWORK_VERIFICATION_PROMISE } from "../hooks/ralph-loop/constants"
 import { clearState, readState, writeState } from "../hooks/ralph-loop/storage"
 
-describe("tool.execute.before ultrawork oracle verification", () => {
+describe("tool.execute.before ultrawork oracle-light verification", () => {
 	function createCtx(directory: string) {
 		return {
 			directory,
@@ -19,7 +19,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		}
 	}
 
-	test("#given ulw loop is awaiting verification #when oracle task runs #then oracle prompt is enforced and sync", async () => {
+	test("#given ulw loop is awaiting verification #when oracle-light task runs #then oracle-light prompt is enforced and sync", async () => {
 		const directory = join(tmpdir(), `tool-before-ulw-${Date.now()}`)
 		mkdirSync(directory, { recursive: true })
 		writeState(directory, {
@@ -40,7 +40,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		})
 		const output = {
 			args: {
-				subagent_type: "oracle",
+				subagent_type: "oracle-light",
 				run_in_background: true,
 				prompt: "Check it",
 			} as Record<string, unknown>,
@@ -57,7 +57,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		rmSync(directory, { recursive: true, force: true })
 	})
 
-	test("#given ulw loop is not awaiting verification #when oracle task runs #then prompt is unchanged", async () => {
+	test("#given ulw loop is not awaiting verification #when oracle-light task runs #then prompt is unchanged", async () => {
 		const directory = join(tmpdir(), `tool-before-ulw-${Date.now()}-plain`)
 		mkdirSync(directory, { recursive: true })
 		const handler = createToolExecuteBeforeHandler({
@@ -66,7 +66,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		})
 		const output = {
 			args: {
-				subagent_type: "oracle",
+				subagent_type: "oracle-light",
 				run_in_background: true,
 				prompt: "Check it",
 			} as Record<string, unknown>,
@@ -80,7 +80,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		rmSync(directory, { recursive: true, force: true })
 	})
 
-	test("#given ulw loop is awaiting verification #when oracle task finishes #then oracle session id is stored", async () => {
+	test("#given ulw loop is awaiting verification #when oracle-light task finishes #then oracle-light session id is stored", async () => {
 		const directory = join(tmpdir(), `tool-after-ulw-${Date.now()}`)
 		mkdirSync(directory, { recursive: true })
 		writeState(directory, {
@@ -101,7 +101,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		})
 		const beforeOutput = {
 			args: {
-				subagent_type: "oracle",
+				subagent_type: "oracle-light",
 				run_in_background: true,
 				prompt: "Check it",
 			} as Record<string, unknown>,
@@ -116,23 +116,23 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		await handler(
 			{ tool: "task", sessionID: "ses-main", callID: "call-1" },
 			{
-				title: "oracle task",
+				title: "oracle-light task",
 				output: "done",
 				metadata: {
-					agent: "oracle",
+					agent: "oracle-light",
 					prompt: String(beforeOutput.args.prompt),
-					sessionId: "ses-oracle",
+					sessionId: "ses-oracle-light",
 				},
 			},
 		)
 
-		expect(readState(directory)?.verification_session_id).toBe("ses-oracle")
+		expect(readState(directory)?.verification_session_id).toBe("ses-oracle-light")
 
 		clearState(directory)
 		rmSync(directory, { recursive: true, force: true })
 	})
 
-	test("#given newer oracle attempt exists #when older oracle task finishes #then old session does not overwrite active verification", async () => {
+	test("#given newer oracle-light attempt exists #when older oracle-light task finishes #then old session does not overwrite active verification", async () => {
 		const directory = join(tmpdir(), `tool-race-ulw-${Date.now()}`)
 		mkdirSync(directory, { recursive: true })
 		writeState(directory, {
@@ -158,7 +158,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 
 		const firstOutput = {
 			args: {
-				subagent_type: "oracle",
+				subagent_type: "oracle-light",
 				run_in_background: true,
 				prompt: "Check it",
 			} as Record<string, unknown>,
@@ -168,7 +168,7 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 
 		const secondOutput = {
 			args: {
-				subagent_type: "oracle",
+				subagent_type: "oracle-light",
 				run_in_background: true,
 				prompt: "Check it again",
 			} as Record<string, unknown>,
@@ -183,12 +183,12 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		await afterHandler(
 			{ tool: "task", sessionID: "ses-main", callID: "call-1" },
 			{
-				title: "oracle task",
+				title: "oracle-light task",
 				output: "done",
 				metadata: {
-					agent: "oracle",
+					agent: "oracle-light",
 					prompt: String(firstOutput.args.prompt),
-					sessionId: "ses-oracle-old",
+					sessionId: "ses-oracle-light-old",
 				},
 			},
 		)
@@ -198,17 +198,17 @@ describe("tool.execute.before ultrawork oracle verification", () => {
 		await afterHandler(
 			{ tool: "task", sessionID: "ses-main", callID: "call-2" },
 			{
-				title: "oracle task",
+				title: "oracle-light task",
 				output: "done",
 				metadata: {
-					agent: "oracle",
+					agent: "oracle-light",
 					prompt: String(secondOutput.args.prompt),
-					sessionId: "ses-oracle-new",
+					sessionId: "ses-oracle-light-new",
 				},
 			},
 		)
 
-		expect(readState(directory)?.verification_session_id).toBe("ses-oracle-new")
+		expect(readState(directory)?.verification_session_id).toBe("ses-oracle-light-new")
 
 		clearState(directory)
 		rmSync(directory, { recursive: true, force: true })

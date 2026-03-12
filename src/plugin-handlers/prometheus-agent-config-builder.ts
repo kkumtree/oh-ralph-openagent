@@ -1,5 +1,5 @@
 import type { CategoryConfig } from "../config/schema";
-import { PROMETHEUS_PERMISSION, getPrometheusPrompt } from "../agents/prometheus";
+import { PROMETHEUS_PERMISSION, getPrometheusPrompt } from "../agents/prometheus-light";
 import { resolvePromptAppend } from "../agents/builtin-agents/resolve-file-uri";
 import { AGENT_MODEL_REQUIREMENTS } from "../shared/model-requirements";
 import {
@@ -32,7 +32,7 @@ export async function buildPrometheusAgentConfig(params: {
     ? resolveCategoryConfig(params.pluginPrometheusOverride.category, params.userCategories)
     : undefined;
 
-  const requirement = AGENT_MODEL_REQUIREMENTS["prometheus"];
+  const requirement = AGENT_MODEL_REQUIREMENTS["prometheus-light"];
   const connectedProviders = readConnectedProvidersCache();
   const availableModels = await fetchAvailableModels(undefined, {
     connectedProviders: connectedProviders ?? undefined,

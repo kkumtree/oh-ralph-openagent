@@ -21,7 +21,7 @@ describe("createCallOmoAgent", () => {
 
   test("should reject agent in disabled_agents list", async () => {
     //#given
-    const toolDef = createCallOmoAgent(mockCtx, mockBackgroundManager, ["explore"])
+    const toolDef = createCallOmoAgent(mockCtx, mockBackgroundManager, ["explore-light"])
     const executeFunc = toolDef.execute as Function
 
     //#when
@@ -29,7 +29,7 @@ describe("createCallOmoAgent", () => {
       {
         description: "Test",
         prompt: "Test prompt",
-        subagent_type: "explore",
+        subagent_type: "explore-light",
         run_in_background: true,
       },
       { sessionID: "test", messageID: "msg", agent: "test", abort: new AbortController().signal }
@@ -49,7 +49,7 @@ describe("createCallOmoAgent", () => {
       {
         description: "Test",
         prompt: "Test prompt",
-        subagent_type: "explore",
+        subagent_type: "explore-light",
         run_in_background: true,
       },
       { sessionID: "test", messageID: "msg", agent: "test", abort: new AbortController().signal }
@@ -61,7 +61,7 @@ describe("createCallOmoAgent", () => {
 
   test("should allow agent not in disabled_agents list", async () => {
     //#given
-    const toolDef = createCallOmoAgent(mockCtx, mockBackgroundManager, ["librarian"])
+    const toolDef = createCallOmoAgent(mockCtx, mockBackgroundManager, ["librarian-light"])
     const executeFunc = toolDef.execute as Function
 
     //#when
@@ -69,7 +69,7 @@ describe("createCallOmoAgent", () => {
       {
         description: "Test",
         prompt: "Test prompt",
-        subagent_type: "explore",
+        subagent_type: "explore-light",
         run_in_background: true,
       },
       { sessionID: "test", messageID: "msg", agent: "test", abort: new AbortController().signal }
@@ -90,7 +90,7 @@ describe("createCallOmoAgent", () => {
       {
         description: "Test",
         prompt: "Test prompt",
-        subagent_type: "explore",
+        subagent_type: "explore-light",
         run_in_background: true,
       },
       { sessionID: "test", messageID: "msg", agent: "test", abort: new AbortController().signal }
@@ -106,7 +106,7 @@ describe("createCallOmoAgent", () => {
       id: "task-fallback",
       sessionID: "sub-session",
       description: "Test task",
-      agent: "explore",
+      agent: "explore-light",
       status: "pending",
     }))
     const managerWithLaunch = {
@@ -118,7 +118,7 @@ describe("createCallOmoAgent", () => {
       managerWithLaunch,
       [],
       {
-        explore: {
+        explore-light: {
           fallback_models: ["quotio/kimi-k2.5", "openai/gpt-5.2(high)"],
         },
       },
@@ -130,7 +130,7 @@ describe("createCallOmoAgent", () => {
       {
         description: "Test fallback",
         prompt: "Test prompt",
-        subagent_type: "explore",
+        subagent_type: "explore-light",
         run_in_background: true,
       },
       { sessionID: "test", messageID: "msg", agent: "test", abort: new AbortController().signal }

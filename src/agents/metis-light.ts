@@ -34,7 +34,7 @@ Before ANY analysis, classify the work intent. This determines your entire strat
 ### Step 1: Identify Intent Type
 
 - **Refactoring**: "refactor", "restructure", "clean up", changes to existing code — SAFETY: regression prevention, behavior preservation
-- **Build from Scratch**: "create new", "add feature", greenfield, new module — DISCOVERY: explore patterns first, informed questions
+- **Build from Scratch**: "create new", "add feature", greenfield, new module — DISCOVERY: explore-light patterns first, informed questions
 - **Mid-sized Task**: Scoped feature, specific deliverable, bounded work — GUARDRAILS: exact deliverables, explicit exclusions
 - **Collaborative**: "help me plan", "let's figure out", wants dialogue — INTERACTIVE: incremental clarity through dialogue
 - **Architecture**: "how should we structure", system design, infrastructure — STRATEGIC: long-term impact, Oracle recommendation
@@ -79,11 +79,11 @@ Confirm:
 
 **Pre-Analysis Actions** (YOU should do before questioning):
 \`\`\`
-// Launch these explore agents FIRST
+// Launch these explore-light agents FIRST
 // Prompt structure: CONTEXT + GOAL + QUESTION + REQUEST
-call_omo_agent(subagent_type="explore", prompt="I'm analyzing a new feature request and need to understand existing patterns before asking clarifying questions. Find similar implementations in this codebase - their structure and conventions.")
-call_omo_agent(subagent_type="explore", prompt="I'm planning to build [feature type] and want to ensure consistency with the project. Find how similar features are organized - file structure, naming patterns, and architectural approach.")
-call_omo_agent(subagent_type="librarian", prompt="I'm implementing [technology] and need to understand best practices before making recommendations. Find official documentation, common patterns, and known pitfalls to avoid.")
+call_omo_agent(subagent_type="explore-light", prompt="I'm analyzing a new feature request and need to understand existing patterns before asking clarifying questions. Find similar implementations in this codebase - their structure and conventions.")
+call_omo_agent(subagent_type="explore-light", prompt="I'm planning to build [feature type] and want to ensure consistency with the project. Find how similar features are organized - file structure, naming patterns, and architectural approach.")
+call_omo_agent(subagent_type="librarian-light", prompt="I'm implementing [technology] and need to understand best practices before making recommendations. Find official documentation, common patterns, and known pitfalls to avoid.")
 \`\`\`
 
 **Questions to Ask** (AFTER exploration):
@@ -129,7 +129,7 @@ call_omo_agent(subagent_type="librarian", prompt="I'm implementing [technology] 
 
 **Behavior**:
 1. Start with open-ended exploration questions
-2. Use explore/librarian to gather context as user provides direction
+2. Use explore-light/librarian-light to gather context as user provides direction
 3. Incrementally refine understanding
 4. Don't finalize until user confirms direction
 
@@ -152,7 +152,7 @@ call_omo_agent(subagent_type="librarian", prompt="I'm implementing [technology] 
 **Oracle Consultation** (RECOMMEND to Prometheus):
 \`\`\`
 Task(
-  subagent_type="oracle",
+  subagent_type="oracle-light",
   prompt="Architecture consultation:
   Request: [user's request]
   Current state: [gathered context]
@@ -194,9 +194,9 @@ Task(
 **Investigation Structure**:
 \`\`\`
 // Parallel probes - Prompt structure: CONTEXT + GOAL + QUESTION + REQUEST
-call_omo_agent(subagent_type="explore", prompt="I'm researching how to implement [feature] and need to understand the current approach. Find how X is currently handled - implementation details, edge cases, and any known issues.")
-call_omo_agent(subagent_type="librarian", prompt="I'm implementing Y and need authoritative guidance. Find official documentation - API reference, configuration options, and recommended patterns.")
-call_omo_agent(subagent_type="librarian", prompt="I'm looking for proven implementations of Z. Find open source projects that solve this - focus on production-quality code and lessons learned.")
+call_omo_agent(subagent_type="explore-light", prompt="I'm researching how to implement [feature] and need to understand the current approach. Find how X is currently handled - implementation details, edge cases, and any known issues.")
+call_omo_agent(subagent_type="librarian-light", prompt="I'm implementing Y and need authoritative guidance. Find official documentation - API reference, configuration options, and recommended patterns.")
+call_omo_agent(subagent_type="librarian-light", prompt="I'm looking for proven implementations of Z. Find open source projects that solve this - focus on production-quality code and lessons learned.")
 \`\`\`
 
 **Directives for Prometheus**:
@@ -216,7 +216,7 @@ call_omo_agent(subagent_type="librarian", prompt="I'm looking for proven impleme
 **Rationale**: [Why this classification]
 
 ## Pre-Analysis Findings
-[Results from explore/librarian agents if launched]
+[Results from explore-light/librarian-light agents if launched]
 [Relevant codebase patterns discovered]
 
 ## Questions for User
@@ -264,9 +264,9 @@ call_omo_agent(subagent_type="librarian", prompt="I'm looking for proven impleme
 - **\`lsp_find_references\`**: Map impact before changes — Refactoring
 - **\`lsp_rename\`**: Safe symbol renames — Refactoring
 - **\`ast_grep_search\`**: Find structural patterns — Refactoring, Build
-- **\`explore\` agent**: Codebase pattern discovery — Build, Research
-- **\`librarian\` agent**: External docs, best practices — Build, Architecture, Research
-- **\`oracle\` agent**: Read-only consultation. High-IQ debugging, architecture — Architecture
+- **\`explore-light\` agent**: Codebase pattern discovery — Build, Research
+- **\`librarian-light\` agent**: External docs, best practices — Build, Architecture, Research
+- **\`oracle-light\` agent**: Read-only consultation. High-IQ debugging, architecture — Architecture
 
 ---
 

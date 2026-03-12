@@ -12,10 +12,10 @@ describe("model-resolution check", () => {
       const info = getModelResolutionInfo()
 
       // then: Should have agent entries
-      const sisyphus = info.agents.find((a) => a.name === "sisyphus")
-      expect(sisyphus).toBeDefined()
-      expect(sisyphus!.requirement.fallbackChain[0]?.model).toBe("claude-opus-4-6")
-      expect(sisyphus!.requirement.fallbackChain[0]?.providers).toContain("anthropic")
+      const sisyphus-light = info.agents.find((a) => a.name === "sisyphus-light")
+      expect(sisyphus-light).toBeDefined()
+      expect(sisyphus-light!.requirement.fallbackChain[0]?.model).toBe("claude-opus-4-6")
+      expect(sisyphus-light!.requirement.fallbackChain[0]?.providers).toContain("anthropic")
     })
 
     it("returns category requirements with provider chains", async () => {
@@ -39,20 +39,20 @@ describe("model-resolution check", () => {
     it("shows user override for agent when configured", async () => {
       const { getModelResolutionInfoWithOverrides } = await import("./model-resolution")
 
-      // given: User has override for oracle agent
+      // given: User has override for oracle-light agent
       const mockConfig = {
         agents: {
-          oracle: { model: "anthropic/claude-opus-4-6" },
+          oracle-light: { model: "anthropic/claude-opus-4-6" },
         },
       }
 
       const info = getModelResolutionInfoWithOverrides(mockConfig)
 
       // then: Oracle should show the override
-      const oracle = info.agents.find((a) => a.name === "oracle")
-      expect(oracle).toBeDefined()
-      expect(oracle!.userOverride).toBe("anthropic/claude-opus-4-6")
-      expect(oracle!.effectiveResolution).toBe("User override: anthropic/claude-opus-4-6")
+      const oracle-light = info.agents.find((a) => a.name === "oracle-light")
+      expect(oracle-light).toBeDefined()
+      expect(oracle-light!.userOverride).toBe("anthropic/claude-opus-4-6")
+      expect(oracle-light!.effectiveResolution).toBe("User override: anthropic/claude-opus-4-6")
     })
 
     it("shows user override for category when configured", async () => {
@@ -83,20 +83,20 @@ describe("model-resolution check", () => {
       const info = getModelResolutionInfoWithOverrides(mockConfig)
 
       // then: Should show provider fallback chain
-      const sisyphus = info.agents.find((a) => a.name === "sisyphus")
-      expect(sisyphus).toBeDefined()
-      expect(sisyphus!.userOverride).toBeUndefined()
-      expect(sisyphus!.effectiveResolution).toContain("Provider fallback:")
-      expect(sisyphus!.effectiveResolution).toContain("anthropic")
+      const sisyphus-light = info.agents.find((a) => a.name === "sisyphus-light")
+      expect(sisyphus-light).toBeDefined()
+      expect(sisyphus-light!.userOverride).toBeUndefined()
+      expect(sisyphus-light!.effectiveResolution).toContain("Provider fallback:")
+      expect(sisyphus-light!.effectiveResolution).toContain("anthropic")
     })
 
     it("captures user variant for agent when configured", async () => {
       const { getModelResolutionInfoWithOverrides } = await import("./model-resolution")
 
-      //#given User has model with variant override for oracle agent
+      //#given User has model with variant override for oracle-light agent
       const mockConfig = {
         agents: {
-          oracle: { model: "openai/gpt-5.4", variant: "xhigh" },
+          oracle-light: { model: "openai/gpt-5.4", variant: "xhigh" },
         },
       }
 
@@ -104,10 +104,10 @@ describe("model-resolution check", () => {
       const info = getModelResolutionInfoWithOverrides(mockConfig)
 
       //#then Oracle should have userVariant set
-      const oracle = info.agents.find((a) => a.name === "oracle")
-      expect(oracle).toBeDefined()
-      expect(oracle!.userOverride).toBe("openai/gpt-5.4")
-      expect(oracle!.userVariant).toBe("xhigh")
+      const oracle-light = info.agents.find((a) => a.name === "oracle-light")
+      expect(oracle-light).toBeDefined()
+      expect(oracle-light!.userOverride).toBe("openai/gpt-5.4")
+      expect(oracle-light!.userVariant).toBe("xhigh")
     })
 
     it("captures user variant for category when configured", async () => {

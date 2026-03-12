@@ -363,9 +363,9 @@ describe("executeSyncContinuation - toast cleanup error paths", () => {
       session: {
         messages: async () => ({
           data: [
-            { info: { id: "msg_001", role: "user", time: { created: 1000 }, agent: "oracle" } },
+            { info: { id: "msg_001", role: "user", time: { created: 1000 }, agent: "oracle-light" } },
             {
-              info: { id: "msg_002", role: "assistant", time: { created: 2000 }, finish: "end_turn", agent: "oracle", providerID: "openai", modelID: "gpt-5.4" },
+              info: { id: "msg_002", role: "assistant", time: { created: 2000 }, finish: "end_turn", agent: "oracle-light", providerID: "openai", modelID: "gpt-5.4" },
               parts: [{ type: "text", text: "Response" }],
             },
           ],
@@ -397,7 +397,7 @@ describe("executeSyncContinuation - toast cleanup error paths", () => {
     const args = {
       session_id: "ses_test_12345678",
       prompt: "continue working",
-      description: "resume oracle task",
+      description: "resume oracle-light task",
       load_skills: [],
       run_in_background: false,
     }
@@ -407,7 +407,7 @@ describe("executeSyncContinuation - toast cleanup error paths", () => {
 
     //#then - task_metadata should contain subagent field with the agent name
     expect(result).toContain("<task_metadata>")
-    expect(result).toContain("subagent: oracle")
+    expect(result).toContain("subagent: oracle-light")
     expect(result).toContain("session_id: ses_test_12345678")
   })
 

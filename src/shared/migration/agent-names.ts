@@ -1,54 +1,54 @@
 export const AGENT_NAME_MAP: Record<string, string> = {
-  // Sisyphus variants → "sisyphus"
-  omo: "sisyphus",
-  OmO: "sisyphus",
-  Sisyphus: "sisyphus",
-  sisyphus: "sisyphus",
+  // Sisyphus variants → "sisyphus-light"
+  omo: "sisyphus-light",
+  OmO: "sisyphus-light",
+  Sisyphus: "sisyphus-light",
+  sisyphus-light: "sisyphus-light",
 
-  // Prometheus variants → "prometheus"
-  "OmO-Plan": "prometheus",
-  "omo-plan": "prometheus",
-  "Planner-Sisyphus": "prometheus",
-  "planner-sisyphus": "prometheus",
-  "Prometheus (Planner)": "prometheus",
-  prometheus: "prometheus",
+  // Prometheus variants → "prometheus-light"
+  "OmO-Plan": "prometheus-light",
+  "omo-plan": "prometheus-light",
+  "Planner-Sisyphus": "prometheus-light",
+  "planner-sisyphus-light": "prometheus-light",
+  "Prometheus (Planner)": "prometheus-light",
+  prometheus-light: "prometheus-light",
 
-  // Atlas variants → "atlas"
-  "orchestrator-sisyphus": "atlas",
-  Atlas: "atlas",
-  atlas: "atlas",
+  // Atlas variants → "atlas-light"
+  "orchestrator-sisyphus-light": "atlas-light",
+  Atlas: "atlas-light",
+  atlas-light: "atlas-light",
 
-  // Metis variants → "metis"
-  "plan-consultant": "metis",
-  "Metis (Plan Consultant)": "metis",
-  metis: "metis",
+  // Metis variants → "metis-light"
+  "plan-consultant": "metis-light",
+  "Metis (Plan Consultant)": "metis-light",
+  metis-light: "metis-light",
 
-  // Momus variants → "momus"
-  "Momus (Plan Reviewer)": "momus",
-  momus: "momus",
+  // Momus variants → "momus-light"
+  "Momus (Plan Reviewer)": "momus-light",
+  momus-light: "momus-light",
 
-  // Sisyphus-Junior → "sisyphus-junior"
-  "Sisyphus-Junior": "sisyphus-junior",
-  "sisyphus-junior": "sisyphus-junior",
+  // Sisyphus-Junior → "sisyphus-light-junior"
+  "Sisyphus-Junior": "sisyphus-light-junior",
+  "sisyphus-light-junior": "sisyphus-light-junior",
 
   // Already lowercase - passthrough
   build: "build",
-  oracle: "oracle",
-  librarian: "librarian",
-  explore: "explore",
-  "multimodal-looker": "multimodal-looker",
+  oracle-light: "oracle-light",
+  librarian-light: "librarian-light",
+  explore-light: "explore-light",
+  "multimodal-looker-light": "multimodal-looker-light",
 }
 
 export const BUILTIN_AGENT_NAMES = new Set([
-  "sisyphus", // was "Sisyphus"
-  "oracle",
-  "librarian",
-  "explore",
-  "multimodal-looker",
-  "metis", // was "Metis (Plan Consultant)"
-  "momus", // was "Momus (Plan Reviewer)"
-  "prometheus", // was "Prometheus (Planner)"
-  "atlas", // was "Atlas"
+  "sisyphus-light", // was "Sisyphus"
+  "oracle-light",
+  "librarian-light",
+  "explore-light",
+  "multimodal-looker-light",
+  "metis-light", // was "Metis (Plan Consultant)"
+  "momus-light", // was "Momus (Plan Reviewer)"
+  "prometheus-light", // was "Prometheus (Planner)"
+  "atlas-light", // was "Atlas"
   "build",
 ])
 

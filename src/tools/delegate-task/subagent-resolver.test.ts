@@ -12,7 +12,7 @@ function createBaseArgs(overrides?: Partial<DelegateTaskArgs>): DelegateTaskArgs
     prompt: "Review the current changes",
     run_in_background: false,
     load_skills: [],
-    subagent_type: "oracle",
+    subagent_type: "oracle-light",
     ...overrides,
   }
 }
@@ -56,12 +56,12 @@ describe("resolveSubagentExecution", () => {
     })
 
     //#when
-    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus", "deep")
+    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus-light", "deep")
 
     //#then
     expect(result.agentToUse).toBe("")
     expect(result.categoryModel).toBeUndefined()
-    expect(result.error).toBe("Failed to delegate to agent \"oracle\": agents API unavailable")
+    expect(result.error).toBe("Failed to delegate to agent \"oracle-light\": agents API unavailable")
   })
 
   test("logs failure details when subagent resolution throws", async () => {
@@ -72,7 +72,7 @@ describe("resolveSubagentExecution", () => {
     })
 
     //#when
-    await resolveSubagentExecution(args, executorCtx, "sisyphus", "deep")
+    await resolveSubagentExecution(args, executorCtx, "sisyphus-light", "deep")
 
     //#then
     expect(logSpy).toHaveBeenCalledTimes(1)
@@ -80,7 +80,7 @@ describe("resolveSubagentExecution", () => {
     expect(callArgs?.[0]).toBe("[delegate-task] Failed to resolve subagent execution")
     expect(callArgs?.[1]).toEqual({
       requestedAgent: "review",
-      parentAgent: "sisyphus",
+      parentAgent: "sisyphus-light",
       error: "network timeout",
     })
   })
@@ -92,13 +92,13 @@ describe("resolveSubagentExecution", () => {
       connected: ["openai"],
       updatedAt: "2026-03-03T00:00:00.000Z",
     })
-    const args = createBaseArgs({ subagent_type: "oracle" })
+    const args = createBaseArgs({ subagent_type: "oracle-light" })
     const executorCtx = createExecutorContext(async () => ([
-      { name: "oracle", mode: "subagent", model: "openai/gpt-5.3-codex" },
+      { name: "oracle-light", mode: "subagent", model: "openai/gpt-5.3-codex" },
     ]))
 
     //#when
-    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus", "deep")
+    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus-light", "deep")
 
     //#then
     expect(result.error).toBeUndefined()
@@ -113,14 +113,14 @@ describe("resolveSubagentExecution", () => {
       connected: ["quotio"],
       updatedAt: "2026-03-03T00:00:00.000Z",
     })
-    const args = createBaseArgs({ subagent_type: "explore" })
+    const args = createBaseArgs({ subagent_type: "explore-light" })
     const executorCtx = createExecutorContext(
       async () => ([
-        { name: "explore", mode: "subagent", model: "quotio/claude-haiku-4-5" },
+        { name: "explore-light", mode: "subagent", model: "quotio/claude-haiku-4-5" },
       ]),
       {
         agentOverrides: {
-          explore: {
+          explore-light: {
             fallback_models: ["quotio/gpt-5.2", "glm-5(max)"],
           },
         } as ExecutorContext["agentOverrides"],
@@ -128,7 +128,7 @@ describe("resolveSubagentExecution", () => {
     )
 
     //#when
-    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus", "deep")
+    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus-light", "deep")
 
     //#then
     expect(result.error).toBeUndefined()
@@ -146,14 +146,14 @@ describe("resolveSubagentExecution", () => {
       connected: ["anthropic"],
       updatedAt: "2026-03-03T00:00:00.000Z",
     })
-    const args = createBaseArgs({ subagent_type: "explore" })
+    const args = createBaseArgs({ subagent_type: "explore-light" })
     const executorCtx = createExecutorContext(
       async () => ([
-        { name: "explore", mode: "subagent", model: "quotio/claude-haiku-4-5" },
+        { name: "explore-light", mode: "subagent", model: "quotio/claude-haiku-4-5" },
       ]),
       {
         agentOverrides: {
-          explore: {
+          explore-light: {
             category: "research",
           },
         } as ExecutorContext["agentOverrides"],
@@ -166,7 +166,7 @@ describe("resolveSubagentExecution", () => {
     )
 
     //#when
-    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus", "deep")
+    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus-light", "deep")
 
     //#then
     expect(result.error).toBeUndefined()

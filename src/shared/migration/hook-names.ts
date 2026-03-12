@@ -3,9 +3,9 @@
 export const HOOK_NAME_MAP: Record<string, string | null> = {
   // Legacy names (backward compatibility)
   "anthropic-auto-compact": "anthropic-context-window-limit-recovery",
-  "sisyphus-orchestrator": "atlas",
+  "sisyphus-light-orchestrator": "atlas-light",
 
-  "sisyphus-gpt-hephaestus-reminder": "no-sisyphus-gpt",
+  "sisyphus-light-gpt-hephaestus-light-reminder": "no-sisyphus-light-gpt",
 
   // Removed hooks (v3.0.0) - will be filtered out and user warned
   "empty-message-sanitizer": null,

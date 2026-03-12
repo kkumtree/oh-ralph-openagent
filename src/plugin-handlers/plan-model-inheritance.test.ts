@@ -2,7 +2,7 @@ import { describe, test, expect } from "bun:test"
 import { buildPlanDemoteConfig } from "./plan-model-inheritance"
 
 describe("buildPlanDemoteConfig", () => {
-  test("returns only mode when prometheus and plan override are both undefined", () => {
+  test("returns only mode when prometheus-light and plan override are both undefined", () => {
     //#given
     const prometheusConfig = undefined
     const planOverride = undefined
@@ -14,10 +14,10 @@ describe("buildPlanDemoteConfig", () => {
     expect(result).toEqual({ mode: "subagent" })
   })
 
-  test("extracts all model settings from prometheus config", () => {
+  test("extracts all model settings from prometheus-light config", () => {
     //#given
     const prometheusConfig = {
-      name: "prometheus",
+      name: "prometheus-light",
       model: "anthropic/claude-opus-4-6",
       variant: "max",
       mode: "all",
@@ -55,7 +55,7 @@ describe("buildPlanDemoteConfig", () => {
     expect(result.name).toBeUndefined()
   })
 
-  test("plan override takes priority over prometheus for all model settings", () => {
+  test("plan override takes priority over prometheus-light for all model settings", () => {
     //#given
     const prometheusConfig = {
       model: "anthropic/claude-opus-4-6",
@@ -80,7 +80,7 @@ describe("buildPlanDemoteConfig", () => {
     expect(result.reasoningEffort).toBe("low")
   })
 
-  test("falls back to prometheus when plan override has partial settings", () => {
+  test("falls back to prometheus-light when plan override has partial settings", () => {
     //#given
     const prometheusConfig = {
       model: "anthropic/claude-opus-4-6",
@@ -95,7 +95,7 @@ describe("buildPlanDemoteConfig", () => {
     //#when
     const result = buildPlanDemoteConfig(prometheusConfig, planOverride)
 
-    //#then - plan model wins, rest inherits from prometheus
+    //#then - plan model wins, rest inherits from prometheus-light
     expect(result.model).toBe("openai/gpt-5.4")
     expect(result.variant).toBe("max")
     expect(result.temperature).toBe(0.1)

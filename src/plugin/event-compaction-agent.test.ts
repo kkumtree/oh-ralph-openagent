@@ -56,7 +56,7 @@ describe("createEventHandler compaction agent filtering", () => {
   test("does not overwrite the stored session agent with compaction", async () => {
     // given
     const sessionID = "ses_compaction_poisoning"
-    updateSessionAgent(sessionID, "atlas")
+    updateSessionAgent(sessionID, "atlas-light")
     const eventHandler = createMinimalEventHandler()
     const input: Parameters<ReturnType<typeof createEventHandler>>[0] = {
       event: {
@@ -78,6 +78,6 @@ describe("createEventHandler compaction agent filtering", () => {
     await eventHandler(input)
 
     // then
-    expect(getSessionAgent(sessionID)).toBe("atlas")
+    expect(getSessionAgent(sessionID)).toBe("atlas-light")
   })
 })

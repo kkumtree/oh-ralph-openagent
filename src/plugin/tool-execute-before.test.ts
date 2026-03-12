@@ -99,7 +99,7 @@ describe("createToolExecuteBeforeHandler", () => {
       }
     }
 
-    test("sets subagent_type to sisyphus-junior when category is provided without subagent_type", async () => {
+    test("sets subagent_type to sisyphus-light-junior when category is provided without subagent_type", async () => {
       //#given
       const ctx = createCtxWithSessionMessages()
       const handler = createToolExecuteBeforeHandler({ ctx, hooks: emptyHooks })
@@ -110,7 +110,7 @@ describe("createToolExecuteBeforeHandler", () => {
       await handler(input, output)
 
       //#then
-      expect(output.args.subagent_type).toBe("sisyphus-junior")
+      expect(output.args.subagent_type).toBe("sisyphus-light-junior")
     })
 
     test("preserves existing subagent_type when explicitly provided", async () => {
@@ -127,26 +127,26 @@ describe("createToolExecuteBeforeHandler", () => {
       expect(output.args.subagent_type).toBe("plan")
     })
 
-    test("sets subagent_type to sisyphus-junior when category provided with different subagent_type", async () => {
+    test("sets subagent_type to sisyphus-light-junior when category provided with different subagent_type", async () => {
       //#given
       const ctx = createCtxWithSessionMessages()
       const handler = createToolExecuteBeforeHandler({ ctx, hooks: emptyHooks })
       const input = { tool: "task", sessionID: "ses_123", callID: "call_1" }
-      const output = { args: { category: "quick", subagent_type: "oracle", description: "Test" } as Record<string, unknown> }
+      const output = { args: { category: "quick", subagent_type: "oracle-light", description: "Test" } as Record<string, unknown> }
 
       //#when
       await handler(input, output)
 
       //#then
-      expect(output.args.subagent_type).toBe("sisyphus-junior")
+      expect(output.args.subagent_type).toBe("sisyphus-light-junior")
     })
 
     test("resolves subagent_type from session first message when session_id provided without subagent_type", async () => {
       //#given
       const ctx = createCtxWithSessionMessages([
         { info: { role: "user" } },
-        { info: { role: "assistant", agent: "explore" } },
-        { info: { role: "assistant", agent: "oracle" } },
+        { info: { role: "assistant", agent: "explore-light" } },
+        { info: { role: "assistant", agent: "oracle-light" } },
       ])
       const handler = createToolExecuteBeforeHandler({ ctx, hooks: emptyHooks })
       const input = { tool: "task", sessionID: "ses_123", callID: "call_1" }
@@ -156,7 +156,7 @@ describe("createToolExecuteBeforeHandler", () => {
       await handler(input, output)
 
       //#then
-      expect(output.args.subagent_type).toBe("explore")
+      expect(output.args.subagent_type).toBe("explore-light")
     })
 
     test("falls back to 'continue' when session has no agent info", async () => {
@@ -181,13 +181,13 @@ describe("createToolExecuteBeforeHandler", () => {
       const ctx = createCtxWithSessionMessages()
       const handler = createToolExecuteBeforeHandler({ ctx, hooks: emptyHooks })
       const input = { tool: "task", sessionID: "ses_123", callID: "call_1" }
-      const output = { args: { session_id: "ses_abc123", subagent_type: "explore", description: "Continue explore" } as Record<string, unknown> }
+      const output = { args: { session_id: "ses_abc123", subagent_type: "explore-light", description: "Continue explore-light" } as Record<string, unknown> }
 
       //#when
       await handler(input, output)
 
       //#then
-      expect(output.args.subagent_type).toBe("explore")
+      expect(output.args.subagent_type).toBe("explore-light")
     })
 
     test("does not modify args for non-task tools", async () => {
@@ -209,13 +209,13 @@ describe("createToolExecuteBeforeHandler", () => {
       const ctx = createCtxWithSessionMessages()
       const handler = createToolExecuteBeforeHandler({ ctx, hooks: emptyHooks })
       const input = { tool: "task", sessionID: "ses_123", callID: "call_1" }
-      const output = { args: { subagent_type: "oracle", description: "Oracle task" } as Record<string, unknown> }
+      const output = { args: { subagent_type: "oracle-light", description: "Oracle task" } as Record<string, unknown> }
 
       //#when
       await handler(input, output)
 
       //#then
-      expect(output.args.subagent_type).toBe("oracle")
+      expect(output.args.subagent_type).toBe("oracle-light")
     })
   })
 })

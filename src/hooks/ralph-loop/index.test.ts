@@ -1078,7 +1078,7 @@ Original task: Build something`
       expect(messagesCalls.length).toBe(1)
     })
 
-    test("should require oracle verification toast for ultrawork completion promise", async () => {
+    test("should require oracle-light verification toast for ultrawork completion promise", async () => {
       // given - hook with ultrawork mode and completion in transcript
       const transcriptPath = join(TEST_DIR, "transcript.jsonl")
       const hook = createRalphLoopHook(createMockPluginInput(), {

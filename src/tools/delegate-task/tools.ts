@@ -1,7 +1,7 @@
 import { tool, type ToolDefinition } from "@opencode-ai/plugin"
 import type { DelegateTaskArgs, ToolContextWithMetadata, DelegateTaskToolOptions } from "./types"
 import { CATEGORY_DESCRIPTIONS } from "./constants"
-import { SISYPHUS_JUNIOR_AGENT } from "./sisyphus-junior-agent"
+import { SISYPHUS_JUNIOR_AGENT } from "./sisyphus-light-junior-agent"
 import { mergeCategories } from "../../shared/merge-categories"
 import { log } from "../../shared/logger"
 import { buildSystemContent } from "./prompt-builder"
@@ -69,12 +69,12 @@ export function createDelegateTask(options: DelegateTaskToolOptions): ToolDefini
   
   **CORRECT - Using subagent_type:**
   \`\`\`
-  task(subagent_type="explore", load_skills=[], description="Find patterns", prompt="...", run_in_background=true)
+  task(subagent_type="explore-light", load_skills=[], description="Find patterns", prompt="...", run_in_background=true)
   \`\`\`
   
   REQUIRED: Provide ONE of:
   - category: For task delegation (uses Sisyphus-Junior with category-optimized model)
-  - subagent_type: For direct agent invocation (explore, librarian, oracle, etc.)
+  - subagent_type: For direct agent invocation (explore-light, librarian-light, oracle-light, etc.)
   
   **DO NOT provide both.** If category is provided, subagent_type is ignored.
   
@@ -82,7 +82,7 @@ export function createDelegateTask(options: DelegateTaskToolOptions): ToolDefini
   - category: Use predefined category → Spawns Sisyphus-Junior with category config
     Available categories:
   ${categoryList}
-  - subagent_type: Use specific agent directly (explore, librarian, oracle, metis, momus)
+  - subagent_type: Use specific agent directly (explore-light, librarian-light, oracle-light, metis-light, momus-light)
   - run_in_background: true=async (returns task_id), false=sync (waits). Default: false. Use background=true ONLY for parallel exploration with 5+ independent queries.
   - session_id: Existing Task session to continue (from previous task output). Continues agent with FULL CONTEXT PRESERVED - saves tokens, maintains continuity.
   - command: The command that triggered this task (optional, for slash command tracking).
@@ -111,7 +111,7 @@ export function createDelegateTask(options: DelegateTaskToolOptions): ToolDefini
 
       if (args.category) {
         if (args.subagent_type && args.subagent_type !== SISYPHUS_JUNIOR_AGENT) {
-          log("[task] category provided - overriding subagent_type to sisyphus-junior", {
+          log("[task] category provided - overriding subagent_type to sisyphus-light-junior", {
             category: args.category,
             subagent_type: args.subagent_type,
           })

@@ -78,7 +78,7 @@ export function createStartWorkHook(ctx: PluginInput) {
       if (!promptText.includes("<session-context>")) return
 
       log(`[${HOOK_NAME}] Processing start-work command`, { sessionID: input.sessionID })
-      updateSessionAgent(input.sessionID, "atlas")
+      updateSessionAgent(input.sessionID, "atlas-light")
 
       const existingState = readBoulderState(ctx.directory)
       const sessionId = input.sessionID
@@ -106,7 +106,7 @@ The requested plan "${getPlanName(matchedPlan)}" has been completed.
 All ${progress.total} tasks are done. Create a new plan with: /plan "your task"`
           } else {
             if (existingState) clearBoulderState(ctx.directory)
-            const newState = createBoulderState(matchedPlan, sessionId, "atlas", worktreePath)
+            const newState = createBoulderState(matchedPlan, sessionId, "atlas-light", worktreePath)
             writeBoulderState(ctx.directory, newState)
 
             contextInfo = `
@@ -202,7 +202,7 @@ Looking for new plans...`
           contextInfo += `
 ## No Plans Found
 
-No Prometheus plan files found at .sisyphus/plans/
+No Prometheus plan files found at .sisyphus-light/plans/
 Use Prometheus to create a work plan first: /plan "your task"`
         } else if (incompletePlans.length === 0) {
           contextInfo += `
@@ -213,7 +213,7 @@ All ${plans.length} plan(s) are complete. Create a new plan with: /plan "your ta
         } else if (incompletePlans.length === 1) {
           const planPath = incompletePlans[0]
           const progress = getPlanProgress(planPath)
-          const newState = createBoulderState(planPath, sessionId, "atlas", worktreePath)
+          const newState = createBoulderState(planPath, sessionId, "atlas-light", worktreePath)
           writeBoulderState(ctx.directory, newState)
 
           contextInfo += `

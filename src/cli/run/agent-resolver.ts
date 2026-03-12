@@ -3,8 +3,8 @@ import type { RunOptions } from "./types"
 import type { OhMyOpenCodeConfig } from "../../config"
 import { getAgentConfigKey, getAgentDisplayName } from "../../shared/agent-display-names"
 
-const CORE_AGENT_ORDER = ["sisyphus", "hephaestus", "prometheus", "atlas"] as const
-const DEFAULT_AGENT = "sisyphus"
+const CORE_AGENT_ORDER = ["sisyphus-light", "hephaestus-light", "prometheus-light", "atlas-light"] as const
+const DEFAULT_AGENT = "sisyphus-light"
 
 type EnvVars = Record<string, string | undefined>
 type CoreAgentKey = (typeof CORE_AGENT_ORDER)[number]

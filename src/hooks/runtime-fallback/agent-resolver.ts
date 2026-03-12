@@ -1,19 +1,19 @@
 import { getSessionAgent } from "../../features/claude-code-session-state"
 
 export const AGENT_NAMES = [
-  "sisyphus",
-  "oracle",
-  "librarian",
-  "explore",
-  "prometheus",
-  "atlas",
-  "metis",
-  "momus",
-  "hephaestus",
-  "sisyphus-junior",
+  "sisyphus-light",
+  "oracle-light",
+  "librarian-light",
+  "explore-light",
+  "prometheus-light",
+  "atlas-light",
+  "metis-light",
+  "momus-light",
+  "hephaestus-light",
+  "sisyphus-light-junior",
   "build",
   "plan",
-  "multimodal-looker",
+  "multimodal-looker-light",
 ]
 
 export const agentPattern = new RegExp(

@@ -1,14 +1,14 @@
 export const ALLOWED_AGENTS = [
-  "explore",
-  "librarian",
-  "oracle",
-  "hephaestus",
-  "metis",
-  "momus",
-  "multimodal-looker",
+  "explore-light",
+  "librarian-light",
+  "oracle-light",
+  "hephaestus-light",
+  "metis-light",
+  "momus-light",
+  "multimodal-looker-light",
 ] as const
 
-export const CALL_OMO_AGENT_DESCRIPTION = `Spawn explore/librarian agent. run_in_background REQUIRED (true=async with task_id, false=sync).
+export const CALL_OMO_AGENT_DESCRIPTION = `Spawn explore-light/librarian-light agent. run_in_background REQUIRED (true=async with task_id, false=sync).
 
 Available: {agents}
 

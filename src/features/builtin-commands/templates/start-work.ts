@@ -11,12 +11,12 @@ export const START_WORK_TEMPLATE = `You are starting a Sisyphus work session.
 
 ## WHAT TO DO
 
-1. **Find available plans**: Search for Prometheus-generated plan files at \`.sisyphus/plans/\`
+1. **Find available plans**: Search for Prometheus-generated plan files at \`.sisyphus-light/plans/\`
 
-2. **Check for active boulder state**: Read \`.sisyphus/boulder.json\` if it exists
+2. **Check for active boulder state**: Read \`.sisyphus-light/boulder.json\` if it exists
 
 3. **Decision logic**:
-   - If \`.sisyphus/boulder.json\` exists AND plan is NOT complete (has unchecked boxes):
+   - If \`.sisyphus-light/boulder.json\` exists AND plan is NOT complete (has unchecked boxes):
      - **APPEND** current session to session_ids
      - Continue work on existing plan
    - If no active plan OR plan is complete:
@@ -41,7 +41,7 @@ export const START_WORK_TEMPLATE = `You are starting a Sisyphus work session.
    }
    \`\`\`
 
-6. **Read the plan file** and start executing tasks according to atlas workflow
+6. **Read the plan file** and start executing tasks according to atlas-light workflow
 
 ## OUTPUT FORMAT
 
@@ -88,4 +88,4 @@ Reading plan and beginning execution...
 - Always update boulder.json BEFORE starting work
 - Always set worktree_path in boulder.json before executing any tasks
 - Read the FULL plan file before delegating any tasks
-- Follow atlas delegation protocols (7-section format)`
+- Follow atlas-light delegation protocols (7-section format)`

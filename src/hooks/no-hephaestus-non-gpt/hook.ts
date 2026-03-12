@@ -10,7 +10,7 @@ const TOAST_MESSAGE = [
   "Hephaestus is trash without GPT.",
   "For Claude/Kimi/GLM models, always use Sisyphus.",
 ].join("\n")
-const SISYPHUS_DISPLAY = getAgentDisplayName("sisyphus")
+const SISYPHUS_DISPLAY = getAgentDisplayName("sisyphus-light")
 
 type NoHephaestusNonGptHookOptions = {
   allowNonGptModel?: boolean
@@ -25,7 +25,7 @@ function showToast(ctx: PluginInput, sessionID: string, variant: "error" | "warn
       duration: 10000,
     },
   }).catch((error) => {
-    log("[no-hephaestus-non-gpt] Failed to show toast", {
+    log("[no-hephaestus-light-non-gpt] Failed to show toast", {
       sessionID,
       error,
     })
@@ -49,7 +49,7 @@ export function createNoHephaestusNonGptHook(
       const modelID = input.model?.modelID
       const allowNonGptModel = options?.allowNonGptModel === true
 
-      if (agentKey === "hephaestus" && modelID && !isGptModel(modelID)) {
+      if (agentKey === "hephaestus-light" && modelID && !isGptModel(modelID)) {
         showToast(ctx, input.sessionID, allowNonGptModel ? "warning" : "error")
         if (allowNonGptModel) {
           return

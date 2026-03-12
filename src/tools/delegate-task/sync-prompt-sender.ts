@@ -21,7 +21,7 @@ const sendSyncPromptDeps: SendSyncPromptDeps = {
 }
 
 function isOracleAgent(agentToUse: string): boolean {
-  return agentToUse.toLowerCase() === "oracle"
+  return agentToUse.toLowerCase() === "oracle-light"
 }
 
 function isUnexpectedEofError(error: unknown): boolean {

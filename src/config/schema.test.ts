@@ -412,7 +412,7 @@ describe("Sisyphus-Junior agent override", () => {
     // given
     const config = {
       agents: {
-        "sisyphus-junior": {
+        "sisyphus-light-junior": {
           model: "openai/gpt-5.4",
           temperature: 0.2,
         },
@@ -425,18 +425,18 @@ describe("Sisyphus-Junior agent override", () => {
     // then
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.agents?.["sisyphus-junior"]).toBeDefined()
-      expect(result.data.agents?.["sisyphus-junior"]?.model).toBe("openai/gpt-5.4")
-      expect(result.data.agents?.["sisyphus-junior"]?.temperature).toBe(0.2)
+      expect(result.data.agents?.["sisyphus-light-junior"]).toBeDefined()
+      expect(result.data.agents?.["sisyphus-light-junior"]?.model).toBe("openai/gpt-5.4")
+      expect(result.data.agents?.["sisyphus-light-junior"]?.temperature).toBe(0.2)
     }
   })
 
-  test("schema accepts sisyphus-junior with prompt_append", () => {
+  test("schema accepts sisyphus-light-junior with prompt_append", () => {
     // given
     const config = {
       agents: {
-        "sisyphus-junior": {
-          prompt_append: "Additional instructions for sisyphus-junior",
+        "sisyphus-light-junior": {
+          prompt_append: "Additional instructions for sisyphus-light-junior",
         },
       },
     }
@@ -447,17 +447,17 @@ describe("Sisyphus-Junior agent override", () => {
     // then
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.agents?.["sisyphus-junior"]?.prompt_append).toBe(
-        "Additional instructions for sisyphus-junior"
+      expect(result.data.agents?.["sisyphus-light-junior"]?.prompt_append).toBe(
+        "Additional instructions for sisyphus-light-junior"
       )
     }
   })
 
-  test("schema accepts sisyphus-junior with tools override", () => {
+  test("schema accepts sisyphus-light-junior with tools override", () => {
     // given
     const config = {
       agents: {
-        "sisyphus-junior": {
+        "sisyphus-light-junior": {
           tools: {
             read: true,
             write: false,
@@ -472,24 +472,24 @@ describe("Sisyphus-Junior agent override", () => {
     // then
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.agents?.["sisyphus-junior"]?.tools).toEqual({
+      expect(result.data.agents?.["sisyphus-light-junior"]?.tools).toEqual({
         read: true,
         write: false,
       })
     }
   })
 
-  test("schema accepts lowercase agent names (sisyphus, atlas, prometheus)", () => {
+  test("schema accepts lowercase agent names (sisyphus-light, atlas-light, prometheus-light)", () => {
     // given
     const config = {
       agents: {
-        sisyphus: {
+        sisyphus-light: {
           temperature: 0.1,
         },
-        atlas: {
+        atlas-light: {
           temperature: 0.2,
         },
-        prometheus: {
+        prometheus-light: {
           temperature: 0.3,
         },
       },
@@ -501,20 +501,20 @@ describe("Sisyphus-Junior agent override", () => {
     // then
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.agents?.sisyphus?.temperature).toBe(0.1)
-      expect(result.data.agents?.atlas?.temperature).toBe(0.2)
-      expect(result.data.agents?.prometheus?.temperature).toBe(0.3)
+      expect(result.data.agents?.sisyphus-light?.temperature).toBe(0.1)
+      expect(result.data.agents?.atlas-light?.temperature).toBe(0.2)
+      expect(result.data.agents?.prometheus-light?.temperature).toBe(0.3)
     }
   })
 
-  test("schema accepts lowercase metis and momus agent names", () => {
+  test("schema accepts lowercase metis-light and momus-light agent names", () => {
     // given
     const config = {
       agents: {
-        metis: {
+        metis-light: {
           category: "ultrabrain",
         },
-        momus: {
+        momus-light: {
           category: "quick",
         },
       },
@@ -526,8 +526,8 @@ describe("Sisyphus-Junior agent override", () => {
     // then
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.agents?.metis?.category).toBe("ultrabrain")
-      expect(result.data.agents?.momus?.category).toBe("quick")
+      expect(result.data.agents?.metis-light?.category).toBe("ultrabrain")
+      expect(result.data.agents?.momus-light?.category).toBe("quick")
     }
   })
 })

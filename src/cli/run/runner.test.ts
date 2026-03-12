@@ -11,7 +11,7 @@ const createConfig = (overrides: Partial<OhMyOpenCodeConfig> = {}): OhMyOpenCode
 describe("resolveRunAgent", () => {
   it("uses CLI agent over env and config", () => {
     // given
-    const config = createConfig({ default_run_agent: "prometheus" })
+    const config = createConfig({ default_run_agent: "prometheus-light" })
     const env = { OPENCODE_DEFAULT_AGENT: "Atlas" }
 
     // when
@@ -27,7 +27,7 @@ describe("resolveRunAgent", () => {
 
   it("uses env agent over config", () => {
     // given
-    const config = createConfig({ default_run_agent: "prometheus" })
+    const config = createConfig({ default_run_agent: "prometheus-light" })
     const env = { OPENCODE_DEFAULT_AGENT: "Atlas" }
 
     // when
@@ -48,7 +48,7 @@ describe("resolveRunAgent", () => {
     expect(agent).toBe("Prometheus (Plan Builder)")
   })
 
-  it("falls back to sisyphus when none set", () => {
+  it("falls back to sisyphus-light when none set", () => {
     // given
     const config = createConfig()
 
@@ -59,9 +59,9 @@ describe("resolveRunAgent", () => {
     expect(agent).toBe("Sisyphus (Ultraworker)")
   })
 
-  it("skips disabled sisyphus for next available core agent", () => {
+  it("skips disabled sisyphus-light for next available core agent", () => {
     // given
-    const config = createConfig({ disabled_agents: ["sisyphus"] })
+    const config = createConfig({ disabled_agents: ["sisyphus-light"] })
 
     // when
     const agent = resolveRunAgent({ message: "test" }, config, {})

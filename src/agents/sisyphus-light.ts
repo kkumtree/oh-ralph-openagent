@@ -8,9 +8,9 @@ import {
   buildGeminiIntentGateEnforcement,
   buildGeminiToolGuide,
   buildGeminiToolCallExamples,
-} from "./sisyphus/gemini";
-import { buildGpt54SisyphusPrompt } from "./sisyphus/gpt-5-4";
-import { buildTaskManagementSection } from "./sisyphus/default";
+} from "./sisyphus-light/gemini";
+import { buildGpt54SisyphusPrompt } from "./sisyphus-light/gpt-5-4";
+import { buildTaskManagementSection } from "./sisyphus-light/default";
 
 const MODE: AgentMode = "all";
 export const SISYPHUS_PROMPT_METADATA: AgentPromptMetadata = {
@@ -104,16 +104,16 @@ Before classifying the task, identify what the user actually wants from you as a
 
 | Surface Form | True Intent | Your Routing |
 |---|---|---|
-| "explain X", "how does Y work" | Research/understanding | explore/librarian → synthesize → answer |
+| "explain X", "how does Y work" | Research/understanding | explore-light/librarian-light → synthesize → answer |
 | "implement X", "add Y", "create Z" | Implementation (explicit) | plan → delegate or execute |
-| "look into X", "check Y", "investigate" | Investigation | explore → report findings |
+| "look into X", "check Y", "investigate" | Investigation | explore-light → report findings |
 | "what do you think about X?" | Evaluation | evaluate → propose → **wait for confirmation** |
 | "I'm seeing error X" / "Y is broken" | Fix needed | diagnose → fix minimally |
 | "refactor", "improve", "clean up" | Open-ended change | assess codebase first → propose approach |
 
 **Verbalize before proceeding:**
 
-> "I detect [research / implementation / investigation / evaluation / fix / open-ended] intent — [reason]. My approach: [explore → answer / plan → delegate / clarify first / etc.]."
+> "I detect [research / implementation / investigation / evaluation / fix / open-ended] intent — [reason]. My approach: [explore-light → answer / plan → delegate / clarify first / etc.]."
 
 This verbalization anchors your routing decision and makes your reasoning transparent to the user. It does NOT commit you to implementation — only the user's explicit request does that.
 </intent_verbalization>
@@ -122,7 +122,7 @@ This verbalization anchors your routing decision and makes your reasoning transp
 
 - **Trivial** (single file, known location, direct answer) → Direct tools only (UNLESS Key Trigger applies)
 - **Explicit** (specific file/line, clear command) → Execute directly
-- **Exploratory** ("How does X work?", "Find Y") → Fire explore (1-3) + tools in parallel
+- **Exploratory** ("How does X work?", "Find Y") → Fire explore-light (1-3) + tools in parallel
 - **Open-ended** ("Improve", "Refactor", "Add feature") → Assess codebase first
 - **Ambiguous** (unclear scope, multiple interpretations) → Ask ONE clarifying question
 
@@ -202,7 +202,7 @@ ${librarianSection}
 <tool_usage_rules>
 - Parallelize independent tool calls: multiple file reads, grep searches, agent fires — all at once
 - Explore/Librarian = background grep. ALWAYS \`run_in_background=true\`, ALWAYS parallel
-- Fire 2-5 explore/librarian agents in parallel for any non-trivial codebase question
+- Fire 2-5 explore-light/librarian-light agents in parallel for any non-trivial codebase question
 - Parallelize independent file reads — don't read files one at a time
 - After any write/edit tool call, briefly restate what changed, where, and what validation follows
 - Prefer tools over internal knowledge whenever you need specific data (files, configs, patterns)
@@ -219,14 +219,14 @@ ${librarianSection}
 //   [REQUEST]: Concrete search instructions — what to find, what format to return, and what to SKIP
 
 // Contextual Grep (internal)
-task(subagent_type="explore", run_in_background=true, load_skills=[], description="Find auth implementations", prompt="I'm implementing JWT auth for the REST API in src/api/routes/. I need to match existing auth conventions so my code fits seamlessly. I'll use this to decide middleware structure and token flow. Find: auth middleware, login/signup handlers, token generation, credential validation. Focus on src/ — skip tests. Return file paths with pattern descriptions.")
-task(subagent_type="explore", run_in_background=true, load_skills=[], description="Find error handling patterns", prompt="I'm adding error handling to the auth flow and need to follow existing error conventions exactly. I'll use this to structure my error responses and pick the right base class. Find: custom Error subclasses, error response format (JSON shape), try/catch patterns in handlers, global error middleware. Skip test files. Return the error class hierarchy and response format.")
+task(subagent_type="explore-light", run_in_background=true, load_skills=[], description="Find auth implementations", prompt="I'm implementing JWT auth for the REST API in src/api/routes/. I need to match existing auth conventions so my code fits seamlessly. I'll use this to decide middleware structure and token flow. Find: auth middleware, login/signup handlers, token generation, credential validation. Focus on src/ — skip tests. Return file paths with pattern descriptions.")
+task(subagent_type="explore-light", run_in_background=true, load_skills=[], description="Find error handling patterns", prompt="I'm adding error handling to the auth flow and need to follow existing error conventions exactly. I'll use this to structure my error responses and pick the right base class. Find: custom Error subclasses, error response format (JSON shape), try/catch patterns in handlers, global error middleware. Skip test files. Return the error class hierarchy and response format.")
 
 // Reference Grep (external)
-task(subagent_type="librarian", run_in_background=true, load_skills=[], description="Find JWT security docs", prompt="I'm implementing JWT auth and need current security best practices to choose token storage (httpOnly cookies vs localStorage) and set expiration policy. Find: OWASP auth guidelines, recommended token lifetimes, refresh token rotation strategies, common JWT vulnerabilities. Skip 'what is JWT' tutorials — production security guidance only.")
-task(subagent_type="librarian", run_in_background=true, load_skills=[], description="Find Express auth patterns", prompt="I'm building Express auth middleware and need production-quality patterns to structure my middleware chain. Find how established Express apps (1000+ stars) handle: middleware ordering, token refresh, role-based access control, auth error propagation. Skip basic tutorials — I need battle-tested patterns with proper error handling.")
+task(subagent_type="librarian-light", run_in_background=true, load_skills=[], description="Find JWT security docs", prompt="I'm implementing JWT auth and need current security best practices to choose token storage (httpOnly cookies vs localStorage) and set expiration policy. Find: OWASP auth guidelines, recommended token lifetimes, refresh token rotation strategies, common JWT vulnerabilities. Skip 'what is JWT' tutorials — production security guidance only.")
+task(subagent_type="librarian-light", run_in_background=true, load_skills=[], description="Find Express auth patterns", prompt="I'm building Express auth middleware and need production-quality patterns to structure my middleware chain. Find how established Express apps (1000+ stars) handle: middleware ordering, token refresh, role-based access control, auth error propagation. Skip basic tutorials — I need battle-tested patterns with proper error handling.")
 // WRONG: Sequential or blocking
-result = task(..., run_in_background=false)  // Never wait synchronously for explore/librarian
+result = task(..., run_in_background=false)  // Never wait synchronously for explore-light/librarian-light
 \`\`\`
 
 ### Background Result Collection:
@@ -245,7 +245,7 @@ STOP searching when:
 - 2 search iterations yielded no new useful data
 - Direct answer found
 
-**DO NOT over-explore. Time is precious.**
+**DO NOT over-explore-light. Time is precious.**
 
 ---
 
@@ -462,7 +462,7 @@ export function createSisyphusAgent(
     );
     return {
       description:
-        "Powerful AI orchestrator. Plans obsessively with todos, assesses search complexity before exploration, delegates strategically via category+skills combinations. Uses explore for internal code (parallel-friendly), librarian for external docs. (Sisyphus - OhMyOpenCode)",
+        "Powerful AI orchestrator. Plans obsessively with todos, assesses search complexity before exploration, delegates strategically via category+skills combinations. Uses explore-light for internal code (parallel-friendly), librarian-light for external docs. (Sisyphus - OhMyOpenCode)",
       mode: MODE,
       model,
       maxTokens: 64000,
@@ -513,7 +513,7 @@ export function createSisyphusAgent(
   } as AgentConfig["permission"];
   const base = {
     description:
-      "Powerful AI orchestrator. Plans obsessively with todos, assesses search complexity before exploration, delegates strategically via category+skills combinations. Uses explore for internal code (parallel-friendly), librarian for external docs. (Sisyphus - OhMyOpenCode)",
+      "Powerful AI orchestrator. Plans obsessively with todos, assesses search complexity before exploration, delegates strategically via category+skills combinations. Uses explore-light for internal code (parallel-friendly), librarian-light for external docs. (Sisyphus - OhMyOpenCode)",
     mode: MODE,
     model,
     maxTokens: 64000,

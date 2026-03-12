@@ -31,14 +31,14 @@ describe("runtime-fallback fallback-models", () => {
     //#given
     const pluginConfig = {
       agents: {
-        oracle: {
+        oracle-light: {
           fallback_models: ["openai/gpt-5.2", "anthropic/claude-opus-4-6"],
         },
       },
     } as any
 
     //#when
-    const result = getFallbackModelsForSession("ses_runtime_fallback_agent", "oracle", pluginConfig)
+    const result = getFallbackModelsForSession("ses_runtime_fallback_agent", "oracle-light", pluginConfig)
 
     //#then
     expect(result).toEqual(["openai/gpt-5.2", "anthropic/claude-opus-4-6"])
@@ -48,10 +48,10 @@ describe("runtime-fallback fallback-models", () => {
     //#given
     const pluginConfig = {
       agents: {
-        sisyphus: {
+        sisyphus-light: {
           fallback_models: ["quotio/gpt-5.2", "quotio/glm-5", "quotio/kimi-k2.5"],
         },
-        oracle: {
+        oracle-light: {
           fallback_models: ["openai/gpt-5.2", "anthropic/claude-opus-4-6"],
         },
       },

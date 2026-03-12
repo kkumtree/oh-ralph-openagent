@@ -1,5 +1,5 @@
 import { createBuiltinAgents } from "../agents";
-import { createSisyphusJuniorAgentWithOverrides } from "../agents/sisyphus-junior";
+import { createSisyphusJuniorAgentWithOverrides } from "../agents/sisyphus-light-junior";
 import type { OhMyOpenCodeConfig } from "../config";
 import { log, migrateAgentConfig } from "../shared";
 import { AGENT_NAME_MAP } from "../shared/migration";
@@ -15,7 +15,7 @@ import { loadProjectAgents, loadUserAgents } from "../features/claude-code-agent
 import type { PluginComponents } from "./plugin-components-loader";
 import { reorderAgentsByPriority } from "./agent-priority-order";
 import { remapAgentKeysToDisplayNames } from "./agent-key-remapper";
-import { buildPrometheusAgentConfig } from "./prometheus-agent-config-builder";
+import { buildPrometheusAgentConfig } from "./prometheus-light-agent-config-builder";
 import { buildPlanDemoteConfig } from "./plan-model-inheritance";
 
 type AgentConfigRecord = Record<string, Record<string, unknown> | undefined> & {
@@ -125,21 +125,21 @@ export async function applyAgentConfig(params: {
 
   const configAgent = params.config.agent as AgentConfigRecord | undefined;
 
-  if (isSisyphusEnabled && builtinAgents.sisyphus) {
+  if (isSisyphusEnabled && builtinAgents.sisyphus-light) {
     if (configuredDefaultAgent) {
       (params.config as { default_agent?: string }).default_agent =
         getAgentDisplayName(configuredDefaultAgent);
     } else {
       (params.config as { default_agent?: string }).default_agent =
-        getAgentDisplayName("sisyphus");
+        getAgentDisplayName("sisyphus-light");
     }
 
     const agentConfig: Record<string, unknown> = {
-      sisyphus: builtinAgents.sisyphus,
+      sisyphus-light: builtinAgents.sisyphus-light,
     };
 
-    agentConfig["sisyphus-junior"] = createSisyphusJuniorAgentWithOverrides(
-      params.pluginConfig.agents?.["sisyphus-junior"],
+    agentConfig["sisyphus-light-junior"] = createSisyphusJuniorAgentWithOverrides(
+      params.pluginConfig.agents?.["sisyphus-light-junior"],
       undefined,
       useTaskSystem,
     );
@@ -159,11 +159,11 @@ export async function applyAgentConfig(params: {
     }
 
     if (plannerEnabled) {
-      const prometheusOverride = params.pluginConfig.agents?.["prometheus"] as
+      const prometheusOverride = params.pluginConfig.agents?.["prometheus-light"] as
         | (Record<string, unknown> & { prompt_append?: string })
         | undefined;
 
-      agentConfig["prometheus"] = await buildPrometheusAgentConfig({
+      agentConfig["prometheus-light"] = await buildPrometheusAgentConfig({
         configAgentPlan: configAgent?.plan,
         pluginPrometheusOverride: prometheusOverride,
         userCategories: params.pluginConfig.categories,
@@ -193,7 +193,7 @@ export async function applyAgentConfig(params: {
 
     const planDemoteConfig = shouldDemotePlan
       ? buildPlanDemoteConfig(
-          agentConfig["prometheus"] as Record<string, unknown> | undefined,
+          agentConfig["prometheus-light"] as Record<string, unknown> | undefined,
           params.pluginConfig.agents?.plan as Record<string, unknown> | undefined,
         )
       : undefined;
@@ -216,7 +216,7 @@ export async function applyAgentConfig(params: {
     params.config.agent = {
       ...agentConfig,
       ...Object.fromEntries(
-        Object.entries(builtinAgents).filter(([key]) => key !== "sisyphus"),
+        Object.entries(builtinAgents).filter(([key]) => key !== "sisyphus-light"),
       ),
       ...filterDisabledAgents(filteredUserAgents),
       ...filterDisabledAgents(filteredProjectAgents),

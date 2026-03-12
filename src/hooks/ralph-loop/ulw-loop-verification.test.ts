@@ -41,7 +41,7 @@ describe("ulw-loop verification", () => {
 		promptCalls = []
 		toastCalls = []
 		parentTranscriptPath = join(testDir, "transcript-parent.jsonl")
-		oracleTranscriptPath = join(testDir, "transcript-oracle.jsonl")
+		oracleTranscriptPath = join(testDir, "transcript-oracle-light.jsonl")
 
 		if (!existsSync(testDir)) {
 			mkdirSync(testDir, { recursive: true })
@@ -59,7 +59,7 @@ describe("ulw-loop verification", () => {
 
 	test("#given ulw loop emits DONE #when idle fires #then verification phase starts instead of completing", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(
@@ -73,13 +73,13 @@ describe("ulw-loop verification", () => {
 		expect(hook.getState()?.completion_promise).toBe(ULTRAWORK_VERIFICATION_PROMISE)
 		expect(hook.getState()?.verification_session_id).toBeUndefined()
 		expect(promptCalls).toHaveLength(1)
-		expect(promptCalls[0].text).toContain('task(subagent_type="oracle"')
+		expect(promptCalls[0].text).toContain('task(subagent_type="oracle-light"')
 		expect(toastCalls.some((toast) => toast.title === "ULTRAWORK LOOP COMPLETE!")).toBe(false)
 	})
 
-	test("#given ulw loop is awaiting verification #when VERIFIED appears in oracle session #then loop completes", async () => {
+	test("#given ulw loop is awaiting verification #when VERIFIED appears in oracle-light session #then loop completes", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(
@@ -90,7 +90,7 @@ describe("ulw-loop verification", () => {
 		await hook.event({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
 		writeState(testDir, {
 			...hook.getState()!,
-			verification_session_id: "ses-oracle",
+			verification_session_id: "ses-oracle-light",
 		})
 		writeFileSync(
 			oracleTranscriptPath,
@@ -103,9 +103,9 @@ describe("ulw-loop verification", () => {
 		expect(toastCalls.some((toast) => toast.title === "ULTRAWORK LOOP COMPLETE!")).toBe(true)
 	})
 
-	test("#given ulw loop is awaiting verification #when oracle session idles with VERIFIED #then loop completes without parent idle", async () => {
+	test("#given ulw loop is awaiting verification #when oracle-light session idles with VERIFIED #then loop completes without parent idle", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(
@@ -116,22 +116,22 @@ describe("ulw-loop verification", () => {
 		await hook.event({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
 		writeState(testDir, {
 			...hook.getState()!,
-			verification_session_id: "ses-oracle",
+			verification_session_id: "ses-oracle-light",
 		})
 		writeFileSync(
 			oracleTranscriptPath,
 			`${JSON.stringify({ type: "tool_result", timestamp: new Date().toISOString(), tool_output: { output: `verified <promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>` } })}\n`,
 		)
 
-		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-oracle" } } })
+		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-oracle-light" } } })
 
 		expect(hook.getState()).toBeNull()
 		expect(toastCalls.some((toast) => toast.title === "ULTRAWORK LOOP COMPLETE!")).toBe(true)
 	})
 
-	test("#given ulw loop is awaiting verification without oracle session #when idle fires again #then loop waits instead of continuing", async () => {
+	test("#given ulw loop is awaiting verification without oracle-light session #when idle fires again #then loop waits instead of continuing", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(
@@ -149,9 +149,9 @@ describe("ulw-loop verification", () => {
 		expect(hook.getState()?.verification_pending).toBe(true)
 	})
 
-	test("#given ulw loop is awaiting oracle verification #when oracle has not verified yet #then loop waits instead of continuing", async () => {
+	test("#given ulw loop is awaiting oracle-light verification #when oracle-light has not verified yet #then loop waits instead of continuing", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(
@@ -162,7 +162,7 @@ describe("ulw-loop verification", () => {
 		await hook.event({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
 		writeState(testDir, {
 			...hook.getState()!,
-			verification_session_id: "ses-oracle",
+			verification_session_id: "ses-oracle-light",
 		})
 		writeFileSync(
 			oracleTranscriptPath,
@@ -174,10 +174,10 @@ describe("ulw-loop verification", () => {
 
 		expect(hook.getState()?.iteration).toBe(stateBeforeWait?.iteration)
 		expect(promptCalls).toHaveLength(1)
-		expect(hook.getState()?.verification_session_id).toBe("ses-oracle")
+		expect(hook.getState()?.verification_session_id).toBe("ses-oracle-light")
 	})
 
-	test("#given oracle verification fails #when oracle session idles #then main session receives retry instructions", async () => {
+	test("#given oracle-light verification fails #when oracle-light session idles #then main session receives retry instructions", async () => {
 		const sessionMessages: Record<string, unknown[]> = {
 			"session-123": [{}, {}, {}],
 		}
@@ -193,7 +193,7 @@ describe("ulw-loop verification", () => {
 				},
 			},
 		} as Parameters<typeof createRalphLoopHook>[0], {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(
@@ -204,14 +204,14 @@ describe("ulw-loop verification", () => {
 		await hook.event({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
 		writeState(testDir, {
 			...hook.getState()!,
-			verification_session_id: "ses-oracle",
+			verification_session_id: "ses-oracle-light",
 		})
 		writeFileSync(
 			oracleTranscriptPath,
 			`${JSON.stringify({ type: "tool_result", timestamp: new Date().toISOString(), tool_output: { output: "verification failed: missing tests" } })}\n`,
 		)
 
-		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-oracle" } } })
+		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-oracle-light" } } })
 
 		expect(hook.getState()?.iteration).toBe(2)
 		expect(hook.getState()?.completion_promise).toBe("DONE")
@@ -222,12 +222,12 @@ describe("ulw-loop verification", () => {
 		expect(promptCalls[1]?.sessionID).toBe("session-123")
 		expect(promptCalls[1]?.text).toContain("Verification failed")
 		expect(promptCalls[1]?.text).toContain("Oracle does not lie")
-		expect(promptCalls[1]?.text).toContain('task(subagent_type="oracle"')
+		expect(promptCalls[1]?.text).toContain('task(subagent_type="oracle-light"')
 	})
 
 	test("#given ulw loop without max iterations #when it continues #then it stays unbounded", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 
@@ -244,7 +244,7 @@ describe("ulw-loop verification", () => {
 			`${JSON.stringify({ type: "tool_result", timestamp: "2000-01-01T00:00:00.000Z", tool_output: { output: "old <promise>DONE</promise>" } })}\n`,
 		)
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 
@@ -257,7 +257,7 @@ describe("ulw-loop verification", () => {
 
 	test("#given ulw loop was awaiting verification #when same session starts again #then verification state is overwritten", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(
@@ -273,9 +273,9 @@ describe("ulw-loop verification", () => {
 		expect(hook.getState()?.completion_promise).toBe("DONE")
 	})
 
-	test("#given parent session emits VERIFIED #when oracle session is not tracked #then ulw loop does not complete", async () => {
+	test("#given parent session emits VERIFIED #when oracle-light session is not tracked #then ulw loop does not complete", async () => {
 		const hook = createRalphLoopHook(createMockPluginInput(), {
-			getTranscriptPath: (sessionID) => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID) => sessionID === "ses-oracle-light" ? oracleTranscriptPath : parentTranscriptPath,
 		})
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
 		writeFileSync(

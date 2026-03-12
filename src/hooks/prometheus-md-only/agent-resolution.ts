@@ -38,8 +38,8 @@ async function getAgentFromMessageFiles(
  *
  * This fixes issue #927 where after interruption:
  * - In-memory map is cleared (process restart)
- * - Message files return "prometheus" (oldest message from /plan)
- * - But boulder.json has agent: "atlas" (set by /start-work)
+ * - Message files return "prometheus-light" (oldest message from /plan)
+ * - But boulder.json has agent: "atlas-light" (set by /start-work)
  */
 export async function getAgentFromSession(
   sessionID: string,
