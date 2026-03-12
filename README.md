@@ -43,68 +43,69 @@ json files will be expected below.
 ```bash
 # cat ~/.config/opencode/oh-ralph-openagent.json
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "$schema": "https://raw.githubusercontent.com/kkumtree/oh-ralph-openagent/ralph/assets/oh-ralph-openagent.schema.json",
   "agents": {
-    "sisyphus": {
-      "model": "github-copilot/claude-opus-4.6",
-      "variant": "max"
-    },
-    "hephaestus": {
-      "model": "github-copilot/gpt-5.3-codex"
-    },
-    "oracle": {
-      "model": "github-copilot/gpt-5.4",
+    "sisyphus-light": {
+      "model": "github-copilot/gpt-4.1",
       "variant": "high"
     },
-    "librarian": {
-      "model": "github-copilot/claude-sonnet-4.5"
+    "hephaestus-light": {
+      "model": "github-copilot/gpt-4.1"
     },
-    "explore": {
+    "oracle-light": {
+      "model": "github-copilot/gpt-4.1",
+      "variant": "high"
+    },
+    "librarian-light": {
+      "model": "github-copilot/gpt-4.1"
+    },
+    "explore-light": {
       "model": "github-copilot/gpt-5-mini"
     },
-    "multimodal-looker": {
-      "model": "github-copilot/gemini-3-flash-preview"
+    "multimodal-looker-light": {
+      "model": "github-copilot/gpt-4.1"
     },
-    "prometheus": {
-      "model": "github-copilot/claude-opus-4.6",
+    "prometheus-light": {
+      "model": "github-copilot/gpt-4.1",
       "variant": "max"
     },
-    "metis": {
-      "model": "github-copilot/claude-opus-4.6",
+    "metis-light": {
+      "model": "github-copilot/gpt-4.1",
       "variant": "max"
     },
-    "momus": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "xhigh"
+    "momus-light": {
+      "model": "github-copilot/gpt-4.1",
+      "variant": "max"
     },
-    "atlas": {
-      "model": "github-copilot/claude-sonnet-4.5"
+    "atlas-light": {
+      "model": "github-copilot/gpt-4.1"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
+      "model": "github-copilot/gpt-4.1",
       "variant": "high"
     },
     "ultrabrain": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
-      "variant": "high"
+      "model": "github-copilot/gpt-4.1",
+      "variant": "max"
     },
     "artistry": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
+      "model": "github-copilot/gpt-4.1",
       "variant": "high"
     },
     "quick": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/oswe-vscode-prime@raptor-mini"
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "github-copilot/gpt-5-mini"
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "github-copilot/gpt-4.1",
+      "variant": "high"
     },
     "writing": {
-      "model": "github-copilot/gemini-3-flash-preview"
+      "model": "github-copilot/gpt-5-mini"
     }
   }
 }
